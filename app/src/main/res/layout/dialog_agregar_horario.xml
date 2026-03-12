@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="380dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="@drawable/dialog_background"
+    android:layout_gravity="center">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Agregar"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginBottom="10dp"
+        android:textAlignment="center"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Nombre de la materia" android:textStyle="bold" android:textColor="@color/black" android:textSize="16sp"/>
+            <EditText android:id="@+id/etMateria" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@null" android:hint="----------------------------------------------------------" android:textColorHint="@color/black" android:textColor="@color/verde_fuerte" android:paddingVertical="8dp"/>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Profesor" android:textStyle="bold" android:textColor="@color/black" android:textSize="16sp" android:layout_marginTop="8dp"/>
+            <EditText android:id="@+id/etProfesor" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@null" android:hint="----------------------------------------------------------" android:textColorHint="@color/black" android:textColor="@color/verde_fuerte" android:paddingVertical="8dp"/>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Día de la semana" android:textStyle="bold" android:textColor="@color/black" android:textSize="16sp" android:layout_marginTop="8dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingVertical="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <RadioButton android:id="@+id/rbLunes" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Lunes" android:textSize="12sp" android:textColor="@color/black" android:buttonTint="@color/verde_fuerte"/>
+                    <RadioButton android:id="@+id/rbMartes" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Martes" android:textSize="12sp" android:textColor="@color/black" android:buttonTint="@color/verde_fuerte"/>
+                    <RadioButton android:id="@+id/rbMiercoles" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Miérc." android:textSize="12sp" android:textColor="@color/black" android:buttonTint="@color/verde_fuerte"/>
+                    <RadioButton android:id="@+id/rbJueves" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Jueves" android:textSize="12sp" android:textColor="@color/black" android:buttonTint="@color/verde_fuerte"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="2dp">
+                    <RadioButton android:id="@+id/rbViernes" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Viernes" android:textSize="12sp" android:textColor="@color/black" android:buttonTint="@color/verde_fuerte"/>
+                    <RadioButton android:id="@+id/rbSabado" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Sábado" android:textSize="12sp" android:textColor="@color/black" android:buttonTint="@color/verde_fuerte"/>
+                    <RadioButton android:id="@+id/rbDomingo" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Dom." android:textSize="12sp" android:textColor="@color/black" android:buttonTint="@color/verde_fuerte"/>
+                    <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Hora de inicio" android:textStyle="bold" android:textColor="@color/black" android:textSize="16sp" android:layout_marginTop="8dp"/>
+            <EditText android:id="@+id/etHoraInicio" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@null" android:hint="--:-- AM/PM" android:textColorHint="@color/black" android:textColor="@color/verde_fuerte" android:paddingVertical="8dp" android:focusable="false" android:clickable="true" android:cursorVisible="false"/>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Hora de fin" android:textStyle="bold" android:textColor="@color/black" android:textSize="16sp" android:layout_marginTop="8dp"/>
+            <EditText android:id="@+id/etHoraFin" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@null" android:hint="--:-- AM/PM" android:textColorHint="@color/black" android:textColor="@color/verde_fuerte" android:paddingVertical="8dp" android:focusable="false" android:clickable="true" android:cursorVisible="false"/>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Salon" android:textStyle="bold" android:textColor="@color/black" android:textSize="16sp" android:layout_marginTop="8dp"/>
+            <EditText android:id="@+id/etSalon" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@null" android:hint="----------------------------------------------------------" android:textColorHint="@color/black" android:textColor="@color/verde_fuerte" android:paddingVertical="8dp"/>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Color de la materia" android:textStyle="bold" android:textColor="@color/black" android:textSize="16sp" android:layout_marginTop="15dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingVertical="10dp"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                    <RadioButton android:id="@+id/rbRojo" android:layout_width="45dp" android:layout_height="45dp" android:button="@null" android:background="@drawable/shape_circulo" android:backgroundTint="@color/color_rojo" android:foreground="@drawable/color_selection_border" android:layout_margin="8dp"/>
+                    <RadioButton android:id="@+id/rbNaranja" android:layout_width="45dp" android:layout_height="45dp" android:button="@null" android:background="@drawable/shape_circulo" android:backgroundTint="@color/color_naranja" android:foreground="@drawable/color_selection_border" android:layout_margin="8dp"/>
+                    <RadioButton android:id="@+id/rbAmarillo" android:layout_width="45dp" android:layout_height="45dp" android:button="@null" android:background="@drawable/shape_circulo" android:backgroundTint="@color/color_amarillo" android:foreground="@drawable/color_selection_border" android:layout_margin="8dp"/>
+                    <RadioButton android:id="@+id/rbVerde" android:layout_width="45dp" android:layout_height="45dp" android:button="@null" android:background="@drawable/shape_circulo" android:backgroundTint="@color/color_verde" android:foreground="@drawable/color_selection_border" android:layout_margin="8dp"/>
+                    <RadioButton android:id="@+id/rbAzul" android:layout_width="45dp" android:layout_height="45dp" android:button="@null" android:background="@drawable/shape_circulo" android:backgroundTint="@color/color_azul" android:foreground="@drawable/color_selection_border" android:layout_margin="8dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp">
+                    <RadioButton android:id="@+id/rbMorado" android:layout_width="45dp" android:layout_height="45dp" android:button="@null" android:background="@drawable/shape_circulo" android:backgroundTint="@color/color_morado" android:foreground="@drawable/color_selection_border" android:layout_margin="8dp"/>
+                    <RadioButton android:id="@+id/rbCeleste" android:layout_width="45dp" android:layout_height="45dp" android:button="@null" android:background="@drawable/shape_circulo" android:backgroundTint="@color/color_celeste" android:foreground="@drawable/color_selection_border" android:layout_margin="8dp"/>
+                    <RadioButton android:id="@+id/rbCafe" android:layout_width="45dp" android:layout_height="45dp" android:button="@null" android:background="@drawable/shape_circulo" android:backgroundTint="@color/color_cafe" android:foreground="@drawable/color_selection_border" android:layout_margin="8dp"/>
+                    <RadioButton android:id="@+id/rbRosa" android:layout_width="45dp" android:layout_height="45dp" android:button="@null" android:background="@drawable/shape_circulo" android:backgroundTint="@color/color_rosa" android:foreground="@drawable/color_selection_border" android:layout_margin="8dp"/>
+                    <RadioButton android:id="@+id/rbGris" android:layout_width="45dp" android:layout_height="45dp" android:button="@null" android:background="@drawable/shape_circulo" android:backgroundTint="@color/color_gris" android:foreground="@drawable/color_selection_border" android:layout_margin="8dp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:layout_marginTop="20dp">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnDialogCancelar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancelar"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:background="@drawable/btn_cancelar"
+            android:paddingHorizontal="25dp"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:paddingVertical="10dp"
+            android:layout_marginEnd="10dp"
+            app:backgroundTint="@null"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnDialogGuardar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Guardar"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:background="@drawable/btn_guardar"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="25dp"
+            app:backgroundTint="@null"/>
+    </LinearLayout>
+
+</LinearLayout>

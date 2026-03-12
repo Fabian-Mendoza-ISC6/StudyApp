@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Estado seleccionado: Círculo con borde negro muy grueso -->
+    <item android:state_checked="true">
+        <layer-list>
+            <!-- El color de fondo (se aplicará vía backgroundTint) -->
+            <item>
+                <shape android:shape="oval">
+                    <solid android:color="@color/white" />
+                </shape>
+            </item>
+            <!-- El aro negro exterior -->
+            <item>
+                <shape android:shape="oval">
+                    <stroke android:width="5dp" android:color="@color/black" />
+                </shape>
+            </item>
+            <!-- Un borde blanco interno para que el aro negro resalte más -->
+            <item android:top="4dp" android:bottom="4dp" android:left="4dp" android:right="4dp">
+                <shape android:shape="oval">
+                    <stroke android:width="2dp" android:color="@color/white" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+
+    <!-- Estado normal: Círculo con borde gris muy fino -->
+    <item>
+        <layer-list>
+            <item>
+                <shape android:shape="oval">
+                    <solid android:color="@color/white" />
+                </shape>
+            </item>
+            <item>
+                <shape android:shape="oval">
+                    <stroke android:width="1dp" android:color="#40000000" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+</selector>
