@@ -6,9 +6,17 @@
     <color name="cream">#FEFAE5</color>
     <color name="verde_fuerte">#286f8d</color>
     <color name="amarillo_claro">#FDE08F</color>
-
     <color name="verde_claro">#89CAB4</color>
 
-
-
+    <!-- Colores para materias -->
+    <color name="color_rojo">#F44336</color>
+    <color name="color_naranja">#FF9800</color>
+    <color name="color_amarillo">#FFC107</color>
+    <color name="color_verde">#4CAF50</color>
+    <color name="color_azul">#2196F3</color>
+    <color name="color_morado">#9C27B0</color>
+    <color name="color_celeste">#00BCD4</color>
+    <color name="color_cafe">#795548</color>
+    <color name="color_rosa">#E91E63</color>
+    <color name="color_gris">#607D8B</color>
 </resources>
