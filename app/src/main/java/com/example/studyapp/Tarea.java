@@ -15,6 +15,7 @@ public class Tarea extends AppCompatActivity {
 
         Button btnInicio = findViewById(R.id.btnInicio);
         Button btnCalendario = findViewById(R.id.btnCalendario);
+        Button btnKanba = findViewById(R.id.btnKamba);
         ImageView imgStudy = findViewById(R.id.img_study);
 
         btnInicio.setOnClickListener(new View.OnClickListener() {
@@ -37,6 +38,13 @@ public class Tarea extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Tarea.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+        btnKanba.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Tarea.this, Kanba.class);
                 startActivity(intent);
             }
         });

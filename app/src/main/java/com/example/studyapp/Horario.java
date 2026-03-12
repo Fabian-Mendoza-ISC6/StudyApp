@@ -15,6 +15,7 @@ public class Horario extends AppCompatActivity {
 
         Button btnInicio = findViewById(R.id.btnInicio);
         Button btnTareas = findViewById(R.id.btnTareas);
+        Button btnKanba = findViewById(R.id.btnKamba);
         ImageView imgStudy = findViewById(R.id.img_study);
 
         btnInicio.setOnClickListener(new View.OnClickListener() {
@@ -37,6 +38,13 @@ public class Horario extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Horario.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+        btnKanba.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Horario.this, Kanba.class);
                 startActivity(intent);
             }
         });
