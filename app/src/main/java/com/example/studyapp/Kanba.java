@@ -5,23 +5,24 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-public class inicio extends AppCompatActivity {
+public class Kanba extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.inicio);
+        setContentView(R.layout.kanba);
 
         Button btnCalendario = findViewById(R.id.btnCalendario);
         Button btnTareas = findViewById(R.id.btnTareas);
-        Button btnKanba = findViewById(R.id.btnKamba);
+        Button btnInicio = findViewById(R.id.btnInicio);
         ImageView imgStudy = findViewById(R.id.img_study);
 
         btnCalendario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(inicio.this, Horario.class);
+                Intent intent = new Intent(Kanba.this, Horario.class);
                 startActivity(intent);
             }
         });
@@ -29,7 +30,7 @@ public class inicio extends AppCompatActivity {
         btnTareas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(inicio.this, Tarea.class);
+                Intent intent = new Intent(Kanba.this, Tarea.class);
                 startActivity(intent);
             }
         });
@@ -37,14 +38,14 @@ public class inicio extends AppCompatActivity {
         imgStudy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(inicio.this, MainActivity.class);
+                Intent intent = new Intent(Kanba.this, MainActivity.class);
                 startActivity(intent);
             }
         });
-        btnKanba.setOnClickListener(new View.OnClickListener() {
+        btnInicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(inicio.this, Kanba.class);
+                Intent intent = new Intent(Kanba.this, inicio.class);
                 startActivity(intent);
             }
         });

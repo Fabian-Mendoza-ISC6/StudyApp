@@ -29,6 +29,9 @@
         <activity
             android:name=".Tarea"
             android:exported="false" />
+        <activity
+            android:name=".Kanba"
+            android:exported="false" />
     </application>
 
 </manifest>

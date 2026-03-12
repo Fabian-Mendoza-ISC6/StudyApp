@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:background="#89CAB4">
+
+    <!-- Título de la pantalla -->
+    <TextView
+        android:id="@+id/lbl_Titulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="sans-serif"
+        android:text="Kanba"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+
+
+    <ImageView
+        android:id="@+id/img_study"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/lbl_Titulo"
+        android:layout_marginTop="-53dp"
+        android:contentDescription="@string/study_image_description"
+        android:scaleType="centerInside"
+        android:src="@drawable/study" />
+
+
+    <LinearLayout
+        android:id="@+id/toolbarIcons"
+        android:layout_width="350dp"
+        android:layout_height="70dp"
+        android:layout_below="@+id/img_study"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/verde_redondiado"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingHorizontal="25dp"
+        android:paddingVertical="5dp">
+
+        <Button
+            android:id="@+id/btnInicio"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_rounded"
+            android:text="🏠"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/btnCalendario"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/blanco_redondiado"
+            android:text="📆"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/btnTareas"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/blanco_redondiado"
+            android:text="📄"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/btnKamba"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/blanco_redondiado"
+            android:text="📋"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            app:backgroundTint="@null" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/lbEentregas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbarIcons"
+        android:layout_marginTop="20dp"
+        android:fontFamily="sans-serif"
+        android:text="Pendiente:"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+
+    <FrameLayout
+        android:id="@+id/contededordeTarea"
+        android:layout_width="match_parent"
+        android:layout_height="145dp"
+        android:layout_below="@id/lbEentregas"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_rounded">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="start"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/lbl_Tareas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:text="º Tarea de química                    13 Julio"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/lbl_Examenes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:text="º Examen de química                23 Julio"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/lbl_Pendiente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/contededordeTarea"
+        android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif"
+        android:text="En curso:"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+
+    <FrameLayout
+        android:id="@+id/contededordeClases"
+        android:layout_width="match_parent"
+        android:layout_height="145dp"
+        android:layout_below="@id/lbl_Pendiente"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_rounded">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="start"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/lbl_Tareas2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:text="º Tarea de algebra                      9 Julio"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/lbl_Examenes2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:text="º Entrega proyecto algrebra     10 Julio"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+    </FrameLayout>
+    <TextView
+        android:id="@+id/lbl_Hecho"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/contededordeClases"
+        android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif"
+        android:text="Hecho:"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+
+    <FrameLayout
+        android:id="@+id/contededorHecho"
+        android:layout_width="match_parent"
+        android:layout_height="145dp"
+        android:layout_below="@id/lbl_Hecho"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_rounded">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="start"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/lbl_Tareas3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:text="º Avance proyecto algebra         5 Julio"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/lbl_Examenes3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:text="º Examen de POO                        4 Julio"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</RelativeLayout>
