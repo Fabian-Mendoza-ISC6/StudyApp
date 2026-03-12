@@ -24,11 +24,13 @@ public class Horario extends AppCompatActivity {
 
         Button btnInicio = findViewById(R.id.btnInicio);
         Button btnTareas = findViewById(R.id.btnTareas);
+        Button btnKanba = findViewById(R.id.btnKamba);
         ImageView imgStudy = findViewById(R.id.img_study);
         Button btnAgregar = findViewById(R.id.btnAgrgar);
 
         btnInicio.setOnClickListener(v -> startActivity(new Intent(Horario.this, inicio.class)));
         btnTareas.setOnClickListener(v -> startActivity(new Intent(Horario.this, Tarea.class)));
+        btnKanba.setOnClickListener(v -> startActivity(new Intent(Horario.this, Kanba.class)));
         imgStudy.setOnClickListener(v -> startActivity(new Intent(Horario.this, MainActivity.class)));
         btnAgregar.setOnClickListener(v -> mostrarDialogo());
     }
