@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
+
 public class Tarea extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +18,7 @@ public class Tarea extends AppCompatActivity {
         Button btnCalendario = findViewById(R.id.btnCalendario);
         Button btnKanba = findViewById(R.id.btnKamba);
         ImageView imgStudy = findViewById(R.id.img_study);
+        Button btnAgregar = findViewById(R.id.btnAgrgar);
 
         btnInicio.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,5 +50,13 @@ public class Tarea extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        btnAgregar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Tarea.this, agregarTareas.class);
+                startActivity(intent);
+            }
+        });
     }
+
 }

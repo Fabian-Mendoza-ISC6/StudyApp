@@ -87,7 +87,7 @@
             android:layout_height="50dp"
             android:layout_margin="4dp"
             android:layout_weight="1"
-            android:background="@drawable/blanco_redondiado"
+            android:background="@drawable/button_rounded"
             android:text="📋"
             android:textColor="@color/black"
             android:textSize="22sp"
