@@ -32,9 +32,7 @@
         <activity
             android:name=".Kanba"
             android:exported="false" />
-        <activity
-            android:name=".agregarTareas"
-            android:exported="false" />
+
     </application>
 
 </manifest>

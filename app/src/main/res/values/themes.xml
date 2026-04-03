@@ -3,6 +3,9 @@
     <style name="Base.Theme.StudyApp" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/color_azul</item>
+        <item name="colorAccent">@color/color_azul</item>
+
     </style>
 
     <style name="Theme.StudyApp" parent="Base.Theme.StudyApp" />
