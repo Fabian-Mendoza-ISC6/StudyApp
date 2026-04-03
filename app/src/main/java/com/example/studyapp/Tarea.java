@@ -90,17 +90,23 @@ public class Tarea extends AppCompatActivity {
         //
         AutoCompleteTextView actividad = view.findViewById(R.id.RegistroActividad);
         AutoCompleteTextView materia = view.findViewById(R.id.RegistroMateria);
+        AutoCompleteTextView estado = view.findViewById(R.id.EstadoActividad);
 
         String[] actividades = {"Tarea", "Examen", "Proyecto", "Estudio"};
         String[] materias = {"Matemáticas", "Programación", "Física", "Base de Datos"};
+        String[] estados = {"Pendiente", "En curso", "Finalizado"};
 
         ArrayAdapter<String> adapterActividad = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, actividades);
         ArrayAdapter<String> adapterMateria = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, materias);
+        ArrayAdapter<String> adapterEstado = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, estados);
 
         actividad.setAdapter(adapterActividad);
         materia.setAdapter(adapterMateria);
+        estado.setAdapter(adapterEstado);
+
         actividad.setOnClickListener(v -> actividad.showDropDown());
         materia.setOnClickListener(v -> materia.showDropDown());
+        estado.setOnClickListener(v -> estado.showDropDown());
 
         //
         EditText etFecha = view.findViewById(R.id.DiaEntrega);

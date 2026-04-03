@@ -66,6 +66,26 @@
                 android:drawableEnd="@drawable/flecha_desplegable"
                 android:padding="8dp"/>
 
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Estado"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:layout_marginTop="8dp"/>
+
+            <AutoCompleteTextView
+                android:id="@+id/EstadoActividad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:textColor="@color/black"
+                android:hint="Selecciona un estado"
+                android:focusable="false"
+                android:clickable="true"
+                android:drawableEnd="@drawable/flecha_desplegable"
+                android:padding="8dp"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
