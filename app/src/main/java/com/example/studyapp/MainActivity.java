@@ -10,11 +10,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import com.example.studyapp.room.database.appDatabase;
 
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
+    appDatabase db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+        db = appDatabaseInstancia.getInstance(this);
         
         View mainView = findViewById(R.id.main);
         if (mainView != null) {
