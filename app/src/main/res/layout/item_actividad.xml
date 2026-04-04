@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="318dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:layout_gravity="center"
+    android:background="@drawable/recuadro_descripcion"
+    android:orientation="vertical"
+    android:padding="12dp">
+
+    <View
+        android:id="@+id/txtColor"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"/>
+
+    <TextView
+        android:id="@+id/txtTipo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tipo:"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:id="@+id/txtMateria"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Materia:"
+        android:textSize="14sp"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/txtEstado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Estado:"
+        android:textSize="14sp"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/txtFecha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fecha:"
+        android:textSize="14sp"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/txtHorario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10:00 am a 12:00 pm"
+        android:textSize="14sp"
+        android:textColor="@color/black"/>
+
+</LinearLayout>

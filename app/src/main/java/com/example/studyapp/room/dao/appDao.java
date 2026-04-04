@@ -7,7 +7,7 @@ import androidx.room.Update;
 import androidx.room.Delete;
 
 import com.example.studyapp.room.entity.materia;
-import com.example.studyapp.room.entity.actividad; // si renombraste a Actividad, cámbialo aquí
+import com.example.studyapp.room.entity.actividad;
 import com.example.studyapp.room.entity.recordatorio;
 
 import java.util.List;
@@ -31,7 +31,10 @@ public interface appDao {
 
     // ===== ACTIVIDAD =====
     @Insert
-    void insertarActividad(actividad actividad); // cambia a Actividad si renombraste
+    void insertarActividad(actividad actividad);
+
+    @Query("SELECT * FROM actividad")
+    List<actividad> obtenerActividades();
 
     @Query("SELECT * FROM actividad WHERE idMateria = :idMateria")
     List<actividad> obtenerActividadesPorMateria(int idMateria);
