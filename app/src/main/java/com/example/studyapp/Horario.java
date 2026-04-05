@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -39,7 +40,20 @@ public class Horario extends AppCompatActivity {
         // Configuración del RecyclerView
         recyclerView = findViewById(R.id.recyclerMaterias);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new MateriaAdapter(listaMaterias);
+        adapter = new MateriaAdapter(listaMaterias, m -> {
+            Intent intent = new Intent(Horario.this, VerMateria.class);
+
+            intent.putExtra("id", m.id);
+            intent.putExtra("nombre", m.nombre);
+            intent.putExtra("profesor", m.profesor);
+            intent.putExtra("salon", m.salon);
+            intent.putExtra("horaInicio", m.horaInicio);
+            intent.putExtra("horaFin", m.horaFin);
+            intent.putExtra("dias", m.dias);
+            intent.putExtra("color", m.color);
+
+            startActivity(intent);
+        });
         recyclerView.setAdapter(adapter);
 
         // Cargar materias guardadas
@@ -77,7 +91,7 @@ public class Horario extends AppCompatActivity {
         }
 
         // Referencias a los campos del diálogo
-        EditText etNombre = view.findViewById(R.id.etMateria);
+        EditText etMateria = view.findViewById(R.id.etMateria);
         EditText etProfesor = view.findViewById(R.id.etProfesor);
         EditText etSalon = view.findViewById(R.id.etSalon);
         EditText etHoraInicio = view.findViewById(R.id.etHoraInicio);
@@ -87,16 +101,8 @@ public class Horario extends AppCompatActivity {
         etHoraInicio.setOnClickListener(v -> mostrarReloj(etHoraInicio));
         etHoraFin.setOnClickListener(v -> mostrarReloj(etHoraFin));
 
-        // Configuración de RadioButtons para Días
-        int[] diasIds = {R.id.rbLunes, R.id.rbMartes, R.id.rbMiercoles, R.id.rbJueves, R.id.rbViernes, R.id.rbSabado, R.id.rbDomingo};
-        for (int id : diasIds) {
-            RadioButton rb = view.findViewById(id);
-            rb.setOnClickListener(v -> {
-                for (int otherId : diasIds) {
-                    if (otherId != id) ((RadioButton) view.findViewById(otherId)).setChecked(false);
-                }
-            });
-        }
+        // IDs de los CheckBoxes para los días
+        int[] checkBoxesIds = {R.id.cbLunes, R.id.cbMartes, R.id.cbMiercoles, R.id.cbJueves, R.id.cbViernes, R.id.cbSabado, R.id.cbDomingo};
 
         // Configuración de RadioButtons para Colores
         int[] coloresIds = {R.id.rbRojo, R.id.rbNaranja, R.id.rbAmarillo, R.id.rbVerde, R.id.rbAzul, R.id.rbMorado, R.id.rbCeleste, R.id.rbCafe, R.id.rbRosa, R.id.rbGris};
@@ -109,31 +115,30 @@ public class Horario extends AppCompatActivity {
                 for (int otherId : coloresIds) {
                     if (otherId != coloresIds[index]) ((RadioButton) view.findViewById(otherId)).setChecked(false);
                 }
-                // Guardamos el color en el tag para recuperarlo fácil
                 view.setTag(coloresHex[index]);
             });
         }
 
         // BOTÓN GUARDAR
         view.findViewById(R.id.btnDialogGuardar).setOnClickListener(v -> {
-            String nombre = etNombre.getText().toString();
+            String nombre = etMateria.getText().toString();
             String profesor = etProfesor.getText().toString();
             String salon = etSalon.getText().toString();
             String hInicio = etHoraInicio.getText().toString();
             String hFin = etHoraFin.getText().toString();
 
             if (nombre.isEmpty()) {
-                etNombre.setError("Obligatorio");
+                etMateria.setError("Obligatorio");
                 return;
             }
 
-            // Obtener día seleccionado
-            String diaSeleccionado = "";
-            for (int id : diasIds) {
-                RadioButton rb = view.findViewById(id);
-                if (rb.isChecked()) {
-                    diaSeleccionado = rb.getText().toString();
-                    break;
+            // Obtener días seleccionados (Múltiple)
+            StringBuilder diasSeleccionados = new StringBuilder();
+            for (int id : checkBoxesIds) {
+                CheckBox cb = view.findViewById(id);
+                if (cb != null && cb.isChecked()) {
+                    if (diasSeleccionados.length() > 0) diasSeleccionados.append(", ");
+                    diasSeleccionados.append(cb.getText().toString());
                 }
             }
 
@@ -147,7 +152,7 @@ public class Horario extends AppCompatActivity {
             nuevaMateria.salon = salon;
             nuevaMateria.horaInicio = hInicio;
             nuevaMateria.horaFin = hFin;
-            nuevaMateria.dias = diaSeleccionado;
+            nuevaMateria.dias = diasSeleccionados.toString();
             nuevaMateria.color = colorSeleccionado;
 
             new Thread(() -> {

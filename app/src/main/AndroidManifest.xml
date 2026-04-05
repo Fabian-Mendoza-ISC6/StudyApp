@@ -38,7 +38,12 @@
         <activity
             android:name=".EditarActividad"
             android:exported="false" />
-
+        <activity
+            android:name=".VerMateria"
+            android:exported="false" />
+        <activity
+            android:name=".EditarMateria"
+            android:exported="false" />
 
     </application>
 

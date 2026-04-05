@@ -121,41 +121,42 @@
         </LinearLayout>
     </ScrollView>
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="end"
+        android:gravity="center_vertical"
         android:layout_marginTop="20dp">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnDialogCancelar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cancelar"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            android:background="@drawable/btn_cancelar"
-            android:paddingHorizontal="25dp"
-            android:minHeight="0dp"
-            android:minWidth="0dp"
-            android:paddingVertical="10dp"
-            android:layout_marginEnd="10dp"
-            app:backgroundTint="@null"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnDialogGuardar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Guardar"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            android:background="@drawable/btn_guardar"
-            android:minHeight="0dp"
-            android:minWidth="0dp"
-            android:paddingVertical="10dp"
-            android:paddingHorizontal="25dp"
-            app:backgroundTint="@null"/>
+
+        <ImageView
+            android:id="@+id/btnEliminar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="15dp"
+            android:src="@drawable/borrar"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/btnEditar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="15dp"
+            android:src="@drawable/actualizar"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/btnCancelarIcono"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/cancelar"
+            android:visibility="visible" />
     </LinearLayout>
 
 </LinearLayout>

@@ -13,9 +13,17 @@ import java.util.List;
 public class MateriaAdapter extends RecyclerView.Adapter<MateriaAdapter.MateriaViewHolder> {
 
     private List<materia> listaMaterias;
+    private OnItemClickListener listener;
 
-    public MateriaAdapter(List<materia> listaMaterias) {
+    // 🔥 INTERFAZ
+    public interface OnItemClickListener {
+        void onItemClick(materia m);
+    }
+
+    // 🔥 CONSTRUCTOR
+    public MateriaAdapter(List<materia> listaMaterias, OnItemClickListener listener) {
         this.listaMaterias = listaMaterias;
+        this.listener = listener;
     }
 
     public void setMaterias(List<materia> materias) {
@@ -37,6 +45,11 @@ public class MateriaAdapter extends RecyclerView.Adapter<MateriaAdapter.MateriaV
         holder.txtMaestro.setText("Maestr@: " + m.profesor);
         holder.txtAula.setText("Aula: " + m.salon);
         holder.txtHorario.setText(m.horaInicio + " a " + m.horaFin);
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onItemClick(m);
+            }
+        });
         
         try {
             holder.viewColor.setBackgroundColor(Color.parseColor(m.color));
