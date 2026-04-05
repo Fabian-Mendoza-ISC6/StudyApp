@@ -45,10 +45,25 @@ public class Tarea extends AppCompatActivity {
         // Inicializar RecyclerView
         recyclerActividades = findViewById(R.id.recyclerActividades);
         recyclerActividades.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new ActividadAdapter(listaActividades);
+        adapter = new ActividadAdapter(listaActividades, listaMaterias,(act, nombreMateria) -> {
+            Intent intent = new Intent(Tarea.this, VerActividad.class);
+
+            intent.putExtra("id", act.id);
+            intent.putExtra("tipo", act.tipo);
+            intent.putExtra("estado", act.estado);
+            intent.putExtra("fecha", act.fechaEntrega);
+            intent.putExtra("hora", act.horaInicio);
+            intent.putExtra("descripcion", act.descripcion);
+            intent.putExtra("idMateria", act.idMateria);
+            intent.putExtra("materiaNombre", nombreMateria);
+
+            startActivity(intent);
+        });
         recyclerActividades.setAdapter(adapter);
 
         cargarActividades();
+        cargarMaterias();
+
 
         // Botones de navegación
         findViewById(R.id.btnInicio).setOnClickListener(v -> startActivity(new Intent(Tarea.this, inicio.class)));
@@ -67,6 +82,20 @@ public class Tarea extends AppCompatActivity {
                 adapter.setActividades(listaActividades);
             });
         }).start();
+    }
+    private void cargarMaterias() {
+        new Thread(() -> {
+            List<materia> lista = db.appDao().obtenerMaterias();
+            runOnUiThread(() -> {
+                listaMaterias = lista;
+                adapter.setMaterias(listaMaterias);
+            });
+        }).start();
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        cargarActividades();
     }
 
     private void mostrarDialogoAgregarTarea() {

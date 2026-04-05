@@ -162,7 +162,7 @@
         android:layout_below="@id/contededordeTarea"
         android:layout_marginTop="20dp"
         android:fontFamily="sans-serif"
-        android:text="Proxima entrega:"
+        android:text="Proxima clase:"
         android:textSize="20sp"
         android:textColor="@color/black"
         android:textStyle="bold" />

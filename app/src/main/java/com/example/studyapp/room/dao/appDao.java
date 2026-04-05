@@ -40,10 +40,12 @@ public interface appDao {
     List<actividad> obtenerActividadesPorMateria(int idMateria);
 
     @Update
-    void actualizarActividad(actividad actividad);
+    void actualizarActividad(actividad act);
 
     @Delete
-    void eliminarActividad(actividad actividad);
+    void eliminarActividad(actividad act);
+    @Query("DELETE FROM actividad WHERE id = :id")
+    void eliminarActividadPorId(int id);
 
 
     // ===== RECORDATORIO =====
