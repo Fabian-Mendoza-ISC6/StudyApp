@@ -65,12 +65,10 @@ public class inicio extends AppCompatActivity {
     }
     private void cargarDatos() {
         new Thread(() -> {
-            // ================= FECHA ACTUAL =================
             Calendar calendar = Calendar.getInstance();
             String[] diasNombres = {"Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"};
             String hoy = diasNombres[calendar.get(Calendar.DAY_OF_WEEK) - 1];
 
-            // ================= CLASES DEL DÍA =================
             List<materia> todas = dao.obtenerMaterias();
             List<materia> hoyMaterias = new ArrayList<>();
             for (materia m : todas) {
@@ -90,12 +88,12 @@ public class inicio extends AppCompatActivity {
                 }
             });
 
-            // Mostrar solo las 3 más cercanas
+
             List<actividad> topActividades = (actividades.size() > 5)
                     ? new ArrayList<>(actividades.subList(0, 5))
                     : actividades;
 
-            // Actualizar la UI
+
             runOnUiThread(() -> {
                 recyclerClases.setAdapter(new InicioMateria(hoyMaterias));
                 recyclerTareas.setAdapter(new InicioAdapter(topActividades));

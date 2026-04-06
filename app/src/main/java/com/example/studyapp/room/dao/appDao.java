@@ -46,6 +46,8 @@ public interface appDao {
     void eliminarActividad(actividad act);
     @Query("DELETE FROM actividad WHERE id = :id")
     void eliminarActividadPorId(int id);
+    @Query("SELECT * FROM actividad WHERE estado = :estado")
+    List<actividad> obtenerPorEstado(String estado);
 
 
     // ===== RECORDATORIO =====
