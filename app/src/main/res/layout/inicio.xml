@@ -153,6 +153,11 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/button_rounded">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerTareas"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
     </FrameLayout>
 
     <TextView
@@ -174,6 +179,11 @@
         android:layout_below="@id/lbl_ProximaClase"
         android:layout_marginTop="10dp"
         android:background="@drawable/button_rounded">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerClases"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
     </FrameLayout>
 
