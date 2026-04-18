@@ -3,7 +3,7 @@ package com.example.studyapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
 
@@ -18,7 +18,7 @@ public class VerMateria extends AppCompatActivity {
     EditText etMateria, etProfesor, etSalon, etHoraInicio, etHoraFin;
     CheckBox cbLunes, cbMartes, cbMiercoles, cbJueves, cbViernes, cbSabado, cbDomingo;
     RadioButton rbRojo, rbNaranja, rbAmarillo, rbVerde, rbAzul, rbMorado, rbCeleste, rbCafe, rbRosa, rbGris;
-    ImageView btnEliminar, btnEditar, btnCancelar;
+    TextView btnEliminar, btnEditar, btnCancelar;
     appDatabase db;
     int idMateria;
 
@@ -69,11 +69,11 @@ public class VerMateria extends AppCompatActivity {
         if (dias != null) {
             cbLunes.setChecked(dias.contains("Lunes"));
             cbMartes.setChecked(dias.contains("Martes"));
-            cbMiercoles.setChecked(dias.contains("Miérc"));
+            cbMiercoles.setChecked(dias.contains("Miercoles"));
             cbJueves.setChecked(dias.contains("Jueves"));
             cbViernes.setChecked(dias.contains("Viernes"));
-            cbSabado.setChecked(dias.contains("Sábado"));
-            cbDomingo.setChecked(dias.contains("Dom"));
+            cbSabado.setChecked(dias.contains("Sabado"));
+            cbDomingo.setChecked(dias.contains("Domingo"));
         }
 
         String color = intent.getStringExtra("color");

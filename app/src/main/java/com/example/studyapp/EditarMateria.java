@@ -2,8 +2,6 @@ package com.example.studyapp;
 
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -71,17 +69,17 @@ public class EditarMateria extends AppCompatActivity {
         etSalon.setText(intent.getStringExtra("salon"));
         etHoraInicio.setText(intent.getStringExtra("horaInicio"));
         etHoraFin.setText(intent.getStringExtra("horaFin"));
+        
         String dias = intent.getStringExtra("dias");
         if (dias != null) {
             cbLunes.setChecked(dias.contains("Lunes"));
             cbMartes.setChecked(dias.contains("Martes"));
-            cbMiercoles.setChecked(dias.contains("Miérc"));
+            cbMiercoles.setChecked(dias.contains("Miercoles"));
             cbJueves.setChecked(dias.contains("Jueves"));
             cbViernes.setChecked(dias.contains("Viernes"));
-            cbSabado.setChecked(dias.contains("Sábado"));
-            cbDomingo.setChecked(dias.contains("Dom"));
+            cbSabado.setChecked(dias.contains("Sabado"));
+            cbDomingo.setChecked(dias.contains("Domingo"));
         }
-
 
         String color = intent.getStringExtra("color");
         if (color != null) colorSeleccionado = color;
@@ -90,42 +88,35 @@ public class EditarMateria extends AppCompatActivity {
         etHoraInicio.setOnClickListener(v -> mostrarReloj(etHoraInicio));
         etHoraFin.setOnClickListener(v -> mostrarReloj(etHoraFin));
 
-
         btnCancelar.setOnClickListener(v -> finish());
 
         btnGuardar.setOnClickListener(v -> {
-
             String nombre = etMateria.getText().toString();
             if (nombre.isEmpty()) {
                 etMateria.setError("Obligatorio");
                 return;
             }
-            String profesor = etProfesor.getText().toString();
-            String salon = etSalon.getText().toString();
-            String hInicio = etHoraInicio.getText().toString();
-            String hFin = etHoraFin.getText().toString();
 
+            StringBuilder diasSel = new StringBuilder();
+            if (cbLunes.isChecked()) diasSel.append("Lunes, ");
+            if (cbMartes.isChecked()) diasSel.append("Martes, ");
+            if (cbMiercoles.isChecked()) diasSel.append("Miercoles, ");
+            if (cbJueves.isChecked()) diasSel.append("Jueves, ");
+            if (cbViernes.isChecked()) diasSel.append("Viernes, ");
+            if (cbSabado.isChecked()) diasSel.append("Sabado, ");
+            if (cbDomingo.isChecked()) diasSel.append("Domingo, ");
 
-            StringBuilder diasSeleccionados = new StringBuilder();
-            if (cbLunes.isChecked()) diasSeleccionados.append("Lunes, ");
-            if (cbMartes.isChecked()) diasSeleccionados.append("Martes, ");
-            if (cbMiercoles.isChecked()) diasSeleccionados.append("Miérc., ");
-            if (cbJueves.isChecked()) diasSeleccionados.append("Jueves, ");
-            if (cbViernes.isChecked()) diasSeleccionados.append("Viernes, ");
-            if (cbSabado.isChecked()) diasSeleccionados.append("Sábado, ");
-            if (cbDomingo.isChecked()) diasSeleccionados.append("Dom., ");
-
-            if (diasSeleccionados.length() > 0)
-                diasSeleccionados.delete(diasSeleccionados.length() - 2, diasSeleccionados.length());
+            if (diasSel.length() > 2)
+                diasSel.setLength(diasSel.length() - 2);
 
             materia m = new materia();
             m.id = idMateria;
             m.nombre = nombre;
-            m.profesor = profesor;
-            m.salon = salon;
-            m.horaInicio = hInicio;
-            m.horaFin = hFin;
-            m.dias = diasSeleccionados.toString();
+            m.profesor = etProfesor.getText().toString();
+            m.salon = etSalon.getText().toString();
+            m.horaInicio = etHoraInicio.getText().toString();
+            m.horaFin = etHoraFin.getText().toString();
+            m.dias = diasSel.toString();
             m.color = colorSeleccionado;
 
             new Thread(() -> {
@@ -151,10 +142,7 @@ public class EditarMateria extends AppCompatActivity {
                 radios[index].setChecked(true);
                 colorSeleccionado = colores[index];
             });
-
-            if (colores[i].equals(colorSeleccionado)) {
-                radios[i].setChecked(true);
-            }
+            if (colores[i].equals(colorSeleccionado)) radios[i].setChecked(true);
         }
     }
 

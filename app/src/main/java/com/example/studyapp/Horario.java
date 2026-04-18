@@ -2,6 +2,7 @@ package com.example.studyapp;
 
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -10,15 +11,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import com.example.studyapp.room.database.appDatabase;
@@ -29,7 +31,11 @@ public class Horario extends AppCompatActivity {
     appDatabase db;
     RecyclerView recyclerView;
     MateriaAdapter adapter;
-    List<materia> listaMaterias = new ArrayList<>();
+    List<materia> todasLasMaterias = new ArrayList<>();
+    String diaActualSeleccionado = "";
+    
+    // Referencias a los botones de los días
+    Button btnL, btnM, btnMi, btnJ, btnV, btnS, btnD;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +43,23 @@ public class Horario extends AppCompatActivity {
         setContentView(R.layout.horario);
         db = appDatabaseInstancia.getInstance(this);
 
+        // Inicializar botones
+        btnL = findViewById(R.id.btnLunes);
+        btnM = findViewById(R.id.btnMartes);
+        btnMi = findViewById(R.id.btnMiercoles);
+        btnJ = findViewById(R.id.btnJueves);
+        btnV = findViewById(R.id.btnViernes);
+        btnS = findViewById(R.id.btnSabado);
+        btnD = findViewById(R.id.btnDomingo);
+
+        // Detectar el día de hoy
+        diaActualSeleccionado = obtenerDiaDeHoy();
+
         // Configuración del RecyclerView
         recyclerView = findViewById(R.id.recyclerMaterias);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new MateriaAdapter(listaMaterias, m -> {
+        adapter = new MateriaAdapter(new ArrayList<>(), m -> {
             Intent intent = new Intent(Horario.this, VerMateria.class);
-
             intent.putExtra("id", m.id);
             intent.putExtra("nombre", m.nombre);
             intent.putExtra("profesor", m.profesor);
@@ -51,13 +68,12 @@ public class Horario extends AppCompatActivity {
             intent.putExtra("horaFin", m.horaFin);
             intent.putExtra("dias", m.dias);
             intent.putExtra("color", m.color);
-
             startActivity(intent);
         });
         recyclerView.setAdapter(adapter);
 
-        // Cargar materias guardadas
         cargarMaterias();
+        configurarFiltrosDias();
 
         // Botones de navegación
         findViewById(R.id.btnInicio).setOnClickListener(v -> startActivity(new Intent(Horario.this, inicio.class)));
@@ -69,12 +85,73 @@ public class Horario extends AppCompatActivity {
         btnAgregar.setOnClickListener(v -> mostrarDialogo());
     }
 
+    private String obtenerDiaDeHoy() {
+        String dia = new SimpleDateFormat("EEEE", new Locale("es", "ES")).format(new Date());
+        dia = dia.substring(0, 1).toUpperCase() + dia.substring(1).toLowerCase();
+        if (dia.equals("Miércoles")) dia = "Miercoles";
+        if (dia.equals("Sábado")) dia = "Sabado";
+        return dia;
+    }
+
+    private void configurarFiltrosDias() {
+        btnL.setOnClickListener(v -> cambiarDia("Lunes"));
+        btnM.setOnClickListener(v -> cambiarDia("Martes"));
+        btnMi.setOnClickListener(v -> cambiarDia("Miercoles"));
+        btnJ.setOnClickListener(v -> cambiarDia("Jueves"));
+        btnV.setOnClickListener(v -> cambiarDia("Viernes"));
+        btnS.setOnClickListener(v -> cambiarDia("Sabado"));
+        btnD.setOnClickListener(v -> cambiarDia("Domingo"));
+    }
+
+    private void cambiarDia(String dia) {
+        diaActualSeleccionado = dia;
+        actualizarColorBotones();
+        filtrarMaterias();
+    }
+
+    private void actualizarColorBotones() {
+        // Color normal (blanco) y color seleccionado (morado claro)
+        int colorNormal = Color.WHITE;
+        int colorSeleccionado = Color.parseColor("#89CAC9");
+
+        // Resetear todos los botones
+        btnL.setBackgroundTintList(ColorStateList.valueOf(colorNormal));
+        btnM.setBackgroundTintList(ColorStateList.valueOf(colorNormal));
+        btnMi.setBackgroundTintList(ColorStateList.valueOf(colorNormal));
+        btnJ.setBackgroundTintList(ColorStateList.valueOf(colorNormal));
+        btnV.setBackgroundTintList(ColorStateList.valueOf(colorNormal));
+        btnS.setBackgroundTintList(ColorStateList.valueOf(colorNormal));
+        btnD.setBackgroundTintList(ColorStateList.valueOf(colorNormal));
+
+        // Pintar solo el seleccionado
+        switch (diaActualSeleccionado) {
+            case "Lunes": btnL.setBackgroundTintList(ColorStateList.valueOf(colorSeleccionado)); break;
+            case "Martes": btnM.setBackgroundTintList(ColorStateList.valueOf(colorSeleccionado)); break;
+            case "Miercoles": btnMi.setBackgroundTintList(ColorStateList.valueOf(colorSeleccionado)); break;
+            case "Jueves": btnJ.setBackgroundTintList(ColorStateList.valueOf(colorSeleccionado)); break;
+            case "Viernes": btnV.setBackgroundTintList(ColorStateList.valueOf(colorSeleccionado)); break;
+            case "Sabado": btnS.setBackgroundTintList(ColorStateList.valueOf(colorSeleccionado)); break;
+            case "Domingo": btnD.setBackgroundTintList(ColorStateList.valueOf(colorSeleccionado)); break;
+        }
+    }
+
+    private void filtrarMaterias() {
+        List<materia> filtradas = new ArrayList<>();
+        for (materia m : todasLasMaterias) {
+            if (m.dias != null && m.dias.contains(diaActualSeleccionado)) {
+                filtradas.add(m);
+            }
+        }
+        adapter.setMaterias(filtradas);
+    }
+
     private void cargarMaterias() {
         new Thread(() -> {
             List<materia> materiasDB = db.appDao().obtenerMaterias();
             runOnUiThread(() -> {
-                listaMaterias = materiasDB;
-                adapter.setMaterias(listaMaterias);
+                todasLasMaterias = materiasDB;
+                actualizarColorBotones(); // Resaltar botón de hoy al cargar
+                filtrarMaterias();
             });
         }).start();
     }
@@ -90,21 +167,18 @@ public class Horario extends AppCompatActivity {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
 
-        // Referencias a los campos del diálogo
         EditText etMateria = view.findViewById(R.id.etMateria);
         EditText etProfesor = view.findViewById(R.id.etProfesor);
         EditText etSalon = view.findViewById(R.id.etSalon);
         EditText etHoraInicio = view.findViewById(R.id.etHoraInicio);
         EditText etHoraFin = view.findViewById(R.id.etHoraFin);
 
-        // Configurar selección de reloj
         etHoraInicio.setOnClickListener(v -> mostrarReloj(etHoraInicio));
         etHoraFin.setOnClickListener(v -> mostrarReloj(etHoraFin));
 
-        // IDs de los CheckBoxes para los días
-        int[] checkBoxesIds = {R.id.cbLunes, R.id.cbMartes, R.id.cbMiercoles, R.id.cbJueves, R.id.cbViernes, R.id.cbSabado, R.id.cbDomingo};
+        int[] cbIds = {R.id.cbLunes, R.id.cbMartes, R.id.cbMiercoles, R.id.cbJueves, R.id.cbViernes, R.id.cbSabado, R.id.cbDomingo};
+        String[] nombresDias = {"Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"};
 
-        // Configuración de RadioButtons para Colores
         int[] coloresIds = {R.id.rbRojo, R.id.rbNaranja, R.id.rbAmarillo, R.id.rbVerde, R.id.rbAzul, R.id.rbMorado, R.id.rbCeleste, R.id.rbCafe, R.id.rbRosa, R.id.rbGris};
         String[] coloresHex = {"#F44336", "#FF9800", "#FFC107", "#4CAF50", "#2196F3", "#9C27B0", "#00BCD4", "#795548", "#E91E63", "#607D8B"};
         
@@ -119,7 +193,6 @@ public class Horario extends AppCompatActivity {
             });
         }
 
-        // BOTÓN GUARDAR
         view.findViewById(R.id.btnDialogGuardar).setOnClickListener(v -> {
             String nombre = etMateria.getText().toString();
             String profesor = etProfesor.getText().toString();
@@ -132,20 +205,17 @@ public class Horario extends AppCompatActivity {
                 return;
             }
 
-            // Obtener días seleccionados (Múltiple)
             StringBuilder diasSeleccionados = new StringBuilder();
-            for (int id : checkBoxesIds) {
-                CheckBox cb = view.findViewById(id);
+            for (int i = 0; i < cbIds.length; i++) {
+                CheckBox cb = view.findViewById(cbIds[i]);
                 if (cb != null && cb.isChecked()) {
                     if (diasSeleccionados.length() > 0) diasSeleccionados.append(", ");
-                    diasSeleccionados.append(cb.getText().toString());
+                    diasSeleccionados.append(nombresDias[i]);
                 }
             }
 
-            // Obtener color (del tag o azul por defecto)
             String colorSeleccionado = (view.getTag() != null) ? view.getTag().toString() : "#2196F3";
 
-            // Crear y guardar materia
             materia nuevaMateria = new materia();
             nuevaMateria.nombre = nombre;
             nuevaMateria.profesor = profesor;
