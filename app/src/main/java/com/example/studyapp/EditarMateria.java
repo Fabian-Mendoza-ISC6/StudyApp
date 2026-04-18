@@ -2,9 +2,11 @@ package com.example.studyapp;
 
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
@@ -20,12 +22,13 @@ import java.util.Locale;
 public class EditarMateria extends AppCompatActivity {
 
     appDatabase db;
-    EditText etMateria, etProfesor, etSalon, etHoraInicio, etHoraFin;
-    CheckBox cbLunes, cbMartes, cbMiercoles, cbJueves, cbViernes, cbSabado, cbDomingo;
+    AutoCompleteTextView etMateria;
+    EditText etProfesor, etSalon, etHoraInicio, etHoraFin;
+    RadioButton rbLunes, rbMartes, rbMiercoles, rbJueves, rbViernes, rbSabado, rbDomingo;
     RadioButton rbRojo, rbNaranja, rbAmarillo, rbVerde, rbAzul, rbMorado, rbCeleste, rbCafe, rbRosa, rbGris;
     Button btnGuardar, btnCancelar;
     int idMateria;
-    String colorSeleccionado = "#2196F3"; // default
+    String colorSeleccionado = "#2196F3";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,29 +42,37 @@ public class EditarMateria extends AppCompatActivity {
         etHoraInicio = findViewById(R.id.etHoraInicio);
         etHoraFin = findViewById(R.id.etHoraFin);
 
-        cbLunes = findViewById(R.id.cbLunes);
-        cbMartes = findViewById(R.id.cbMartes);
-        cbMiercoles = findViewById(R.id.cbMiercoles);
-        cbJueves = findViewById(R.id.cbJueves);
-        cbViernes = findViewById(R.id.cbViernes);
-        cbSabado = findViewById(R.id.cbSabado);
-        cbDomingo = findViewById(R.id.cbDomingo);
+        rbLunes = findViewById(R.id.rbLunes);
+        rbMartes = findViewById(R.id.rbMartes);
+        rbMiercoles = findViewById(R.id.rbMiercoles);
+        rbJueves = findViewById(R.id.rbJueves);
+        rbViernes = findViewById(R.id.rbViernes);
+        rbSabado = findViewById(R.id.rbSabado);
+        rbDomingo = findViewById(R.id.rbDomingo);
 
-        rbRojo = findViewById(R.id.rbRojo);
-        rbNaranja = findViewById(R.id.rbNaranja);
-        rbAmarillo = findViewById(R.id.rbAmarillo);
-        rbVerde = findViewById(R.id.rbVerde);
-        rbAzul = findViewById(R.id.rbAzul);
-        rbMorado = findViewById(R.id.rbMorado);
-        rbCeleste = findViewById(R.id.rbCeleste);
-        rbCafe = findViewById(R.id.rbCafe);
-        rbRosa = findViewById(R.id.rbRosa);
-        rbGris = findViewById(R.id.rbGris);
+        // Configurar exclusividad de días
+        RadioButton[] rbDias = {rbLunes, rbMartes, rbMiercoles, rbJueves, rbViernes, rbSabado, rbDomingo};
+        String[] nombresDias = {"Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"};
+        
+        for (RadioButton rb : rbDias) {
+            rb.setOnClickListener(v -> {
+                for (RadioButton other : rbDias) {
+                    if (other != rb) other.setChecked(false);
+                }
+            });
+        }
+
+        // Mapeo de RadioButtons de colores
+        rbRojo = findViewById(R.id.rbRojo); rbNaranja = findViewById(R.id.rbNaranja);
+        rbAmarillo = findViewById(R.id.rbAmarillo); rbVerde = findViewById(R.id.rbVerde);
+        rbAzul = findViewById(R.id.rbAzul); rbMorado = findViewById(R.id.rbMorado);
+        rbCeleste = findViewById(R.id.rbCeleste); rbCafe = findViewById(R.id.rbCafe);
+        rbRosa = findViewById(R.id.rbRosa); rbGris = findViewById(R.id.rbGris);
 
         btnGuardar = findViewById(R.id.btnDialogGuardar);
         btnCancelar = findViewById(R.id.btnDialogCancelar);
 
-        // Recibimos los datos
+        // Recibir datos para editar
         Intent intent = getIntent();
         idMateria = intent.getIntExtra("id", -1);
         etMateria.setText(intent.getStringExtra("nombre"));
@@ -72,42 +83,37 @@ public class EditarMateria extends AppCompatActivity {
         
         String dias = intent.getStringExtra("dias");
         if (dias != null) {
-            cbLunes.setChecked(dias.contains("Lunes"));
-            cbMartes.setChecked(dias.contains("Martes"));
-            cbMiercoles.setChecked(dias.contains("Miercoles"));
-            cbJueves.setChecked(dias.contains("Jueves"));
-            cbViernes.setChecked(dias.contains("Viernes"));
-            cbSabado.setChecked(dias.contains("Sabado"));
-            cbDomingo.setChecked(dias.contains("Domingo"));
+            for (int i = 0; i < nombresDias.length; i++) {
+                if (dias.contains(nombresDias[i])) {
+                    rbDias[i].setChecked(true);
+                    break; // Solo uno
+                }
+            }
         }
 
-        String color = intent.getStringExtra("color");
-        if (color != null) colorSeleccionado = color;
-        configurarRadios();
+        colorSeleccionado = intent.getStringExtra("color");
+        configurarRadiosColores();
 
         etHoraInicio.setOnClickListener(v -> mostrarReloj(etHoraInicio));
         etHoraFin.setOnClickListener(v -> mostrarReloj(etHoraFin));
-
         btnCancelar.setOnClickListener(v -> finish());
 
         btnGuardar.setOnClickListener(v -> {
             String nombre = etMateria.getText().toString();
-            if (nombre.isEmpty()) {
-                etMateria.setError("Obligatorio");
-                return;
+            if (nombre.isEmpty()) { etMateria.setError("Obligatorio"); return; }
+
+            String diaElegido = "";
+            for (int i = 0; i < rbDias.length; i++) {
+                if (rbDias[i].isChecked()) {
+                    diaElegido = nombresDias[i];
+                    break;
+                }
             }
 
-            StringBuilder diasSel = new StringBuilder();
-            if (cbLunes.isChecked()) diasSel.append("Lunes, ");
-            if (cbMartes.isChecked()) diasSel.append("Martes, ");
-            if (cbMiercoles.isChecked()) diasSel.append("Miercoles, ");
-            if (cbJueves.isChecked()) diasSel.append("Jueves, ");
-            if (cbViernes.isChecked()) diasSel.append("Viernes, ");
-            if (cbSabado.isChecked()) diasSel.append("Sabado, ");
-            if (cbDomingo.isChecked()) diasSel.append("Domingo, ");
-
-            if (diasSel.length() > 2)
-                diasSel.setLength(diasSel.length() - 2);
+            if (diaElegido.isEmpty()) {
+                rbLunes.setError("Elige un día");
+                return;
+            }
 
             materia m = new materia();
             m.id = idMateria;
@@ -116,7 +122,7 @@ public class EditarMateria extends AppCompatActivity {
             m.salon = etSalon.getText().toString();
             m.horaInicio = etHoraInicio.getText().toString();
             m.horaFin = etHoraFin.getText().toString();
-            m.dias = diasSel.toString();
+            m.dias = diaElegido;
             m.color = colorSeleccionado;
 
             new Thread(() -> {
@@ -131,7 +137,7 @@ public class EditarMateria extends AppCompatActivity {
         });
     }
 
-    private void configurarRadios() {
+    private void configurarRadiosColores() {
         RadioButton[] radios = {rbRojo, rbNaranja, rbAmarillo, rbVerde, rbAzul, rbMorado, rbCeleste, rbCafe, rbRosa, rbGris};
         String[] colores = {"#F44336","#FF9800","#FFC107","#4CAF50","#2196F3","#9C27B0","#00BCD4","#795548","#E91E63","#607D8B"};
 
@@ -142,7 +148,7 @@ public class EditarMateria extends AppCompatActivity {
                 radios[index].setChecked(true);
                 colorSeleccionado = colores[index];
             });
-            if (colores[i].equals(colorSeleccionado)) radios[i].setChecked(true);
+            if (colores[i].equalsIgnoreCase(colorSeleccionado)) radios[i].setChecked(true);
         }
     }
 
