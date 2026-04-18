@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ver"
+        android:text="Ver Actividad"
         android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="@color/black"
@@ -43,8 +43,8 @@
                 android:background="@null"
                 android:hint="Selecciona una actividad.."
                 android:textColor="@color/black"
-                android:drawableEnd="@drawable/flecha_desplegable"
-                android:padding="8dp"/>
+                android:padding="8dp"
+                android:focusable="false"/>
 
             <TextView android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -60,11 +60,9 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:textColor="@color/black"
-                android:hint="Selecciona una fecha"
-                android:focusable="false"
-                android:clickable="true"
-                android:drawableEnd="@drawable/flecha_desplegable"
-                android:padding="8dp"/>
+                android:hint="Materia"
+                android:padding="8dp"
+                android:focusable="false"/>
 
             <TextView android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -80,11 +78,9 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:textColor="@color/black"
-                android:hint="Selecciona un estado"
-                android:focusable="false"
-                android:clickable="true"
-                android:drawableEnd="@drawable/flecha_desplegable"
-                android:padding="8dp"/>
+                android:hint="Estado"
+                android:padding="8dp"
+                android:focusable="false"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -108,16 +104,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
-                android:hint="Selecciona una fecha"
-                android:focusable="false"
-                android:clickable="true"
-                android:drawableEnd="@drawable/flecha_desplegable"
-                android:padding="8dp"/>
+                android:hint="Fecha"
+                android:textColor="@color/black"
+                android:padding="8dp"
+                android:focusable="false"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hora de inicio"
+                android:text="Hora de entrega"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="16sp"
@@ -129,12 +124,9 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:hint="--:-- AM/PM"
-                android:textColorHint="@color/black"
-                android:textColor="@color/verde_fuerte"
+                android:textColor="@color/black"
                 android:paddingVertical="8dp"
-                android:focusable="false"
-                android:clickable="true"
-                android:cursorVisible="false"/>
+                android:focusable="false"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -149,57 +141,60 @@
                 android:id="@+id/TextDescripcion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Escribe la descripción aquí..."
+                android:hint="Descripción..."
+                android:textColor="@color/black"
                 android:background="@drawable/recuadro_descripcion"
                 android:minHeight="100dp"
                 android:maxLines="5"
-                android:scrollbars="vertical"
-                android:layout_gravity="top"
-                android:inputType="textMultiLine"
                 android:gravity="top"
-                android:padding="10dp"/>
-
+                android:padding="10dp"
+                android:focusable="false"/>
 
         </LinearLayout>
     </ScrollView>
 
-
+    <!-- SECCIÓN DE EMOJIS CENTRADA -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:orientation="horizontal">
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-
-        <ImageView
+        <TextView
             android:id="@+id/btnEliminar"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="15dp"
-            android:src="@drawable/borrar"
-            android:visibility="visible" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="10dp"
+            android:text="🗑️"
+            android:textSize="32sp" />
 
-        <ImageView
+        <TextView
             android:id="@+id/btnEditar"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="15dp"
-            android:src="@drawable/actualizar"
-            android:visibility="visible" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="10dp"
+            android:text="✏️"
+            android:textSize="32sp" />
 
-        <ImageView
+        <TextView
             android:id="@+id/btnCancelarIcono"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/cancelar"
-            android:visibility="visible" />
-
-
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="10dp"
+            android:text="❌"
+            android:textSize="32sp" />
     </LinearLayout>
+
 </LinearLayout>

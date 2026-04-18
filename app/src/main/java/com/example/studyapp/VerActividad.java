@@ -1,9 +1,10 @@
 package com.example.studyapp;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.studyapp.room.database.appDatabase;
 import com.example.studyapp.appDatabaseInstancia;
@@ -13,7 +14,7 @@ public class VerActividad extends AppCompatActivity {
 
     AutoCompleteTextView tipoAct, materiaAct, estadoAct;
     EditText fecha, hora, descripcion;
-    ImageView btnEliminar, btnEditar, btnCancelar;
+    TextView btnEliminar, btnEditar, btnCancelar;
     appDatabase db;
     int idActividad;
 
@@ -43,10 +44,10 @@ public class VerActividad extends AppCompatActivity {
         String desc = intent.getStringExtra("descripcion");
         descripcion.setText(desc != null ? desc : "");
         materiaAct.setText(intent.getStringExtra("materiaNombre"));
+        
         tipoAct.setFocusable(false);
         materiaAct.setFocusable(false);
         estadoAct.setFocusable(false);
-
         fecha.setFocusable(false);
         hora.setFocusable(false);
         descripcion.setFocusable(false);
@@ -77,7 +78,6 @@ public class VerActividad extends AppCompatActivity {
 
         btnEditar.setOnClickListener(v -> {
             Intent i = new Intent(VerActividad.this, EditarActividad.class);
-
             i.putExtra("id", idActividad);
             i.putExtra("tipo", tipoAct.getText().toString());
             i.putExtra("estado", estadoAct.getText().toString());
@@ -85,7 +85,6 @@ public class VerActividad extends AppCompatActivity {
             i.putExtra("hora", hora.getText().toString());
             i.putExtra("descripcion", descripcion.getText().toString());
             i.putExtra("materiaNombre", materiaAct.getText().toString());
-
             startActivity(i);
         });
 

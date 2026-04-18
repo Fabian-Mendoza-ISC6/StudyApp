@@ -155,8 +155,9 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerTareas"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_width="346dp"
+            android:layout_height="166dp"
+            android:layout_gravity="center" />
 
     </FrameLayout>
 
@@ -182,8 +183,9 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerClases"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_width="330dp"
+            android:layout_height="146dp"
+            android:layout_gravity="center" />
 
     </FrameLayout>
 

@@ -137,12 +137,12 @@
         android:layout_below="@id/toolDeTarea"
         android:layout_marginTop="1dp"
         android:background="@drawable/button_rounded">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerActividades"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:padding="8dp"/>
+            android:layout_width="361dp"
+            android:layout_height="488dp"
+            android:layout_gravity="center" />
 
     </FrameLayout>
 

@@ -142,8 +142,13 @@ public class Tarea extends AppCompatActivity {
 
         etFecha.setOnClickListener(v -> {
             Calendar c = Calendar.getInstance();
-            new DatePickerDialog(this, (v1, y, m, d) -> etFecha.setText(d + "/" + (m + 1) + "/" + y), 
-                c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)).show();
+            DatePickerDialog datePicker = new DatePickerDialog(this, (v1, y, m, d) -> etFecha.setText(d + "/" + (m + 1) + "/" + y), 
+                c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+            
+            // 🔥 VALIDACIÓN: No permitir seleccionar días anteriores a hoy
+            datePicker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+            
+            datePicker.show();
         });
 
         etHora.setOnClickListener(v -> {

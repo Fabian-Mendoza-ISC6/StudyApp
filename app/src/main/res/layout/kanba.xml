@@ -51,7 +51,7 @@
             android:layout_height="50dp"
             android:layout_margin="4dp"
             android:layout_weight="1"
-            android:background="@drawable/button_rounded"
+            android:background="@drawable/blanco_redondiado"
             android:text="🏠"
             android:textColor="@color/black"
             android:textSize="22sp"
@@ -116,18 +116,12 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/button_rounded">
 
-        <LinearLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerPendiente"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="start"
-            android:orientation="vertical">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerPendiente"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-        </LinearLayout>
+            android:layout_margin="10dp"
+            android:layout_gravity="center" />
 
     </FrameLayout>
 
@@ -150,21 +144,16 @@
         android:layout_below="@id/lbl_Pendiente"
         android:layout_marginTop="10dp"
         android:background="@drawable/button_rounded">
-        <LinearLayout
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerProceso"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="start"
-            android:orientation="vertical">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerProceso"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-
-        </LinearLayout>
+            android:layout_margin="10dp"
+            android:layout_gravity="center"/>
 
     </FrameLayout>
+
     <TextView
         android:id="@+id/lbl_Hecho"
         android:layout_width="wrap_content"
@@ -184,18 +173,13 @@
         android:layout_below="@id/lbl_Hecho"
         android:layout_marginTop="10dp"
         android:background="@drawable/button_rounded">
-        <LinearLayout
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerTerminado"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="start"
-            android:orientation="vertical">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerTerminado"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-        </LinearLayout>
+            android:layout_margin="10dp"
+            android:layout_gravity="center"/>
 
     </FrameLayout>
 

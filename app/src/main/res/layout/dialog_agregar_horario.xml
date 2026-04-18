@@ -29,10 +29,10 @@
             android:orientation="vertical">
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Nombre de la materia" android:textStyle="bold" android:textColor="@color/black" android:textSize="16sp"/>
-            <EditText android:id="@+id/etMateria" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@null" android:hint="----------------------------------------------------------" android:textColorHint="@color/black" android:textColor="@color/verde_fuerte" android:paddingVertical="8dp"/>
+            <EditText android:id="@+id/etMateria" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@null" android:hint="----------------------------------------------------------" android:textColorHint="@color/black" android:textColor="@color/black" android:paddingVertical="8dp"/>
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Profesor" android:textStyle="bold" android:textColor="@color/black" android:textSize="16sp" android:layout_marginTop="8dp"/>
-            <EditText android:id="@+id/etProfesor" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@null" android:hint="----------------------------------------------------------" android:textColorHint="@color/black" android:textColor="@color/verde_fuerte" android:paddingVertical="8dp"/>
+            <EditText android:id="@+id/etProfesor" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@null" android:hint="----------------------------------------------------------" android:textColorHint="@color/black" android:textColor="@color/black" android:paddingVertical="8dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -55,10 +55,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-                    <CheckBox android:id="@+id/cbLunes" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Lunes" android:textSize="12sp" android:textColor="@color/black" android:buttonTint="@color/verde_fuerte"/>
-                    <CheckBox android:id="@+id/cbMartes" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Martes" android:textSize="12sp" android:textColor="@color/black" android:buttonTint="@color/verde_fuerte"/>
-                    <CheckBox android:id="@+id/cbMiercoles" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Miérc." android:textSize="12sp" android:textColor="@color/black" android:buttonTint="@color/verde_fuerte"/>
-                    <CheckBox android:id="@+id/cbJueves" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Jueves" android:textSize="12sp" android:textColor="@color/black" android:buttonTint="@color/verde_fuerte"/>
+                    <CheckBox android:id="@+id/cbLunes" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Lunes" android:textSize="12sp" android:textColor="@color/black" android:buttonTint="@color/black"/>
+                    <CheckBox android:id="@+id/cbMartes" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Martes" android:textSize="12sp" android:textColor="@color/black" android:buttonTint="@color/black"/>
+                    <CheckBox android:id="@+id/cbMiercoles" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Miérc." android:textSize="12sp" android:textColor="@color/black" android:buttonTint="@color/black"/>
+                    <CheckBox android:id="@+id/cbJueves" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Jueves" android:textSize="12sp" android:textColor="@color/black" android:buttonTint="@color/black"/>
                 </LinearLayout>
 
                 <!-- Fila 2: Viernes a Domingo -->
@@ -67,21 +67,21 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginTop="2dp">
-                    <CheckBox android:id="@+id/cbViernes" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Viernes" android:textSize="12sp" android:textColor="@color/black" android:buttonTint="@color/verde_fuerte"/>
-                    <CheckBox android:id="@+id/cbSabado" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Sábado" android:textSize="12sp" android:textColor="@color/black" android:buttonTint="@color/verde_fuerte"/>
-                    <CheckBox android:id="@+id/cbDomingo" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Dom." android:textSize="12sp" android:textColor="@color/black" android:buttonTint="@color/verde_fuerte"/>
+                    <CheckBox android:id="@+id/cbViernes" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Viernes" android:textSize="12sp" android:textColor="@color/black" android:buttonTint="@color/black"/>
+                    <CheckBox android:id="@+id/cbSabado" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Sábado" android:textSize="12sp" android:textColor="@color/black" android:buttonTint="@color/black"/>
+                    <CheckBox android:id="@+id/cbDomingo" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Dom." android:textSize="12sp" android:textColor="@color/black" android:buttonTint="@color/black"/>
                     <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
                 </LinearLayout>
             </LinearLayout>
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Hora de inicio" android:textStyle="bold" android:textColor="@color/black" android:textSize="16sp" android:layout_marginTop="8dp"/>
-            <EditText android:id="@+id/etHoraInicio" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@null" android:hint="--:-- AM/PM" android:textColorHint="@color/black" android:textColor="@color/verde_fuerte" android:paddingVertical="8dp" android:focusable="false" android:clickable="true" android:cursorVisible="false"/>
+            <EditText android:id="@+id/etHoraInicio" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@null" android:hint="--:-- AM/PM" android:textColorHint="@color/black" android:textColor="@color/black" android:paddingVertical="8dp" android:focusable="false" android:clickable="true" android:cursorVisible="false"/>
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Hora de fin" android:textStyle="bold" android:textColor="@color/black" android:textSize="16sp" android:layout_marginTop="8dp"/>
-            <EditText android:id="@+id/etHoraFin" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@null" android:hint="--:-- AM/PM" android:textColorHint="@color/black" android:textColor="@color/verde_fuerte" android:paddingVertical="8dp" android:focusable="false" android:clickable="true" android:cursorVisible="false"/>
+            <EditText android:id="@+id/etHoraFin" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@null" android:hint="--:-- AM/PM" android:textColorHint="@color/black" android:textColor="@color/black" android:paddingVertical="8dp" android:focusable="false" android:clickable="true" android:cursorVisible="false"/>
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Salon" android:textStyle="bold" android:textColor="@color/black" android:textSize="16sp" android:layout_marginTop="8dp"/>
-            <EditText android:id="@+id/etSalon" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@null" android:hint="----------------------------------------------------------" android:textColorHint="@color/black" android:textColor="@color/verde_fuerte" android:paddingVertical="8dp"/>
+            <EditText android:id="@+id/etSalon" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@null" android:hint="----------------------------------------------------------" android:textColorHint="@color/black" android:textColor="@color/black" android:paddingVertical="8dp"/>
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Color de la materia" android:textStyle="bold" android:textColor="@color/black" android:textSize="16sp" android:layout_marginTop="15dp"/>
 
