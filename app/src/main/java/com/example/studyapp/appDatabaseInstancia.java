@@ -14,7 +14,9 @@ public class appDatabaseInstancia {
                     context.getApplicationContext(),
                     appDatabase.class,
                     "study_db"
-            ).build();
+            )
+            .fallbackToDestructiveMigration() // Permite que la base de datos se recree si cambia la estructura
+            .build();
         }
         return INSTANCE;
     }

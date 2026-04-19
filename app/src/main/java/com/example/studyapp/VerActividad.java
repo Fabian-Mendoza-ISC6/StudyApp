@@ -62,6 +62,7 @@ public class VerActividad extends AppCompatActivity {
                 .setMessage("¿Estás segur@ de eliminar esta actividad?")
                 .setPositiveButton("Sí", (dialog, which) -> {
                     new Thread(() -> {
+                        AlarmHelper.cancelarAviso(VerActividad.this, idActividad, "ACTIVIDAD");
                         db.appDao().eliminarActividadPorId(idActividad);
                         runOnUiThread(() -> {
                             Intent inte = new Intent(VerActividad.this, Tarea.class);

@@ -144,8 +144,7 @@ public class Tarea extends AppCompatActivity {
             Calendar c = Calendar.getInstance();
             DatePickerDialog datePicker = new DatePickerDialog(this, (v1, y, m, d) -> etFecha.setText(d + "/" + (m + 1) + "/" + y), 
                 c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
-            
-            // 🔥 VALIDACIÓN: No permitir seleccionar días anteriores a hoy
+
             datePicker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
             
             datePicker.show();
@@ -180,9 +179,10 @@ public class Tarea extends AppCompatActivity {
             n.horaInicio = etHora.getText().toString();
             n.descripcion = etDesc.getText().toString();
             n.idMateria = idMat;
-
             new Thread(() -> {
-                db.appDao().insertarActividad(n);
+                long idGenerado = db.appDao().insertarActividad(n);
+
+                AlarmHelper.programarAviso(Tarea.this, (int)idGenerado, "ACTIVIDAD", n.fechaEntrega, n.horaInicio, n.tipo);
                 runOnUiThread(() -> { cargarActividades(); dialog.dismiss(); });
             }).start();
         });

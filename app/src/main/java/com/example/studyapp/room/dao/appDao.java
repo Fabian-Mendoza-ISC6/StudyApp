@@ -17,7 +17,7 @@ public interface appDao {
 
     // ===== MATERIA =====
     @Insert
-    void insertarMateria(materia materia);
+    long insertarMateria(materia materia);
 
     @Query("SELECT * FROM materia")
     List<materia> obtenerMaterias();
@@ -31,7 +31,7 @@ public interface appDao {
 
     // ===== ACTIVIDAD =====
     @Insert
-    void insertarActividad(actividad actividad);
+    long insertarActividad(actividad actividad);
 
     @Query("SELECT * FROM actividad")
     List<actividad> obtenerActividades();
@@ -50,16 +50,20 @@ public interface appDao {
     List<actividad> obtenerPorEstado(String estado);
 
 
-    // ===== RECORDATORIO =====
+    // ===== MÉTODOS PARA RECORDATORIOS =====
+
     @Insert
-    void insertarRecordatorio(recordatorio recordatorio);
+    long insertarRecordatorio(recordatorio recordatorio);
 
-    @Query("SELECT * FROM recordatorio WHERE idActividad = :idActividad")
-    List<recordatorio> obtenerRecordatoriosPorActividad(int idActividad);
+    @Query("SELECT * FROM recordatorio WHERE yaNotificado = :estado")
+    List<recordatorio> obtenerRecordatoriosPorEstado(boolean estado);
 
-    @Update
-    void actualizarRecordatorio(recordatorio recordatorio);
+    @Query("UPDATE recordatorio SET yaNotificado = 1 WHERE id = :id")
+    void marcarComoNotificado(int id);
 
-    @Delete
-    void eliminarRecordatorio(recordatorio recordatorio);
+    @Query("DELETE FROM recordatorio WHERE idActividad = :idActividad")
+    void eliminarPorActividad(int idActividad);
+
+    @Query("DELETE FROM recordatorio WHERE idMateria = :idMateria")
+    void eliminarPorMateria(int idMateria);
 }

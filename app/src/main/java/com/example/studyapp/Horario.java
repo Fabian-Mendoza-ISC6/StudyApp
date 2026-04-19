@@ -278,7 +278,17 @@ public class Horario extends AppCompatActivity {
             nuevaMateria.color = colorSeleccionado;
 
             new Thread(() -> {
-                db.appDao().insertarMateria(nuevaMateria);
+                long idGenerado = db.appDao().insertarMateria(nuevaMateria);
+
+                AlarmHelper.programarAviso(
+                        Horario.this,
+                        (int) idGenerado,
+                        "CLASE",
+                        nuevaMateria.dias, // El Helper ahora procesará esto como "hoy"
+                        nuevaMateria.horaInicio,
+                        nuevaMateria.nombre
+                );
+
                 runOnUiThread(() -> { cargarMaterias(); dialog.dismiss(); });
             }).start();
         });

@@ -15,7 +15,7 @@ import com.example.studyapp.room.entity.recordatorio;
                 actividad.class,
                 recordatorio.class
         },
-        version = 1
+        version = 2
 )
 public abstract class appDatabase extends RoomDatabase {
 

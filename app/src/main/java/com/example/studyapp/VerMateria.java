@@ -101,6 +101,7 @@ public class VerMateria extends AppCompatActivity {
                     .setMessage("¿Estás seguro de que deseas eliminar esta materia?")
                     .setPositiveButton("Eliminar", (dialog, which) -> {
                         new Thread(() -> {
+                            AlarmHelper.cancelarAviso(VerMateria.this, idMateria, "CLASE");
                             materia m = new materia();
                             m.id = idMateria;
                             db.appDao().eliminarMateria(m);
