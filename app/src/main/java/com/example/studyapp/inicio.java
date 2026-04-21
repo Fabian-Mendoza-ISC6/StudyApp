@@ -33,11 +33,15 @@ public class inicio extends AppCompatActivity {
         setContentView(R.layout.inicio);
 
         // ================= BOTONES =================
+        Button btnInicio = findViewById(R.id.btnInicio);
         Button btnCalendario = findViewById(R.id.btnCalendario);
         Button btnTareas = findViewById(R.id.btnTareas);
         Button btnKanba = findViewById(R.id.btnKamba);
+        Button btnEventos = findViewById(R.id.btnEventos);
         ImageView imgStudy = findViewById(R.id.img_study);
 
+        btnInicio.setOnClickListener(v -> cargarDatos()); // Ya estamos en inicio, solo refresca
+        
         btnCalendario.setOnClickListener(v ->
                 startActivity(new Intent(inicio.this, Horario.class)));
 
@@ -46,6 +50,9 @@ public class inicio extends AppCompatActivity {
 
         btnKanba.setOnClickListener(v ->
                 startActivity(new Intent(inicio.this, Kanba.class)));
+
+        btnEventos.setOnClickListener(v ->
+                startActivity(new Intent(inicio.this, Calendario.class)));
 
         imgStudy.setOnClickListener(v ->
                 startActivity(new Intent(inicio.this, MainActivity.class)));
@@ -72,7 +79,6 @@ public class inicio extends AppCompatActivity {
     private void cargarDatos() {
         new Thread(() -> {
             Calendar calendar = Calendar.getInstance();
-            // Nombres de días sin tildes
             String[] diasNombres = {"Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"};
             String hoy = diasNombres[calendar.get(Calendar.DAY_OF_WEEK) - 1];
             
@@ -81,7 +87,6 @@ public class inicio extends AppCompatActivity {
             // 1. Filtrar Materias (Próximos 30 minutos)
             List<materia> todasMaterias = dao.obtenerMaterias();
             List<materia> proximasMaterias = new ArrayList<>();
-            // 🔥 Usamos Locale.US para que entienda "AM/PM" correctamente
             SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a", Locale.US);
             long ahoraMillis = calendar.getTimeInMillis();
 
@@ -99,9 +104,8 @@ public class inicio extends AppCompatActivity {
                             calClase.set(Calendar.SECOND, 0);
 
                             long diferenciaMillis = calClase.getTimeInMillis() - ahoraMillis;
-                            long ventanaTiempo = 35 * 60 * 1000; // 35 min para dar un pequeño margen
+                            long ventanaTiempo = 35 * 60 * 1000; 
 
-                            // Si falta entre 0 y 35 minutos para que empiece
                             if (diferenciaMillis > 0 && diferenciaMillis <= ventanaTiempo) {
                                 proximasMaterias.add(m);
                             }
@@ -112,7 +116,6 @@ public class inicio extends AppCompatActivity {
                 }
             }
 
-            // 2. Filtrar Tareas (Solo hoy)
             List<actividad> todasActividades = dao.obtenerActividades();
             List<actividad> tareasHoy = new ArrayList<>();
             for (actividad a : todasActividades) {

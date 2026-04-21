@@ -42,12 +42,19 @@ public class Tarea extends AppCompatActivity {
         
         db = appDatabaseInstancia.getInstance(this);
 
+        // ================= TOOLBAR BUTTONS =================
+        findViewById(R.id.btnInicio).setOnClickListener(v -> startActivity(new Intent(this, inicio.class)));
+        findViewById(R.id.btnCalendario).setOnClickListener(v -> startActivity(new Intent(this, Horario.class)));
+        findViewById(R.id.btnTareas).setOnClickListener(v -> cargarActividades()); // Refresh current
+        findViewById(R.id.btnKamba).setOnClickListener(v -> startActivity(new Intent(this, Kanba.class)));
+        findViewById(R.id.btnEventos).setOnClickListener(v -> startActivity(new Intent(this, Calendario.class)));
+        findViewById(R.id.img_study).setOnClickListener(v -> startActivity(new Intent(this, MainActivity.class)));
+
         // Inicializar RecyclerView
         recyclerActividades = findViewById(R.id.recyclerActividades);
         recyclerActividades.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ActividadAdapter(listaActividades, listaMaterias,(act, nombreMateria) -> {
             Intent intent = new Intent(Tarea.this, VerActividad.class);
-
             intent.putExtra("id", act.id);
             intent.putExtra("tipo", act.tipo);
             intent.putExtra("estado", act.estado);
@@ -56,7 +63,6 @@ public class Tarea extends AppCompatActivity {
             intent.putExtra("descripcion", act.descripcion);
             intent.putExtra("idMateria", act.idMateria);
             intent.putExtra("materiaNombre", nombreMateria);
-
             startActivity(intent);
         });
         recyclerActividades.setAdapter(adapter);
@@ -64,13 +70,6 @@ public class Tarea extends AppCompatActivity {
         cargarActividades();
         cargarMaterias();
 
-
-        // Botones de navegación
-        findViewById(R.id.btnInicio).setOnClickListener(v -> startActivity(new Intent(Tarea.this, inicio.class)));
-        findViewById(R.id.btnCalendario).setOnClickListener(v -> startActivity(new Intent(Tarea.this, Horario.class)));
-        findViewById(R.id.img_study).setOnClickListener(v -> startActivity(new Intent(Tarea.this, MainActivity.class)));
-        findViewById(R.id.btnKamba).setOnClickListener(v -> startActivity(new Intent(Tarea.this, Kanba.class)));
-        
         findViewById(R.id.btnAgrgar).setOnClickListener(v -> mostrarDialogoAgregarTarea());
     }
 
@@ -121,7 +120,6 @@ public class Tarea extends AppCompatActivity {
         EditText etHora = view.findViewById(R.id.HoraInicio);
         EditText etDesc = view.findViewById(R.id.TextDescripcion);
 
-        // Cargar materias para el dropdown
         new Thread(() -> {
             listaMaterias = db.appDao().obtenerMaterias();
             runOnUiThread(() -> {
@@ -144,9 +142,7 @@ public class Tarea extends AppCompatActivity {
             Calendar c = Calendar.getInstance();
             DatePickerDialog datePicker = new DatePickerDialog(this, (v1, y, m, d) -> etFecha.setText(d + "/" + (m + 1) + "/" + y), 
                 c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
-
             datePicker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-            
             datePicker.show();
         });
 
@@ -179,9 +175,9 @@ public class Tarea extends AppCompatActivity {
             n.horaInicio = etHora.getText().toString();
             n.descripcion = etDesc.getText().toString();
             n.idMateria = idMat;
+
             new Thread(() -> {
                 long idGenerado = db.appDao().insertarActividad(n);
-
                 AlarmHelper.programarAviso(Tarea.this, (int)idGenerado, "ACTIVIDAD", n.fechaEntrega, n.horaInicio, n.tipo);
                 runOnUiThread(() -> { cargarActividades(); dialog.dismiss(); });
             }).start();

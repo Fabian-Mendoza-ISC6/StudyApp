@@ -1,11 +1,8 @@
 package com.example.studyapp;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.DragEvent;
-import android.view.View;
 import android.widget.FrameLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -34,9 +31,16 @@ public class Kanba extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.kanba);
 
-
         db = appDatabaseInstancia.getInstance(this);
         dao = db.appDao();
+
+        // ================= TOOLBAR BUTTONS =================
+        findViewById(R.id.btnInicio).setOnClickListener(v -> startActivity(new Intent(this, inicio.class)));
+        findViewById(R.id.btnCalendario).setOnClickListener(v -> startActivity(new Intent(this, Horario.class)));
+        findViewById(R.id.btnTareas).setOnClickListener(v -> startActivity(new Intent(this, Tarea.class)));
+        findViewById(R.id.btnKamba).setOnClickListener(v -> cargarKanban()); // Refresh current
+        findViewById(R.id.btnEventos).setOnClickListener(v -> startActivity(new Intent(this, Calendario.class)));
+        findViewById(R.id.img_study).setOnClickListener(v -> startActivity(new Intent(this, MainActivity.class)));
 
         rPendiente = findViewById(R.id.recyclerPendiente);
         rProceso = findViewById(R.id.recyclerProceso);
@@ -45,13 +49,6 @@ public class Kanba extends AppCompatActivity {
         rPendiente.setLayoutManager(new LinearLayoutManager(this));
         rProceso.setLayoutManager(new LinearLayoutManager(this));
         rTerminado.setLayoutManager(new LinearLayoutManager(this));
-
-
-        findViewById(R.id.btnInicio).setOnClickListener(v -> startActivity(new Intent(this, inicio.class)));
-        findViewById(R.id.btnCalendario).setOnClickListener(v -> startActivity(new Intent(this, Horario.class)));
-        findViewById(R.id.btnTareas).setOnClickListener(v -> startActivity(new Intent(this, Tarea.class)));
-        findViewById(R.id.img_study).setOnClickListener(v -> startActivity(new Intent(this, MainActivity.class)));
-
 
         configurarDrop(findViewById(R.id.contededordeTarea), "Pendiente");
         configurarDrop(findViewById(R.id.contededordeClases), "En curso");

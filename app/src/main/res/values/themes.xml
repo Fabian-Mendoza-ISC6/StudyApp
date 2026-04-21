@@ -2,11 +2,30 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.StudyApp" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="colorPrimary">@color/color_azul</item>
         <item name="colorAccent">@color/color_azul</item>
-
     </style>
 
     <style name="Theme.StudyApp" parent="Base.Theme.StudyApp" />
+
+    <!-- Estilo para que el Calendario se vea más fuerte -->
+    <style name="CalendarioFuerte" parent="Theme.AppCompat.Light">
+        <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:textColorSecondary">#424242</item>
+        <item name="android:textColorTertiary">@color/black</item>
+        <item name="android:headerMonthTextAppearance">@style/CalendarioHeader</item>
+        <item name="android:weekDayTextAppearance">@style/CalendarioDiasSemana</item>
+    </style>
+
+    <style name="CalendarioHeader">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="CalendarioDiasSemana">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

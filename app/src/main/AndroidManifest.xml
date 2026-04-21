@@ -41,6 +41,9 @@
             android:name=".Kanba"
             android:exported="false" />
         <activity
+            android:name=".Calendario"
+            android:exported="false" />
+        <activity
             android:name=".VerActividad"
             android:exported="false" />
         <activity

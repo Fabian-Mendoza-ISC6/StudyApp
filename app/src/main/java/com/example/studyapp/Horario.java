@@ -44,6 +44,15 @@ public class Horario extends AppCompatActivity {
         setContentView(R.layout.horario);
         db = appDatabaseInstancia.getInstance(this);
 
+        // ================= TOOLBAR BUTTONS =================
+        findViewById(R.id.btnInicio).setOnClickListener(v -> startActivity(new Intent(this, inicio.class)));
+        findViewById(R.id.btnCalendario).setOnClickListener(v -> cargarMaterias()); // Refresh current
+        findViewById(R.id.btnTareas).setOnClickListener(v -> startActivity(new Intent(this, Tarea.class)));
+        findViewById(R.id.btnKamba).setOnClickListener(v -> startActivity(new Intent(this, Kanba.class)));
+        findViewById(R.id.btnEventos).setOnClickListener(v -> startActivity(new Intent(this, Calendario.class)));
+        findViewById(R.id.img_study).setOnClickListener(v -> startActivity(new Intent(this, MainActivity.class)));
+
+        // ================= DÍAS BUTTONS =================
         btnL = findViewById(R.id.btnLunes);
         btnM = findViewById(R.id.btnMartes);
         btnMi = findViewById(R.id.btnMiercoles);
@@ -73,11 +82,6 @@ public class Horario extends AppCompatActivity {
         cargarMaterias();
         configurarFiltrosDias();
 
-        findViewById(R.id.btnInicio).setOnClickListener(v -> startActivity(new Intent(Horario.this, inicio.class)));
-        findViewById(R.id.btnTareas).setOnClickListener(v -> startActivity(new Intent(Horario.this, Tarea.class)));
-        findViewById(R.id.btnKamba).setOnClickListener(v -> startActivity(new Intent(Horario.this, Kanba.class)));
-        findViewById(R.id.img_study).setOnClickListener(v -> startActivity(new Intent(Horario.this, MainActivity.class)));
-        
         Button btnAgregar = findViewById(R.id.btnAgrgar);
         btnAgregar.setOnClickListener(v -> mostrarDialogo());
     }
@@ -137,11 +141,9 @@ public class Horario extends AppCompatActivity {
             }
         }
 
-        // 🔥 LÓGICA DE ORDENAMIENTO POR HORA
         Collections.sort(filtradas, (m1, m2) -> {
             try {
                 SimpleDateFormat format = new SimpleDateFormat("hh:mm a", Locale.US);
-                // Normalizar formatos para que Java los entienda siempre
                 String h1 = m1.horaInicio.replace("a. m.", "AM").replace("p. m.", "PM").replace("a.m.", "AM").replace("p.m.", "PM");
                 String h2 = m2.horaInicio.replace("a. m.", "AM").replace("p. m.", "PM").replace("a.m.", "AM").replace("p.m.", "PM");
                 
