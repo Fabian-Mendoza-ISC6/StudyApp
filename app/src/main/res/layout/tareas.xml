@@ -31,14 +31,82 @@
         android:scaleType="centerInside"
         android:src="@drawable/logosinfondo" />
 
+    <!-- Botón de configuración con fondo redondeado -->
+    <Button
+        android:id="@+id/btnConfiguracion"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/blanco_redondiado"
+        android:text="⚙️"
+        android:textSize="24sp"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:padding="0dp"
+        app:backgroundTint="@null" />
+
+    <LinearLayout
+        android:id="@+id/toolDeTarea"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/img_study"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/redendoverdeclaro"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="20dp">
+
+        <TextView
+            android:id="@+id/lbl_ProximaClase"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif"
+            android:text="Asignaciones:"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnAgrgar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/amarlloagregar"
+            android:text="+"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:padding="0dp"
+            app:backgroundTint="@null" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/ContenedordeTodasTareas"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolDeTarea"
+        android:layout_above="@+id/toolbarIcons"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/button_rounded">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerActividades"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_gravity="center" />
+
+    </FrameLayout>
 
     <LinearLayout
         android:id="@+id/toolbarIcons"
         android:layout_width="match_parent"
         android:layout_height="75dp"
-        android:layout_below="@+id/img_study"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/verde_redondiado"
         android:gravity="center"
         android:orientation="horizontal"
@@ -120,57 +188,5 @@
             app:backgroundTint="@null" />
 
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/toolDeTarea"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@+id/toolbarIcons"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="2dp"
-        android:background="@drawable/redendoverdeclaro"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingHorizontal="20dp">
-
-        <TextView
-            android:id="@+id/lbl_ProximaClase"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="sans-serif"
-            android:text="Asignaciones:"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/btnAgrgar"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/amarlloagregar"
-            android:text="+"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            android:padding="0dp"
-            app:backgroundTint="@null" />
-    </LinearLayout>
-
-    <FrameLayout
-        android:id="@+id/ContenedordeTodasTareas"
-        android:layout_width="match_parent"
-        android:layout_height="530dp"
-        android:layout_below="@id/toolDeTarea"
-        android:layout_marginTop="1dp"
-        android:background="@drawable/button_rounded">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerActividades"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            android:layout_gravity="center" />
-
-    </FrameLayout>
 
 </RelativeLayout>
