@@ -31,101 +31,25 @@
         android:scaleType="centerInside"
         android:src="@drawable/logosinfondo" />
 
-
-    <LinearLayout
-        android:id="@+id/toolbarIcons"
-        android:layout_width="match_parent"
-        android:layout_height="75dp"
-        android:layout_below="@+id/img_study"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/verde_redondiado"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingHorizontal="8dp">
-
-        <Button
-            android:id="@+id/btnInicio"
-            android:layout_width="0dp"
-            android:layout_height="55dp"
-            android:layout_margin="2dp"
-            android:layout_weight="1"
-            android:background="@drawable/blanco_redondiado"
-            android:text="🏠"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            android:padding="0dp"
-            android:minWidth="0dp"
-            android:minHeight="0dp"
-            app:backgroundTint="@null" />
-
-        <Button
-            android:id="@+id/btnCalendario"
-            android:layout_width="0dp"
-            android:layout_height="55dp"
-            android:layout_margin="2dp"
-            android:layout_weight="1"
-            android:background="@drawable/button_rounded"
-            android:text="📆"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            android:padding="0dp"
-            android:minWidth="0dp"
-            android:minHeight="0dp"
-            app:backgroundTint="@null" />
-
-        <Button
-            android:id="@+id/btnTareas"
-            android:layout_width="0dp"
-            android:layout_height="55dp"
-            android:layout_margin="2dp"
-            android:layout_weight="1"
-            android:background="@drawable/blanco_redondiado"
-            android:text="📄"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            android:padding="0dp"
-            android:minWidth="0dp"
-            android:minHeight="0dp"
-            app:backgroundTint="@null" />
-
-        <Button
-            android:id="@+id/btnKamba"
-            android:layout_width="0dp"
-            android:layout_height="55dp"
-            android:layout_margin="2dp"
-            android:layout_weight="1"
-            android:background="@drawable/blanco_redondiado"
-            android:text="📋"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            android:padding="0dp"
-            android:minWidth="0dp"
-            android:minHeight="0dp"
-            app:backgroundTint="@null" />
-
-        <Button
-            android:id="@+id/btnEventos"
-            android:layout_width="0dp"
-            android:layout_height="55dp"
-            android:layout_margin="2dp"
-            android:layout_weight="1"
-            android:background="@drawable/blanco_redondiado"
-            android:text="🗓️"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            android:padding="0dp"
-            android:minWidth="0dp"
-            android:minHeight="0dp"
-            app:backgroundTint="@null" />
-
-    </LinearLayout>
+    <Button
+        android:id="@+id/btnConfiguracion"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/blanco_redondiado"
+        android:text="⚙️"
+        android:textSize="24sp"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:padding="0dp"
+        app:backgroundTint="@null" />
 
     <LinearLayout
         android:id="@+id/toolSemanda"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:layout_below="@+id/toolbarIcons"
+        android:layout_below="@+id/img_study"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:background="@drawable/redendoverdeclaro"
@@ -243,9 +167,11 @@
     <FrameLayout
         android:id="@+id/ContenedoredeHorarios"
         android:layout_width="match_parent"
-        android:layout_height="490dp"
+        android:layout_height="match_parent"
         android:layout_below="@id/toolSemanda"
+        android:layout_above="@+id/toolbarIcons"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/button_rounded">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -256,5 +182,94 @@
             android:layout_gravity="center"/>
 
     </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/toolbarIcons"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/verde_redondiado"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingHorizontal="8dp">
+
+        <Button
+            android:id="@+id/btnInicio"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:background="@drawable/blanco_redondiado"
+            android:text="🏠"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:padding="0dp"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/btnCalendario"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_rounded"
+            android:text="📆"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:padding="0dp"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/btnTareas"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:background="@drawable/blanco_redondiado"
+            android:text="📄"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:padding="0dp"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/btnKamba"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:background="@drawable/blanco_redondiado"
+            android:text="📋"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:padding="0dp"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/btnEventos"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:background="@drawable/blanco_redondiado"
+            android:text="🗓️"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:padding="0dp"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            app:backgroundTint="@null" />
+
+    </LinearLayout>
 
 </RelativeLayout>

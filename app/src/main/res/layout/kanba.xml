@@ -31,14 +31,122 @@
         android:scaleType="centerInside"
         android:src="@drawable/logosinfondo" />
 
+    <!-- Botón de configuración con fondo redondeado -->
+    <Button
+        android:id="@+id/btnConfiguracion"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/blanco_redondiado"
+        android:text="⚙️"
+        android:textSize="24sp"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:padding="0dp"
+        app:backgroundTint="@null" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/img_study"
+        android:layout_above="@+id/toolbarIcons"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/lbEentregas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:text="Pendiente:"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <FrameLayout
+            android:id="@+id/contededordeTarea"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/button_rounded">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerPendiente"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_gravity="center" />
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/lbl_Pendiente"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:text="En curso:"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <FrameLayout
+            android:id="@+id/contededordeClases"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/button_rounded">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerProceso"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_gravity="center"/>
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/lbl_Hecho"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:text="Hecho:"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <FrameLayout
+            android:id="@+id/contededorHecho"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/button_rounded">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerTerminado"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_gravity="center"/>
+
+        </FrameLayout>
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/toolbarIcons"
         android:layout_width="match_parent"
         android:layout_height="75dp"
-        android:layout_below="@+id/img_study"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/verde_redondiado"
         android:gravity="center"
         android:orientation="horizontal"
@@ -120,93 +228,5 @@
             app:backgroundTint="@null" />
 
     </LinearLayout>
-
-
-    <TextView
-        android:id="@+id/lbEentregas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/toolbarIcons"
-        android:layout_marginTop="20dp"
-        android:fontFamily="sans-serif"
-        android:text="Pendiente:"
-        android:textSize="20sp"
-        android:textColor="@color/black"
-        android:textStyle="bold" />
-
-    <FrameLayout
-        android:id="@+id/contededordeTarea"
-        android:layout_width="match_parent"
-        android:layout_height="145dp"
-        android:layout_below="@id/lbEentregas"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/button_rounded">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerPendiente"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            android:layout_gravity="center" />
-
-    </FrameLayout>
-
-    <TextView
-        android:id="@+id/lbl_Pendiente"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/contededordeTarea"
-        android:layout_marginTop="15dp"
-        android:fontFamily="sans-serif"
-        android:text="En curso:"
-        android:textSize="20sp"
-        android:textColor="@color/black"
-        android:textStyle="bold" />
-
-    <FrameLayout
-        android:id="@+id/contededordeClases"
-        android:layout_width="match_parent"
-        android:layout_height="145dp"
-        android:layout_below="@id/lbl_Pendiente"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/button_rounded">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerProceso"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            android:layout_gravity="center"/>
-
-    </FrameLayout>
-
-    <TextView
-        android:id="@+id/lbl_Hecho"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/contededordeClases"
-        android:layout_marginTop="15dp"
-        android:fontFamily="sans-serif"
-        android:text="Hecho:"
-        android:textSize="20sp"
-        android:textColor="@color/black"
-        android:textStyle="bold" />
-
-    <FrameLayout
-        android:id="@+id/contededorHecho"
-        android:layout_width="match_parent"
-        android:layout_height="145dp"
-        android:layout_below="@id/lbl_Hecho"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/button_rounded">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerTerminado"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            android:layout_gravity="center"/>
-
-    </FrameLayout>
 
 </RelativeLayout>
