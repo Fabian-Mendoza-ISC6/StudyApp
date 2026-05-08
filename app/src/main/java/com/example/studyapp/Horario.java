@@ -13,6 +13,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -169,6 +170,42 @@ public class Horario extends AppCompatActivity {
         }).start();
     }
 
+    private int tiempoEnMinutos(String horaStr) {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("hh:mm a", Locale.US);
+            String h = horaStr.replace("a. m.", "AM").replace("p. m.", "PM").replace("a.m.", "AM").replace("p.m.", "PM");
+            Date date = format.parse(h);
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            return cal.get(Calendar.HOUR_OF_DAY) * 60 + cal.get(Calendar.MINUTE);
+        } catch (Exception e) {
+            return -1;
+        }
+    }
+
+    private boolean hayConflicto(String dia, String hInicio, String hFin, int idExcluir) {
+        int nuevoI = tiempoEnMinutos(hInicio);
+        int nuevoF = tiempoEnMinutos(hFin);
+        if (nuevoI == -1 || nuevoF == -1) return false;
+
+        for (materia m : todasLasMaterias) {
+            if (m.id == idExcluir) continue;
+            if (m.dias != null && m.dias.contains(dia)) {
+                int mI = tiempoEnMinutos(m.horaInicio);
+                int mF = tiempoEnMinutos(m.horaFin);
+                if (mI == -1 || mF == -1) continue;
+                // Verificar si se solapan los intervalos
+                if (nuevoI < mF && nuevoF > mI) return true;
+            }
+        }
+        return false;
+    }
+
+    private String capitalizar(String s) {
+        if (s == null || s.isEmpty()) return s;
+        return s.substring(0, 1).toUpperCase() + s.substring(1);
+    }
+
     private void mostrarDialogo() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
@@ -247,13 +284,58 @@ public class Horario extends AppCompatActivity {
         }
 
         view.findViewById(R.id.btnDialogGuardar).setOnClickListener(v -> {
-            String nombre = etMateria.getText().toString();
-            String profesor = etProfesor.getText().toString();
-            String salon = etSalon.getText().toString();
-            String hInicio = etHoraInicio.getText().toString();
-            String hFin = etHoraFin.getText().toString();
+            String nombre = etMateria.getText().toString().trim();
+            String profesor = etProfesor.getText().toString().trim();
+            String salon = etSalon.getText().toString().trim();
+            String hInicio = etHoraInicio.getText().toString().trim();
+            String hFin = etHoraFin.getText().toString().trim();
 
-            if (nombre.isEmpty()) { etMateria.setError("Obligatorio"); return; }
+            // Capitalización de la primera letra
+            nombre = capitalizar(nombre);
+            profesor = capitalizar(profesor);
+
+            // Expresión regular para solo letras, acentos, ñ y puntos
+            String regex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ. ]+$";
+
+            if (nombre.isEmpty()) {
+                etMateria.setError("La materia es obligatoria");
+                return;
+            }
+            if (!nombre.matches(regex)) {
+                etMateria.setError("Solo se permiten letras y puntos");
+                return;
+            }
+
+            if (profesor.isEmpty()) {
+                etProfesor.setError("El profesor es obligatorio");
+                return;
+            }
+            if (!profesor.matches(regex)) {
+                etProfesor.setError("Solo se permiten letras y puntos");
+                return;
+            }
+
+            if (salon.isEmpty()) {
+                etSalon.setError("El salón es obligatorio");
+                return;
+            }
+
+            if (hInicio.isEmpty()) {
+                Toast.makeText(this, "Debe seleccionar la hora de inicio", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (hFin.isEmpty()) {
+                Toast.makeText(this, "Debe seleccionar la hora de fin", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Validar que la hora de fin no sea menor o igual a la de inicio
+            int minInicio = tiempoEnMinutos(hInicio);
+            int minFin = tiempoEnMinutos(hFin);
+            if (minFin <= minInicio) {
+                Toast.makeText(this, "La hora de salida no puede ser antes o igual a la de entrada", Toast.LENGTH_SHORT).show();
+                return;
+            }
             
             String diaElegido = "";
             for (int i = 0; i < rbDiasIds.length; i++) {
@@ -264,7 +346,13 @@ public class Horario extends AppCompatActivity {
             }
 
             if (diaElegido.isEmpty()) {
-                ((RadioButton) view.findViewById(R.id.rbLunes)).setError("Elige un día");
+                Toast.makeText(this, "Debe seleccionar un día", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Validar que no haya conflicto de horario con otra clase
+            if (hayConflicto(diaElegido, hInicio, hFin, -1)) {
+                Toast.makeText(this, "Ya tienes una clase registrada en este horario y día", Toast.LENGTH_LONG).show();
                 return;
             }
 
@@ -286,7 +374,7 @@ public class Horario extends AppCompatActivity {
                         Horario.this,
                         (int) idGenerado,
                         "CLASE",
-                        nuevaMateria.dias, // El Helper ahora procesará esto como "hoy"
+                        nuevaMateria.dias,
                         nuevaMateria.horaInicio,
                         nuevaMateria.nombre
                 );

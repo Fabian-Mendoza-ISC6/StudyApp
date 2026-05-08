@@ -13,6 +13,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,8 +24,10 @@ import com.example.studyapp.appDatabaseInstancia;
 import com.example.studyapp.room.entity.actividad;
 import com.example.studyapp.room.entity.materia;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -97,6 +100,60 @@ public class Tarea extends AppCompatActivity {
         cargarActividades();
     }
 
+    private int tiempoEnMinutos(String horaStr) {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("hh:mm a", Locale.US);
+            String h = horaStr.replace("a. m.", "AM").replace("p. m.", "PM").replace("a.m.", "AM").replace("p.m.", "PM");
+            Date date = format.parse(h);
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            return cal.get(Calendar.HOUR_OF_DAY) * 60 + cal.get(Calendar.MINUTE);
+        } catch (Exception e) {
+            return -1;
+        }
+    }
+
+    private String obtenerDiaSemana(String fechaStr) {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("d/M/yyyy", Locale.getDefault());
+            Date date = format.parse(fechaStr);
+            String dia = new SimpleDateFormat("EEEE", new Locale("es", "ES")).format(date);
+            dia = dia.substring(0, 1).toUpperCase() + dia.substring(1).toLowerCase();
+            if (dia.equals("Miércoles")) dia = "Miercoles";
+            if (dia.equals("Sábado")) dia = "Sabado";
+            return dia;
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+    private boolean hayConflictoConClase(String fecha, String hora) {
+        String diaSemana = obtenerDiaSemana(fecha);
+        int horaTarea = tiempoEnMinutos(hora);
+        
+        if (diaSemana.isEmpty() || horaTarea == -1) return false;
+
+        for (materia m : listaMaterias) {
+            if (m.dias != null && m.dias.contains(diaSemana)) {
+                int mInicio = tiempoEnMinutos(m.horaInicio);
+                int mFin = tiempoEnMinutos(m.horaFin);
+                
+                if (mInicio == -1 || mFin == -1) continue;
+
+                // Si la hora de la tarea cae dentro del rango de la clase
+                if (horaTarea >= mInicio && horaTarea < mFin) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private String capitalizar(String s) {
+        if (s == null || s.isEmpty()) return s;
+        return s.substring(0, 1).toUpperCase() + s.substring(1);
+    }
+
     private void mostrarDialogoAgregarTarea() {
         Locale locale = new Locale("es", "ES");
         Locale.setDefault(locale);
@@ -157,10 +214,19 @@ public class Tarea extends AppCompatActivity {
 
         view.findViewById(R.id.btnDialogCancelar).setOnClickListener(v -> dialog.dismiss());
         view.findViewById(R.id.btnDialogGuardar).setOnClickListener(v -> {
-            String t = tipoAct.getText().toString();
-            String mNombre = materiaAct.getText().toString();
+            String t = tipoAct.getText().toString().trim();
+            String mNombre = materiaAct.getText().toString().trim();
+            String estado = estadoAct.getText().toString().trim();
+            String fecha = etFecha.getText().toString().trim();
+            String hora = etHora.getText().toString().trim();
+            String desc = etDesc.getText().toString().trim();
+
             if (t.isEmpty()) { tipoAct.setError("Obligatorio"); return; }
             if (mNombre.isEmpty()) { materiaAct.setError("Obligatorio"); return; }
+            if (estado.isEmpty()) { estadoAct.setError("Obligatorio"); return; }
+            if (fecha.isEmpty()) { etFecha.setError("Obligatorio"); return; }
+            if (hora.isEmpty()) { etHora.setError("Obligatorio"); return; }
+            if (desc.isEmpty()) { etDesc.setError("Obligatorio"); return; }
 
             int idMat = -1;
             for (materia mat : listaMaterias) {
@@ -168,12 +234,18 @@ public class Tarea extends AppCompatActivity {
             }
             if (idMat == -1) { materiaAct.setError("Materia no válida"); return; }
 
+            // Validar conflicto con horario de clases
+            if (hayConflictoConClase(fecha, hora)) {
+                Toast.makeText(this, "No puedes registrar una tarea durante el horario de una clase", Toast.LENGTH_LONG).show();
+                return;
+            }
+
             actividad n = new actividad();
-            n.tipo = t;
-            n.estado = estadoAct.getText().toString();
-            n.fechaEntrega = etFecha.getText().toString();
-            n.horaInicio = etHora.getText().toString();
-            n.descripcion = etDesc.getText().toString();
+            n.tipo = capitalizar(t);
+            n.estado = estado;
+            n.fechaEntrega = fecha;
+            n.horaInicio = hora;
+            n.descripcion = desc;
             n.idMateria = idMat;
 
             new Thread(() -> {
