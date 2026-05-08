@@ -78,8 +78,8 @@
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Hora de fin" android:textStyle="bold" android:textColor="@color/black" android:textSize="16sp" android:layout_marginTop="8dp"/>
             <EditText android:id="@+id/etHoraFin" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@null" android:hint="--:-- AM/PM" android:textColorHint="#757575" android:textColor="@color/black" android:paddingVertical="8dp" android:focusable="false" android:clickable="true"/>
 
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Salon" android:textStyle="bold" android:textColor="@color/black" android:textSize="16sp" android:layout_marginTop="8dp"/>
-            <EditText android:id="@+id/etSalon" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@null" android:hint="Aula o salon" android:textColorHint="#757575" android:textColor="@color/black" android:paddingVertical="8dp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Salón" android:textStyle="bold" android:textColor="@color/black" android:textSize="16sp" android:layout_marginTop="8dp"/>
+            <EditText android:id="@+id/etSalon" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@null" android:hint="Aula o salón (opcional)" android:textColorHint="#757575" android:textColor="@color/black" android:paddingVertical="8dp"/>
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Color de la materia" android:textStyle="bold" android:textColor="@color/black" android:textSize="16sp" android:layout_marginTop="15dp"/>
 

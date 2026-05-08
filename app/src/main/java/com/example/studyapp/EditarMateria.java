@@ -120,7 +120,7 @@ public class EditarMateria extends AppCompatActivity {
             if (profesor.isEmpty()) { etProfesor.setError("El profesor es obligatorio"); return; }
             if (!profesor.matches(regex)) { etProfesor.setError("Solo se permiten letras y puntos"); return; }
             
-            if (salon.isEmpty()) { etSalon.setError("El salón es obligatorio"); return; }
+            // El salón ahora es opcional por petición del usuario.
 
             if (hInicio.isEmpty()) { Toast.makeText(this, "Debe seleccionar la hora de inicio", Toast.LENGTH_SHORT).show(); return; }
             if (hFin.isEmpty()) { Toast.makeText(this, "Debe seleccionar la hora de fin", Toast.LENGTH_SHORT).show(); return; }

@@ -315,10 +315,7 @@ public class Horario extends AppCompatActivity {
                 return;
             }
 
-            if (salon.isEmpty()) {
-                etSalon.setError("El salón es obligatorio");
-                return;
-            }
+            // EL SALÓN ES OPCIONAL (Se quitó la validación de obligatorio)
 
             if (hInicio.isEmpty()) {
                 Toast.makeText(this, "Debe seleccionar la hora de inicio", Toast.LENGTH_SHORT).show();
