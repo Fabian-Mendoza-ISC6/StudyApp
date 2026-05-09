@@ -161,9 +161,27 @@ public class EditarMateria extends AppCompatActivity {
             m.dias = diaElegido;
             m.color = colorSeleccionado;
 
-            new Thread(() -> {
+            // Busca el botón btnGuardar.setOnClickListener y reemplaza el bloque del Thread:
+            new Thread(() -> {// 1. CANCELAR la alarma anterior
+                AlarmHelper.cancelarAviso(EditarMateria.this, idMateria, "CLASE");
+
+                // 2. ACTUALIZAR en la base de datos
                 db.appDao().actualizarMateria(m);
+
+                // 3. REPROGRAMAR la nueva alarma con los datos editados
+                String detallesMateria = "Prof: " + m.profesor + " | Aula: " + m.salon;
+                AlarmHelper.programarAviso(
+                        EditarMateria.this,
+                        m.id,
+                        "CLASE",
+                        m.dias,
+                        m.horaInicio,
+                        m.nombre,
+                        detallesMateria
+                );
+
                 runOnUiThread(() -> {
+                    Toast.makeText(EditarMateria.this, "Materia actualizada", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(EditarMateria.this, Horario.class);
                     i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(i);

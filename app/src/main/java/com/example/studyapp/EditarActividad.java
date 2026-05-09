@@ -64,11 +64,14 @@ public class EditarActividad extends AppCompatActivity {
         new Thread(() -> {
             listaMaterias = db.appDao().obtenerMaterias();
             runOnUiThread(() -> {
-                List<String> nombres = new ArrayList<>();
+                List<String> nombresUnicos = new ArrayList<>();
                 for (materia m : listaMaterias) {
-                    nombres.add(m.nombre);
+                    if (!nombresUnicos.contains(m.nombre)) {
+                        nombresUnicos.add(m.nombre);
+                    }
                 }
-                materiaAct.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, nombres));
+                materiaAct.setAdapter(new ArrayAdapter<>(this,
+                        android.R.layout.simple_dropdown_item_1line, nombresUnicos));
             });
         }).start();
 
@@ -145,12 +148,25 @@ public class EditarActividad extends AppCompatActivity {
             act.idMateria = idMat;
 
             new Thread(() -> {
+                //1. ACTUALIZAR en la base de datos
                 db.appDao().actualizarActividad(act);
-                // Reprogramar aviso si es necesario (asumiendo lógica en AlarmHelper)
+
+                // 2. CANCELAR la alarma anterior
                 AlarmHelper.cancelarAviso(EditarActividad.this, act.id, "ACTIVIDAD");
-                AlarmHelper.programarAviso(EditarActividad.this, act.id, "ACTIVIDAD", act.fechaEntrega, act.horaInicio, act.tipo);
+
+                // 3. REPROGRAMAR la nueva alarma
+                AlarmHelper.programarAviso(
+                        EditarActividad.this,
+                        act.id,
+                        "ACTIVIDAD",
+                        act.fechaEntrega,
+                        act.horaInicio,
+                        act.tipo,
+                        act.descripcion // Se envía la descripción como detalle
+                );
 
                 runOnUiThread(() -> {
+                    Toast.makeText(EditarActividad.this, "Actividad actualizada", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(EditarActividad.this, Tarea.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);

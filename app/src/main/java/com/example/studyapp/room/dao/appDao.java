@@ -21,6 +21,8 @@ public interface appDao {
 
     @Query("SELECT * FROM materia")
     List<materia> obtenerMaterias();
+    @Query("SELECT * FROM materia WHERE id = :id")
+    materia obtenerMateriaPorId(int id);
 
     @Update
     void actualizarMateria(materia materia);
@@ -35,6 +37,8 @@ public interface appDao {
 
     @Query("SELECT * FROM actividad")
     List<actividad> obtenerActividades();
+    @Query("SELECT * FROM actividad WHERE id = :id")
+    actividad obtenerActividadPorId(int id);
 
     @Query("SELECT * FROM actividad WHERE idMateria = :idMateria")
     List<actividad> obtenerActividadesPorMateria(int idMateria);

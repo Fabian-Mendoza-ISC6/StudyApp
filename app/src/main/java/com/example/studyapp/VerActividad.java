@@ -7,7 +7,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.studyapp.room.database.appDatabase;
-import com.example.studyapp.appDatabaseInstancia;
+import com.example.studyapp.room.entity.actividad;
+import com.example.studyapp.room.entity.materia;
 import androidx.appcompat.app.AlertDialog;
 
 public class VerActividad extends AppCompatActivity {
@@ -37,13 +38,18 @@ public class VerActividad extends AppCompatActivity {
 
         Intent intent = getIntent();
         idActividad = intent.getIntExtra("id", -1);
-        tipoAct.setText(intent.getStringExtra("tipo"));
-        estadoAct.setText(intent.getStringExtra("estado"));
-        fecha.setText(intent.getStringExtra("fecha"));
-        hora.setText(intent.getStringExtra("hora"));
-        String desc = intent.getStringExtra("descripcion");
-        descripcion.setText(desc != null ? desc : "");
-        materiaAct.setText(intent.getStringExtra("materiaNombre"));
+
+        if (intent.getStringExtra("tipo") == null) {
+            cargarDatosDesdeDB();
+        } else {
+            tipoAct.setText(intent.getStringExtra("tipo"));
+            estadoAct.setText(intent.getStringExtra("estado"));
+            fecha.setText(intent.getStringExtra("fecha"));
+            hora.setText(intent.getStringExtra("hora"));
+            String desc = intent.getStringExtra("descripcion");
+            descripcion.setText(desc != null ? desc : "");
+            materiaAct.setText(intent.getStringExtra("materiaNombre"));
+        }
         
         tipoAct.setFocusable(false);
         materiaAct.setFocusable(false);
@@ -90,5 +96,22 @@ public class VerActividad extends AppCompatActivity {
         });
 
         btnCancelar.setOnClickListener(v -> finish());
+    }
+
+    private void cargarDatosDesdeDB() {
+        new Thread(() -> {
+            actividad act = db.appDao().obtenerActividadPorId(idActividad);
+            if (act != null) {
+                materia mat = db.appDao().obtenerMateriaPorId(act.idMateria);
+                runOnUiThread(() -> {
+                    tipoAct.setText(act.tipo);
+                    estadoAct.setText(act.estado);
+                    fecha.setText(act.fechaEntrega);
+                    hora.setText(act.horaInicio);
+                    descripcion.setText(act.descripcion);
+                    if (mat != null) materiaAct.setText(mat.nombre);
+                });
+            }
+        }).start();
     }
 }

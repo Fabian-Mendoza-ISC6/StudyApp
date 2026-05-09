@@ -365,7 +365,10 @@ public class Horario extends AppCompatActivity {
             nuevaMateria.color = colorSeleccionado;
 
             new Thread(() -> {
+                // Dentro del Thread de guardado en Horario.java
                 long idGenerado = db.appDao().insertarMateria(nuevaMateria);
+
+                String detallesMateria = "Prof: " + nuevaMateria.profesor + " | Aula: " + nuevaMateria.salon;
 
                 AlarmHelper.programarAviso(
                         Horario.this,
@@ -373,7 +376,8 @@ public class Horario extends AppCompatActivity {
                         "CLASE",
                         nuevaMateria.dias,
                         nuevaMateria.horaInicio,
-                        nuevaMateria.nombre
+                        nuevaMateria.nombre,
+                        detallesMateria // <--- Enviamos los detalles
                 );
 
                 runOnUiThread(() -> { cargarMaterias(); dialog.dismiss(); });

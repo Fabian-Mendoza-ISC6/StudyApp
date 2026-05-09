@@ -98,6 +98,7 @@ public class Tarea extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         cargarActividades();
+        cargarMaterias();
     }
 
     private int tiempoEnMinutos(String horaStr) {
@@ -182,7 +183,9 @@ public class Tarea extends AppCompatActivity {
             runOnUiThread(() -> {
                 List<String> nombres = new ArrayList<>();
                 for (materia m : listaMaterias) {
-                    nombres.add(m.nombre);
+                    if (!nombres.contains(m.nombre)) {
+                        nombres.add(m.nombre);
+                    }
                 }
                 materiaAct.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, nombres));
             });
@@ -250,7 +253,16 @@ public class Tarea extends AppCompatActivity {
 
             new Thread(() -> {
                 long idGenerado = db.appDao().insertarActividad(n);
-                AlarmHelper.programarAviso(Tarea.this, (int)idGenerado, "ACTIVIDAD", n.fechaEntrega, n.horaInicio, n.tipo);
+
+                AlarmHelper.programarAviso(
+                        Tarea.this,
+                        (int) idGenerado,
+                        "ACTIVIDAD",
+                        n.fechaEntrega,
+                        n.horaInicio,
+                        n.tipo,
+                        n.descripcion
+                );
                 runOnUiThread(() -> { cargarActividades(); dialog.dismiss(); });
             }).start();
         });

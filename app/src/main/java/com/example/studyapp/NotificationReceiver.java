@@ -25,13 +25,11 @@ public class NotificationReceiver extends BroadcastReceiver {
         Intent destinoIntent;
         if ("CLASE".equals(tipo)) {
             destinoIntent = new Intent(context, VerMateria.class);
-
-            destinoIntent.putExtra("id", idReferencia);
         } else {
             destinoIntent = new Intent(context, VerActividad.class);
-
-            destinoIntent.putExtra("id", idReferencia);
         }
+        destinoIntent.putExtra("id", idReferencia); // Se pasa el ID como "id"
+        destinoIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         destinoIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
@@ -45,6 +43,7 @@ public class NotificationReceiver extends BroadcastReceiver {
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setContentTitle(titulo)
                 .setContentText(mensaje)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(mensaje))
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
                 .setContentIntent(pendingIntent)

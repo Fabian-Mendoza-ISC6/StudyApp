@@ -11,46 +11,40 @@ import java.util.Locale;
 
 public class AlarmHelper {
 
-    public static void programarAviso(Context context, int idReferencia, String tipo, String fecha, String hora, String titulo) {
+    // Busca y reemplaza este método en AlarmHelper.java
+    public static void programarAviso(Context context, int idReferencia, String tipo, String fecha, String hora, String titulo, String detalles) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
-
         long tiempoEvento = convertirAMilis(fecha, hora);
-        android.util.Log.d("ALARMA_CHECK", "Tiempo calculado: " + tiempoEvento + " | Ahora: " + System.currentTimeMillis());
         if (tiempoEvento <= 0) return;
-
 
         long tiempoAviso;
         String mensaje;
         if ("CLASE".equals(tipo)) {
-            tiempoAviso = System.currentTimeMillis() + 10000; // 30 minutos antes
-            mensaje = "Tu clase de " + titulo + " comienza en 30 min";
+            tiempoAviso = tiempoEvento - (30 * 60 * 1000); // 30 min antes
+            mensaje = "Clase: " + titulo + "\n" + detalles; // Agregamos los detalles (Profe/Aula)
         } else {
             tiempoAviso = tiempoEvento - (60 * 60 * 1000); // 1 hora antes
-            mensaje = "Tienes la actividad: " + titulo + " en 1 hora";
+            mensaje = "Actividad: " + titulo + "\n" + detalles; // Agregamos detalles (Descripción)
         }
+
         if (tiempoAviso < System.currentTimeMillis()) return;
 
         Intent intent = new Intent(context, NotificationReceiver.class);
         intent.putExtra("idReferencia", idReferencia);
         intent.putExtra("tipo", tipo);
-        intent.putExtra("titulo", "Recordatorio de " + (tipo.equals("CLASE") ? "Clase" : "Tarea"));
+        intent.putExtra("titulo", "Recordatorio de " + (tipo.equals("CLASE") ? "Horario" : "Actividad"));
         intent.putExtra("mensaje", mensaje);
-
 
         int alarmId = (tipo.equals("CLASE") ? 10000 : 20000) + idReferencia;
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                context,
-                alarmId,
-                intent,
-                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
-        );
+        PendingIntent pi = PendingIntent.getBroadcast(context, alarmId, intent,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, tiempoAviso, pendingIntent);
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, tiempoAviso, pi);
         } else {
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, tiempoAviso, pendingIntent);
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, tiempoAviso, pi);
         }
     }
 

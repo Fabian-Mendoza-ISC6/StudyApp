@@ -60,6 +60,9 @@ public class VerMateria extends AppCompatActivity {
         //Recibimos los datos
         Intent intent = getIntent();
         idMateria = intent.getIntExtra("id", -1);
+        if (intent.getStringExtra("nombre") == null) {
+            cargarMateriaDesdeDB();
+        }
         etMateria.setText(intent.getStringExtra("nombre"));
         etProfesor.setText(intent.getStringExtra("profesor"));
         etSalon.setText(intent.getStringExtra("salon"));
@@ -159,5 +162,48 @@ public class VerMateria extends AppCompatActivity {
         rbCafe.setEnabled(false);
         rbRosa.setEnabled(false);
         rbGris.setEnabled(false);
+    }
+
+    private void cargarMateriaDesdeDB() {
+        new Thread(() -> {
+            materia m = db.appDao().obtenerMateriaPorId(idMateria);
+            if (m != null) {
+                runOnUiThread(() -> {
+                    // 1. Datos básicos
+                    etMateria.setText(m.nombre);
+                    etProfesor.setText(m.profesor);
+                    etSalon.setText(m.salon);
+                    etHoraInicio.setText(m.horaInicio);
+                    etHoraFin.setText(m.horaFin);
+
+                    // 2. Mostrar todos los días marcados
+                    if (m.dias != null) {
+                        cbLunes.setChecked(m.dias.contains("Lunes"));
+                        cbMartes.setChecked(m.dias.contains("Martes"));
+                        cbMiercoles.setChecked(m.dias.contains("Miercoles"));
+                        cbJueves.setChecked(m.dias.contains("Jueves"));
+                        cbViernes.setChecked(m.dias.contains("Viernes"));
+                        cbSabado.setChecked(m.dias.contains("Sabado"));
+                        cbDomingo.setChecked(m.dias.contains("Domingo"));
+                    }
+
+                    // 3. Marcar el color correspondiente
+                    if (m.color != null) {
+                        switch (m.color) {
+                            case "#F44336": rbRojo.setChecked(true); break;
+                            case "#FF9800": rbNaranja.setChecked(true); break;
+                            case "#FFC107": rbAmarillo.setChecked(true); break;
+                            case "#4CAF50": rbVerde.setChecked(true); break;
+                            case "#2196F3": rbAzul.setChecked(true); break;
+                            case "#9C27B0": rbMorado.setChecked(true); break;
+                            case "#00BCD4": rbCeleste.setChecked(true); break;
+                            case "#795548": rbCafe.setChecked(true); break;
+                            case "#E91E63": rbRosa.setChecked(true); break;
+                            case "#607D8B": rbGris.setChecked(true); break;
+                        }
+                    }
+                });
+            }
+        }).start();
     }
 }
