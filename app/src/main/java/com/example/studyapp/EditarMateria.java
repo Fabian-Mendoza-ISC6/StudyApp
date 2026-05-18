@@ -11,10 +11,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.studyapp.room.database.appDatabase;
-import com.example.studyapp.appDatabaseInstancia;
 import com.example.studyapp.room.entity.materia;
 
 import java.text.SimpleDateFormat;
@@ -24,7 +21,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class EditarMateria extends AppCompatActivity {
+public class EditarMateria extends BaseActivity {
 
     appDatabase db;
     AutoCompleteTextView etMateria;
@@ -120,8 +117,6 @@ public class EditarMateria extends AppCompatActivity {
             if (profesor.isEmpty()) { etProfesor.setError("El profesor es obligatorio"); return; }
             if (!profesor.matches(regex)) { etProfesor.setError("Solo se permiten letras y puntos"); return; }
             
-            // El salón ahora es opcional por petición del usuario.
-
             if (hInicio.isEmpty()) { Toast.makeText(this, "Debe seleccionar la hora de inicio", Toast.LENGTH_SHORT).show(); return; }
             if (hFin.isEmpty()) { Toast.makeText(this, "Debe seleccionar la hora de fin", Toast.LENGTH_SHORT).show(); return; }
 
@@ -161,14 +156,10 @@ public class EditarMateria extends AppCompatActivity {
             m.dias = diaElegido;
             m.color = colorSeleccionado;
 
-            // Busca el botón btnGuardar.setOnClickListener y reemplaza el bloque del Thread:
-            new Thread(() -> {// 1. CANCELAR la alarma anterior
+            new Thread(() -> {
                 AlarmHelper.cancelarAviso(EditarMateria.this, idMateria, "CLASE");
-
-                // 2. ACTUALIZAR en la base de datos
                 db.appDao().actualizarMateria(m);
 
-                // 3. REPROGRAMAR la nueva alarma con los datos editados
                 String detallesMateria = "Prof: " + m.profesor + " | Aula: " + m.salon;
                 AlarmHelper.programarAviso(
                         EditarMateria.this,

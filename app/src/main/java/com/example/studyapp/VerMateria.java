@@ -7,13 +7,10 @@ import android.widget.TextView;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.studyapp.room.database.appDatabase;
-import com.example.studyapp.appDatabaseInstancia;
 import com.example.studyapp.room.entity.materia;
 
-public class VerMateria extends AppCompatActivity {
+public class VerMateria extends BaseActivity {
 
     EditText etMateria, etProfesor, etSalon, etHoraInicio, etHoraFin;
     CheckBox cbLunes, cbMartes, cbMiercoles, cbJueves, cbViernes, cbSabado, cbDomingo;
@@ -57,7 +54,6 @@ public class VerMateria extends AppCompatActivity {
         btnEditar = findViewById(R.id.btnEditar);
         btnCancelar = findViewById(R.id.btnCancelarIcono);
 
-        //Recibimos los datos
         Intent intent = getIntent();
         idMateria = intent.getIntExtra("id", -1);
         if (intent.getStringExtra("nombre") == null) {
@@ -79,26 +75,8 @@ public class VerMateria extends AppCompatActivity {
             cbDomingo.setChecked(dias.contains("Domingo"));
         }
 
-        String color = intent.getStringExtra("color");
-        if (color != null) {
-            switch (color) {
-                case "#F44336": rbRojo.setChecked(true); break;
-                case "#FF9800": rbNaranja.setChecked(true); break;
-                case "#FFC107": rbAmarillo.setChecked(true); break;
-                case "#4CAF50": rbVerde.setChecked(true); break;
-                case "#2196F3": rbAzul.setChecked(true); break;
-                case "#9C27B0": rbMorado.setChecked(true); break;
-                case "#00BCD4": rbCeleste.setChecked(true); break;
-                case "#795548": rbCafe.setChecked(true); break;
-                case "#E91E63": rbRosa.setChecked(true); break;
-                case "#607D8B": rbGris.setChecked(true); break;
-            }
-        }
-
-
         bloquearCampos();
         btnEliminar.setOnClickListener(v -> {
-
             new androidx.appcompat.app.AlertDialog.Builder(this)
                     .setTitle("Eliminar materia")
                     .setMessage("¿Estás seguro de que deseas eliminar esta materia?")
@@ -116,25 +94,17 @@ public class VerMateria extends AppCompatActivity {
                             });
                         }).start();
                     })
-
                     .setNegativeButton("Cancelar", (dialog, which) -> dialog.dismiss())
                     .show();
         });
 
         btnEditar.setOnClickListener(v -> {
             Intent i = new Intent(VerMateria.this, EditarMateria.class);
-
-            i.putExtras(intent);
-
+            i.putExtras(getIntent());
             startActivity(i);
         });
 
-        btnCancelar.setOnClickListener(v -> {
-            Intent i = new Intent(VerMateria.this, Horario.class);
-            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(i);
-            finish();
-        });
+        btnCancelar.setOnClickListener(v -> finish());
     }
 
     private void bloquearCampos() {
@@ -143,25 +113,8 @@ public class VerMateria extends AppCompatActivity {
         etSalon.setEnabled(false);
         etHoraInicio.setEnabled(false);
         etHoraFin.setEnabled(false);
-
-        cbLunes.setEnabled(false);
-        cbMartes.setEnabled(false);
-        cbMiercoles.setEnabled(false);
-        cbJueves.setEnabled(false);
-        cbViernes.setEnabled(false);
-        cbSabado.setEnabled(false);
-        cbDomingo.setEnabled(false);
-
-        rbRojo.setEnabled(false);
-        rbNaranja.setEnabled(false);
-        rbAmarillo.setEnabled(false);
-        rbVerde.setEnabled(false);
-        rbAzul.setEnabled(false);
-        rbMorado.setEnabled(false);
-        rbCeleste.setEnabled(false);
-        rbCafe.setEnabled(false);
-        rbRosa.setEnabled(false);
-        rbGris.setEnabled(false);
+        cbLunes.setEnabled(false); cbMartes.setEnabled(false); cbMiercoles.setEnabled(false);
+        cbJueves.setEnabled(false); cbViernes.setEnabled(false); cbSabado.setEnabled(false); cbDomingo.setEnabled(false);
     }
 
     private void cargarMateriaDesdeDB() {
@@ -169,39 +122,11 @@ public class VerMateria extends AppCompatActivity {
             materia m = db.appDao().obtenerMateriaPorId(idMateria);
             if (m != null) {
                 runOnUiThread(() -> {
-                    // 1. Datos básicos
                     etMateria.setText(m.nombre);
                     etProfesor.setText(m.profesor);
                     etSalon.setText(m.salon);
                     etHoraInicio.setText(m.horaInicio);
                     etHoraFin.setText(m.horaFin);
-
-                    // 2. Mostrar todos los días marcados
-                    if (m.dias != null) {
-                        cbLunes.setChecked(m.dias.contains("Lunes"));
-                        cbMartes.setChecked(m.dias.contains("Martes"));
-                        cbMiercoles.setChecked(m.dias.contains("Miercoles"));
-                        cbJueves.setChecked(m.dias.contains("Jueves"));
-                        cbViernes.setChecked(m.dias.contains("Viernes"));
-                        cbSabado.setChecked(m.dias.contains("Sabado"));
-                        cbDomingo.setChecked(m.dias.contains("Domingo"));
-                    }
-
-                    // 3. Marcar el color correspondiente
-                    if (m.color != null) {
-                        switch (m.color) {
-                            case "#F44336": rbRojo.setChecked(true); break;
-                            case "#FF9800": rbNaranja.setChecked(true); break;
-                            case "#FFC107": rbAmarillo.setChecked(true); break;
-                            case "#4CAF50": rbVerde.setChecked(true); break;
-                            case "#2196F3": rbAzul.setChecked(true); break;
-                            case "#9C27B0": rbMorado.setChecked(true); break;
-                            case "#00BCD4": rbCeleste.setChecked(true); break;
-                            case "#795548": rbCafe.setChecked(true); break;
-                            case "#E91E63": rbRosa.setChecked(true); break;
-                            case "#607D8B": rbGris.setChecked(true); break;
-                        }
-                    }
                 });
             }
         }).start();

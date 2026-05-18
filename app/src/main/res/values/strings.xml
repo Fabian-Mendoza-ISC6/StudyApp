@@ -3,4 +3,12 @@
     <string name="study_image_description">Study Image</string>
     <string name="bienvenida_titulo">Hola</string>
     <string name="bienvenida_subtitulo">“Tus próximas tareas te esperan”</string>
+    <string name="titulo_configuracion">Configuracion</string>
+    <string name="icon_settings">⚙️</string>
+    <string name="opciones_configuracion">Opciones de Configuración</string>
+    <string name="icon_home">🏠</string>
+    <string name="icon_calendar">📆</string>
+    <string name="icon_tasks">📄</string>
+    <string name="icon_kanba">📋</string>
+    <string name="icon_events">🗓️</string>
 </resources>

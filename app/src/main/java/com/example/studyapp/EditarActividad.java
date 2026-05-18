@@ -11,10 +11,7 @@ import android.widget.EditText;
 import android.widget.Button;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.studyapp.room.database.appDatabase;
-import com.example.studyapp.appDatabaseInstancia;
 import com.example.studyapp.room.entity.actividad;
 import com.example.studyapp.room.entity.materia;
 import java.text.SimpleDateFormat;
@@ -25,7 +22,7 @@ import java.util.List;
 import java.util.Locale;
 import android.content.Intent;
 
-public class EditarActividad extends AppCompatActivity {
+public class EditarActividad extends BaseActivity {
 
     appDatabase db;
     AutoCompleteTextView tipoAct, materiaAct, estadoAct;

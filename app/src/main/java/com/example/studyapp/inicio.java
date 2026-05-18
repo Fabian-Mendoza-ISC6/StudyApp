@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -21,7 +20,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class inicio extends AppCompatActivity {
+public class inicio extends BaseActivity {
 
     RecyclerView recyclerTareas, recyclerClases;
     appDatabase db;
@@ -38,6 +37,7 @@ public class inicio extends AppCompatActivity {
         Button btnTareas = findViewById(R.id.btnTareas);
         Button btnKanba = findViewById(R.id.btnKamba);
         Button btnEventos = findViewById(R.id.btnEventos);
+        Button btnConfiguracion = findViewById(R.id.btnConfiguracion);
         ImageView imgStudy = findViewById(R.id.img_study);
 
         btnInicio.setOnClickListener(v -> cargarDatos()); // Ya estamos en inicio, solo refresca
@@ -53,6 +53,9 @@ public class inicio extends AppCompatActivity {
 
         btnEventos.setOnClickListener(v ->
                 startActivity(new Intent(inicio.this, Calendario.class)));
+
+        btnConfiguracion.setOnClickListener(v ->
+                startActivity(new Intent(inicio.this, Configuraciones.class)));
 
         imgStudy.setOnClickListener(v ->
                 startActivity(new Intent(inicio.this, MainActivity.class)));

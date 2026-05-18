@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.DragEvent;
 import android.widget.FrameLayout;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,7 +15,7 @@ import com.example.studyapp.room.entity.materia;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Kanba extends AppCompatActivity {
+public class Kanba extends BaseActivity {
 
     RecyclerView rPendiente, rProceso, rTerminado;
     ItemKanba adPendiente, adProceso, adTerminado;
@@ -38,8 +37,9 @@ public class Kanba extends AppCompatActivity {
         findViewById(R.id.btnInicio).setOnClickListener(v -> startActivity(new Intent(this, inicio.class)));
         findViewById(R.id.btnCalendario).setOnClickListener(v -> startActivity(new Intent(this, Horario.class)));
         findViewById(R.id.btnTareas).setOnClickListener(v -> startActivity(new Intent(this, Tarea.class)));
-        findViewById(R.id.btnKamba).setOnClickListener(v -> cargarKanban()); // Refresh current
+        findViewById(R.id.btnKamba).setOnClickListener(v -> cargarKanban()); 
         findViewById(R.id.btnEventos).setOnClickListener(v -> startActivity(new Intent(this, Calendario.class)));
+        findViewById(R.id.btnConfiguracion).setOnClickListener(v -> startActivity(new Intent(this, Configuraciones.class)));
         findViewById(R.id.img_study).setOnClickListener(v -> startActivity(new Intent(this, MainActivity.class)));
 
         rPendiente = findViewById(R.id.recyclerPendiente);

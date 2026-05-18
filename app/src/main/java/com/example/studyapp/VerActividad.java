@@ -5,13 +5,12 @@ import android.os.Bundle;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.TextView;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AlertDialog;
 import com.example.studyapp.room.database.appDatabase;
 import com.example.studyapp.room.entity.actividad;
 import com.example.studyapp.room.entity.materia;
-import androidx.appcompat.app.AlertDialog;
 
-public class VerActividad extends AppCompatActivity {
+public class VerActividad extends BaseActivity {
 
     AutoCompleteTextView tipoAct, materiaAct, estadoAct;
     EditText fecha, hora, descripcion;

@@ -3,7 +3,8 @@ package com.example.studyapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import androidx.appcompat.app.AppCompatActivity;
+import android.widget.Button;
+import android.widget.ImageView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,7 +19,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class Calendario extends AppCompatActivity {
+public class Calendario extends BaseActivity {
 
     private RecyclerView rvCalendario, rvTareasDia;
     private List<actividad> todasActividades = new ArrayList<>();
@@ -38,6 +39,7 @@ public class Calendario extends AppCompatActivity {
         findViewById(R.id.btnTareas).setOnClickListener(v -> startActivity(new Intent(this, Tarea.class)));
         findViewById(R.id.btnKamba).setOnClickListener(v -> startActivity(new Intent(this, Kanba.class)));
         findViewById(R.id.btnEventos).setOnClickListener(v -> actualizarCalendario()); 
+        findViewById(R.id.btnConfiguracion).setOnClickListener(v -> startActivity(new Intent(this, Configuraciones.class)));
         findViewById(R.id.img_study).setOnClickListener(v -> startActivity(new Intent(this, MainActivity.class)));
 
         // --- RECYCLERS ---
@@ -94,7 +96,6 @@ public class Calendario extends AppCompatActivity {
             }
 
             // 3. Si quieres ver al menos unos meses próximos aunque no tengan tareas
-            // (Opcional, pero ayuda a que no se vea vacío si solo hay tareas hoy)
             if (listaMeses.size() < 3) {
                 Calendar extra = (Calendar) hoy.clone();
                 for (int i = 1; i <= 3; i++) {

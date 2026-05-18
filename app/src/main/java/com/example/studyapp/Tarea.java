@@ -6,21 +6,18 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.studyapp.room.database.appDatabase;
-import com.example.studyapp.appDatabaseInstancia;
 import com.example.studyapp.room.entity.actividad;
 import com.example.studyapp.room.entity.materia;
 
@@ -48,9 +45,10 @@ public class Tarea extends AppCompatActivity {
         // ================= TOOLBAR BUTTONS =================
         findViewById(R.id.btnInicio).setOnClickListener(v -> startActivity(new Intent(this, inicio.class)));
         findViewById(R.id.btnCalendario).setOnClickListener(v -> startActivity(new Intent(this, Horario.class)));
-        findViewById(R.id.btnTareas).setOnClickListener(v -> cargarActividades()); // Refresh current
+        findViewById(R.id.btnTareas).setOnClickListener(v -> cargarActividades()); 
         findViewById(R.id.btnKamba).setOnClickListener(v -> startActivity(new Intent(this, Kanba.class)));
         findViewById(R.id.btnEventos).setOnClickListener(v -> startActivity(new Intent(this, Calendario.class)));
+        findViewById(R.id.btnConfiguracion).setOnClickListener(v -> startActivity(new Intent(this, Configuraciones.class)));
         findViewById(R.id.img_study).setOnClickListener(v -> startActivity(new Intent(this, MainActivity.class)));
 
         // Inicializar RecyclerView
@@ -106,6 +104,7 @@ public class Tarea extends AppCompatActivity {
             SimpleDateFormat format = new SimpleDateFormat("hh:mm a", Locale.US);
             String h = horaStr.replace("a. m.", "AM").replace("p. m.", "PM").replace("a.m.", "AM").replace("p.m.", "PM");
             Date date = format.parse(h);
+            if (date == null) return -1;
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
             return cal.get(Calendar.HOUR_OF_DAY) * 60 + cal.get(Calendar.MINUTE);
@@ -118,6 +117,7 @@ public class Tarea extends AppCompatActivity {
         try {
             SimpleDateFormat format = new SimpleDateFormat("d/M/yyyy", Locale.getDefault());
             Date date = format.parse(fechaStr);
+            if (date == null) return "";
             String dia = new SimpleDateFormat("EEEE", new Locale("es", "ES")).format(date);
             dia = dia.substring(0, 1).toUpperCase() + dia.substring(1).toLowerCase();
             if (dia.equals("Miércoles")) dia = "Miercoles";
@@ -200,8 +200,10 @@ public class Tarea extends AppCompatActivity {
 
         etFecha.setOnClickListener(v -> {
             Calendar c = Calendar.getInstance();
-            DatePickerDialog datePicker = new DatePickerDialog(this, (v1, y, m, d) -> etFecha.setText(d + "/" + (m + 1) + "/" + y), 
-                c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+            DatePickerDialog datePicker = new DatePickerDialog(this, (v1, y, m, d) -> {
+                String fechaSeleccionada = String.format(Locale.getDefault(), "%d/%d/%d", d, m + 1, y);
+                etFecha.setText(fechaSeleccionada);
+            }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
             datePicker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
             datePicker.show();
         });

@@ -55,6 +55,9 @@
         <activity
             android:name=".EditarMateria"
             android:exported="false" />
+        <activity
+            android:name=".Configuraciones"
+            android:exported="false" />
 
 
         <receiver android:name=".NotificationReceiver"

@@ -15,7 +15,6 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,10 +26,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import com.example.studyapp.room.database.appDatabase;
-import com.example.studyapp.appDatabaseInstancia;
 import com.example.studyapp.room.entity.materia;
 
-public class Horario extends AppCompatActivity {
+public class Horario extends BaseActivity {
     appDatabase db;
     RecyclerView recyclerView;
     MateriaAdapter adapter;
@@ -47,10 +45,11 @@ public class Horario extends AppCompatActivity {
 
         // ================= TOOLBAR BUTTONS =================
         findViewById(R.id.btnInicio).setOnClickListener(v -> startActivity(new Intent(this, inicio.class)));
-        findViewById(R.id.btnCalendario).setOnClickListener(v -> cargarMaterias()); // Refresh current
+        findViewById(R.id.btnCalendario).setOnClickListener(v -> cargarMaterias()); 
         findViewById(R.id.btnTareas).setOnClickListener(v -> startActivity(new Intent(this, Tarea.class)));
         findViewById(R.id.btnKamba).setOnClickListener(v -> startActivity(new Intent(this, Kanba.class)));
         findViewById(R.id.btnEventos).setOnClickListener(v -> startActivity(new Intent(this, Calendario.class)));
+        findViewById(R.id.btnConfiguracion).setOnClickListener(v -> startActivity(new Intent(this, Configuraciones.class)));
         findViewById(R.id.img_study).setOnClickListener(v -> startActivity(new Intent(this, MainActivity.class)));
 
         // ================= DÍAS BUTTONS =================
@@ -315,8 +314,6 @@ public class Horario extends AppCompatActivity {
                 return;
             }
 
-            // EL SALÓN ES OPCIONAL (Se quitó la validación de obligatorio)
-
             if (hInicio.isEmpty()) {
                 Toast.makeText(this, "Debe seleccionar la hora de inicio", Toast.LENGTH_SHORT).show();
                 return;
@@ -365,7 +362,6 @@ public class Horario extends AppCompatActivity {
             nuevaMateria.color = colorSeleccionado;
 
             new Thread(() -> {
-                // Dentro del Thread de guardado en Horario.java
                 long idGenerado = db.appDao().insertarMateria(nuevaMateria);
 
                 String detallesMateria = "Prof: " + nuevaMateria.profesor + " | Aula: " + nuevaMateria.salon;
@@ -377,7 +373,7 @@ public class Horario extends AppCompatActivity {
                         nuevaMateria.dias,
                         nuevaMateria.horaInicio,
                         nuevaMateria.nombre,
-                        detallesMateria // <--- Enviamos los detalles
+                        detallesMateria
                 );
 
                 runOnUiThread(() -> { cargarMaterias(); dialog.dismiss(); });
