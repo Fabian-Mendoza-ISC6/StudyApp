@@ -3,7 +3,6 @@ package com.example.studyapp;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
@@ -11,24 +10,21 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.studyapp.room.database.appDatabase;
+import com.example.studyapp.appDatabaseInstancia;
 import com.example.studyapp.room.entity.actividad;
 import com.example.studyapp.room.entity.materia;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class Tarea extends AppCompatActivity {
+public class Tarea extends BaseActivity { // ✅ Hereda de BaseActivity para aplicar Fuente y Color
     appDatabase db;
     RecyclerView recyclerActividades;
     ActividadAdapter adapter;
@@ -38,11 +34,11 @@ public class Tarea extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.tareas);
+        setContentView(R.layout.tareas); // ✅ BaseActivity aplicará el fondo aquí automáticamente
         
         db = appDatabaseInstancia.getInstance(this);
 
-        // ================= TOOLBAR BUTTONS =================
+        // ================= BOTONES DE NAVEGACIÓN =================
         findViewById(R.id.btnInicio).setOnClickListener(v -> startActivity(new Intent(this, inicio.class)));
         findViewById(R.id.btnCalendario).setOnClickListener(v -> startActivity(new Intent(this, Horario.class)));
         findViewById(R.id.btnTareas).setOnClickListener(v -> cargarActividades()); 
@@ -83,6 +79,7 @@ public class Tarea extends AppCompatActivity {
             });
         }).start();
     }
+
     private void cargarMaterias() {
         new Thread(() -> {
             List<materia> lista = db.appDao().obtenerMaterias();
@@ -92,6 +89,7 @@ public class Tarea extends AppCompatActivity {
             });
         }).start();
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -99,76 +97,17 @@ public class Tarea extends AppCompatActivity {
         cargarMaterias();
     }
 
-    private int tiempoEnMinutos(String horaStr) {
-        try {
-            SimpleDateFormat format = new SimpleDateFormat("hh:mm a", Locale.US);
-            String h = horaStr.replace("a. m.", "AM").replace("p. m.", "PM").replace("a.m.", "AM").replace("p.m.", "PM");
-            Date date = format.parse(h);
-            if (date == null) return -1;
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(date);
-            return cal.get(Calendar.HOUR_OF_DAY) * 60 + cal.get(Calendar.MINUTE);
-        } catch (Exception e) {
-            return -1;
-        }
-    }
-
-    private String obtenerDiaSemana(String fechaStr) {
-        try {
-            SimpleDateFormat format = new SimpleDateFormat("d/M/yyyy", Locale.getDefault());
-            Date date = format.parse(fechaStr);
-            if (date == null) return "";
-            String dia = new SimpleDateFormat("EEEE", new Locale("es", "ES")).format(date);
-            dia = dia.substring(0, 1).toUpperCase() + dia.substring(1).toLowerCase();
-            if (dia.equals("Miércoles")) dia = "Miercoles";
-            if (dia.equals("Sábado")) dia = "Sabado";
-            return dia;
-        } catch (Exception e) {
-            return "";
-        }
-    }
-
-    private boolean hayConflictoConClase(String fecha, String hora) {
-        String diaSemana = obtenerDiaSemana(fecha);
-        int horaTarea = tiempoEnMinutos(hora);
-        
-        if (diaSemana.isEmpty() || horaTarea == -1) return false;
-
-        for (materia m : listaMaterias) {
-            if (m.dias != null && m.dias.contains(diaSemana)) {
-                int mInicio = tiempoEnMinutos(m.horaInicio);
-                int mFin = tiempoEnMinutos(m.horaFin);
-                
-                if (mInicio == -1 || mFin == -1) continue;
-
-                // Si la hora de la tarea cae dentro del rango de la clase
-                if (horaTarea >= mInicio && horaTarea < mFin) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    private String capitalizar(String s) {
-        if (s == null || s.isEmpty()) return s;
-        return s.substring(0, 1).toUpperCase() + s.substring(1);
-    }
-
     private void mostrarDialogoAgregarTarea() {
-        Locale locale = new Locale("es", "ES");
-        Locale.setDefault(locale);
-        android.content.res.Configuration config = new android.content.res.Configuration();
-        config.setLocale(locale);
-        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
-
+        // NOTA: Se eliminó la configuración manual que bloqueaba los cambios globales de fuente
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View view = getLayoutInflater().inflate(R.layout.agregar_tareas, null);
-        builder.setView(view);
+        
+        applyColorToView(view); // 🔥 APLICA EL COLOR DE FONDO ELEGIDO AL DIÁLOGO
 
+        builder.setView(view);
         final AlertDialog dialog = builder.create();
         if (dialog.getWindow() != null) {
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         }
 
         AutoCompleteTextView tipoAct = view.findViewById(R.id.RegistroActividad);
@@ -181,18 +120,20 @@ public class Tarea extends AppCompatActivity {
         new Thread(() -> {
             listaMaterias = db.appDao().obtenerMaterias();
             runOnUiThread(() -> {
-                List<String> nombres = new ArrayList<>();
+                List<String> nombresUnicos = new ArrayList<>();
                 for (materia m : listaMaterias) {
-                    if (!nombres.contains(m.nombre)) {
-                        nombres.add(m.nombre);
-                    }
+                    if (!nombresUnicos.contains(m.nombre)) nombresUnicos.add(m.nombre);
                 }
-                materiaAct.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, nombres));
+                materiaAct.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, nombresUnicos));
             });
         }).start();
 
-        tipoAct.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, new String[]{"Tarea", "Examen", "Proyecto", "Estudio"}));
-        estadoAct.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, new String[]{"Pendiente", "En curso", "Finalizado"}));
+        // Usamos traducciones que respetan la escala de fuente configurada
+        String[] tipos = {getString(R.string.cat_tarea), getString(R.string.cat_examen), getString(R.string.cat_proyecto), getString(R.string.cat_estudio)};
+        String[] estados = {getString(R.string.est_pendiente), getString(R.string.est_en_curso), getString(R.string.est_finalizado)};
+
+        tipoAct.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, tipos));
+        estadoAct.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, estados));
 
         tipoAct.setOnClickListener(v -> tipoAct.showDropDown());
         materiaAct.setOnClickListener(v -> materiaAct.showDropDown());
@@ -200,12 +141,9 @@ public class Tarea extends AppCompatActivity {
 
         etFecha.setOnClickListener(v -> {
             Calendar c = Calendar.getInstance();
-            DatePickerDialog datePicker = new DatePickerDialog(this, (v1, y, m, d) -> {
-                String fechaSeleccionada = String.format(Locale.getDefault(), "%d/%d/%d", d, m + 1, y);
-                etFecha.setText(fechaSeleccionada);
-            }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
-            datePicker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-            datePicker.show();
+            new DatePickerDialog(this, (v1, y, m, d) -> {
+                etFecha.setText(d + "/" + (m + 1) + "/" + y);
+            }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)).show();
         });
 
         etHora.setOnClickListener(v -> {
@@ -221,50 +159,27 @@ public class Tarea extends AppCompatActivity {
         view.findViewById(R.id.btnDialogGuardar).setOnClickListener(v -> {
             String t = tipoAct.getText().toString().trim();
             String mNombre = materiaAct.getText().toString().trim();
-            String estado = estadoAct.getText().toString().trim();
-            String fecha = etFecha.getText().toString().trim();
-            String hora = etHora.getText().toString().trim();
-            String desc = etDesc.getText().toString().trim();
-
-            if (t.isEmpty()) { tipoAct.setError("Obligatorio"); return; }
-            if (mNombre.isEmpty()) { materiaAct.setError("Obligatorio"); return; }
-            if (estado.isEmpty()) { estadoAct.setError("Obligatorio"); return; }
-            if (fecha.isEmpty()) { etFecha.setError("Obligatorio"); return; }
-            if (hora.isEmpty()) { etHora.setError("Obligatorio"); return; }
-            if (desc.isEmpty()) { etDesc.setError("Obligatorio"); return; }
+            if (t.isEmpty() || mNombre.isEmpty()) { 
+                Toast.makeText(this, getString(R.string.msg_obligatorio), Toast.LENGTH_SHORT).show(); 
+                return; 
+            }
 
             int idMat = -1;
             for (materia mat : listaMaterias) {
                 if (mat.nombre.equals(mNombre)) { idMat = mat.id; break; }
             }
-            if (idMat == -1) { materiaAct.setError("Materia no válida"); return; }
-
-            // Validar conflicto con horario de clases
-            if (hayConflictoConClase(fecha, hora)) {
-                Toast.makeText(this, "No puedes registrar una tarea durante el horario de una clase", Toast.LENGTH_LONG).show();
-                return;
-            }
 
             actividad n = new actividad();
-            n.tipo = capitalizar(t);
-            n.estado = estado;
-            n.fechaEntrega = fecha;
-            n.horaInicio = hora;
-            n.descripcion = desc;
+            n.tipo = t;
+            n.estado = estadoAct.getText().toString();
+            n.fechaEntrega = etFecha.getText().toString();
+            n.horaInicio = etHora.getText().toString();
+            n.descripcion = etDesc.getText().toString();
             n.idMateria = idMat;
 
             new Thread(() -> {
-                long idGenerado = db.appDao().insertarActividad(n);
-
-                AlarmHelper.programarAviso(
-                        Tarea.this,
-                        (int) idGenerado,
-                        "ACTIVIDAD",
-                        n.fechaEntrega,
-                        n.horaInicio,
-                        n.tipo,
-                        n.descripcion
-                );
+                long idGen = db.appDao().insertarActividad(n);
+                AlarmHelper.programarAviso(Tarea.this, (int) idGen, "ACTIVIDAD", n.fechaEntrega, n.horaInicio, n.tipo, n.descripcion);
                 runOnUiThread(() -> { cargarActividades(); dialog.dismiss(); });
             }).start();
         });

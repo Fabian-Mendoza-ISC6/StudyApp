@@ -1,14 +1,91 @@
 <resources>
     <string name="app_name">StudyApp</string>
-    <string name="study_image_description">Study Image</string>
+    <string name="study_image_description">Imagen de Estudio</string>
     <string name="bienvenida_titulo">Hola</string>
     <string name="bienvenida_subtitulo">“Tus próximas tareas te esperan”</string>
-    <string name="titulo_configuracion">Configuracion</string>
+    <string name="titulo_configuracion">Configuraciones</string>
     <string name="icon_settings">⚙️</string>
-    <string name="opciones_configuracion">Opciones de Configuración</string>
+    <string name="opciones_configuracion">Ajustes:</string>
+    <string name="config_app_header">Configuraciones de la App</string>
+    <string name="label_font_size">Tamaño de letra</string>
+    <string name="font_small">Chica</string>
+    <string name="font_medium">Media</string>
+    <string name="font_large">Grande</string>
+    <string name="label_language">Idioma</string>
+    <string name="btn_save_changes">Guardar Cambios</string>
+    <string name="msg_saved_restarting">Cambios guardados. Reiniciando...</string>
+
     <string name="icon_home">🏠</string>
     <string name="icon_calendar">📆</string>
     <string name="icon_tasks">📄</string>
     <string name="icon_kanba">📋</string>
     <string name="icon_events">🗓️</string>
+
+    <string name="title_inicio">Inicio</string>
+    <string name="title_horario">Horario</string>
+    <string name="title_actividades">Actividades</string>
+    <string name="title_kanba">Kanba</string>
+    <string name="title_calendario">Calendario</string>
+
+    <string name="label_proxima_entrega">Próxima entrega:</string>
+    <string name="label_proxima_clase">Próxima clase:</string>
+    <string name="label_pendientes">Pendiente:</string>
+    <string name="label_en_curso">En curso:</string>
+    <string name="label_hecho">Hecho:</string>
+
+    <string name="label_materia">Materia</string>
+    <string name="label_nombre_materia">Nombre de la materia</string>
+    <string name="label_profesor">Profesor</string>
+    <string name="label_dia_semana">Día de la semana</string>
+
+    <string name="label_lunes">Lunes</string>
+    <string name="label_martes">Martes</string>
+    <string name="label_miercoles">Miércoles</string>
+    <string name="label_jueves">Jueves</string>
+    <string name="label_viernes">Viernes</string>
+    <string name="label_sabado">Sábado</string>
+    <string name="label_domingo">Domingo</string>
+
+    <string name="init_lunes">L</string>
+    <string name="init_martes">M</string>
+    <string name="init_miercoles">M</string>
+    <string name="init_jueves">J</string>
+    <string name="init_viernes">V</string>
+    <string name="init_sabado">S</string>
+    <string name="init_domingo">D</string>
+
+    <string name="label_hora_inicio">Hora de inicio</string>
+    <string name="label_hora_fin">Hora de fin</string>
+    <string name="label_salon">Salón</string>
+    <string name="label_color_materia">Color de la materia</string>
+
+    <string name="btn_cancelar">Cancelar</string>
+    <string name="btn_guardar">Guardar</string>
+    <string name="btn_editar">Editar</string>
+    <string name="btn_eliminar">Eliminar</string>
+    <string name="btn_cerrar">Cerrar</string>
+
+    <string name="title_agregar_tarea">Agregar</string>
+    <string name="label_actividad">Actividad</string>
+    <string name="hint_seleccionar_actividad">Selecciona una actividad..</string>
+    <string name="label_estado">Estado</string>
+    <string name="hint_seleccionar_estado">Selecciona un estado</string>
+    <string name="label_fecha">Fecha</string>
+    <string name="label_dia_entrega">Día de entrega</string>
+    <string name="label_descripcion">Descripción</string>
+    <string name="hint_escribir_descripcion">Escribe la descripción aquí...</string>
+    <string name="hint_seleccionar_fecha">Selecciona una fecha</string>
+
+    <string name="msg_obligatorio">Obligatorio</string>
+    <string name="msg_confirmar_eliminar_actividad">¿Estás segur@ de eliminar esta actividad?</string>
+    <string name="msg_confirmar_eliminar_materia">¿Estás seguro de que deseas eliminar esta materia?</string>
+
+    <string name="cat_tarea">Tarea</string>
+    <string name="cat_examen">Examen</string>
+    <string name="cat_proyecto">Proyecto</string>
+    <string name="cat_estudio">Estudio</string>
+
+    <string name="est_pendiente">Pendiente</string>
+    <string name="est_en_curso">En curso</string>
+    <string name="est_finalizado">Finalizado</string>
 </resources>

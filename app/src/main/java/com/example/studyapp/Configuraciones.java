@@ -3,16 +3,19 @@ package com.example.studyapp;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Configuraciones extends BaseActivity {
+
+    private String colorSeleccionadoHex = "#89CAB4"; // Color por defecto
+    private Map<Integer, String> mapaColores = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,67 +25,96 @@ public class Configuraciones extends BaseActivity {
         SharedPreferences prefs = getSharedPreferences("Settings", MODE_PRIVATE);
         float currentScale = prefs.getFloat("fontScale", 1.0f);
         String currentLang = prefs.getString("language", "es");
+        String currentColor = prefs.getString("backgroundColor", "#89CAB4");
 
         // ================= BARRA DE NAVEGACIÓN =================
-        Button btnInicio = findViewById(R.id.btnInicio);
-        Button btnCalendario = findViewById(R.id.btnCalendario);
-        Button btnTareas = findViewById(R.id.btnTareas);
-        Button btnKanba = findViewById(R.id.btnKamba);
-        Button btnEventos = findViewById(R.id.btnEventos);
-        ImageView imgStudy = findViewById(R.id.img_study);
+        findViewById(R.id.btnInicio).setOnClickListener(v -> startActivity(new Intent(this, inicio.class)));
+        findViewById(R.id.btnCalendario).setOnClickListener(v -> startActivity(new Intent(this, Horario.class)));
+        findViewById(R.id.btnTareas).setOnClickListener(v -> startActivity(new Intent(this, Tarea.class)));
+        findViewById(R.id.btnKamba).setOnClickListener(v -> startActivity(new Intent(this, Kanba.class)));
+        findViewById(R.id.btnEventos).setOnClickListener(v -> startActivity(new Intent(this, Calendario.class)));
+        findViewById(R.id.img_study).setOnClickListener(v -> startActivity(new Intent(this, MainActivity.class)));
 
-        btnInicio.setOnClickListener(v -> startActivity(new Intent(this, inicio.class)));
-        btnCalendario.setOnClickListener(v -> startActivity(new Intent(this, Horario.class)));
-        btnTareas.setOnClickListener(v -> startActivity(new Intent(this, Tarea.class)));
-        btnKanba.setOnClickListener(v -> startActivity(new Intent(this, Kanba.class)));
-        btnEventos.setOnClickListener(v -> startActivity(new Intent(this, Calendario.class)));
-        imgStudy.setOnClickListener(v -> startActivity(new Intent(this, MainActivity.class)));
-
-        // ================= CONFIGURACIONES LOGIC =================
-        
-        // Font Size
+        // ================= LÓGICA DE TAMAÑO DE LETRA =================
         RadioGroup rgFontSize = findViewById(R.id.rgFontSize);
         if (currentScale == 0.85f) rgFontSize.check(R.id.rbSmall);
         else if (currentScale == 1.2f) rgFontSize.check(R.id.rbLarge);
         else rgFontSize.check(R.id.rbMedium);
 
-        // Language Spinner - Solo Español e Inglés
+        // ================= LÓGICA DE IDIOMA =================
         Spinner spinnerLanguage = findViewById(R.id.spinnerLanguage);
-        String[] languages = {"Español", "English"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, languages);
+        String[] displayLangs = {"Español (Spanish)", "English (Inglés)"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, displayLangs);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerLanguage.setAdapter(adapter);
 
-        // Seleccionar el idioma actual en el spinner
-        if (currentLang.equals("en")) {
-            spinnerLanguage.setSelection(1);
-        } else {
-            spinnerLanguage.setSelection(0);
+        if (currentLang.equals("en")) spinnerLanguage.setSelection(1);
+        else spinnerLanguage.setSelection(0);
+
+        // ================= LÓGICA DE COLORES DE FONDO =================
+        inicializarMapaColores();
+        
+        // Marcar el color actual en la interfaz
+        for (Map.Entry<Integer, String> entry : mapaColores.entrySet()) {
+            RadioButton rb = findViewById(entry.getKey());
+            if (entry.getValue().equalsIgnoreCase(currentColor)) {
+                rb.setChecked(true);
+                colorSeleccionadoHex = currentColor;
+            }
+            
+            rb.setOnClickListener(v -> {
+                // Desmarcar todos los demás manualmente ya que no están en un RadioGroup único
+                desmarcarOtrosColores(entry.getKey());
+                colorSeleccionadoHex = entry.getValue();
+            });
         }
 
+        // ================= BOTÓN GUARDAR =================
         Button btnGuardar = findViewById(R.id.btnGuardar);
         btnGuardar.setOnClickListener(v -> {
             SharedPreferences.Editor editor = prefs.edit();
 
-            // Guardar Tamaño de letra
+            // 1. Guardar Tamaño de letra
             float newScale = 1.0f;
-            int checkedId = rgFontSize.getCheckedRadioButtonId();
-            if (checkedId == R.id.rbSmall) newScale = 0.85f;
-            else if (checkedId == R.id.rbLarge) newScale = 1.2f;
+            int checkedFontId = rgFontSize.getCheckedRadioButtonId();
+            if (checkedFontId == R.id.rbSmall) newScale = 0.85f;
+            else if (checkedFontId == R.id.rbLarge) newScale = 1.2f;
             editor.putFloat("fontScale", newScale);
 
-            // Guardar Idioma
-            String selectedLang = spinnerLanguage.getSelectedItemPosition() == 1 ? "en" : "es";
+            // 2. Guardar Idioma
+            String selectedLang = (spinnerLanguage.getSelectedItemPosition() == 1) ? "en" : "es";
             editor.putString("language", selectedLang);
+
+            // 3. Guardar Color de fondo
+            editor.putString("backgroundColor", colorSeleccionadoHex);
             
             editor.apply();
 
-            Toast.makeText(this, "Cambios guardados. Reiniciando...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Cambios aplicados", Toast.LENGTH_SHORT).show();
             
-            // Reiniciar la app para aplicar idioma y fuente globalmente
+            // Reiniciar la app desde el inicio para aplicar todos los cambios globalmente
             Intent intent = new Intent(this, inicio.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
+            finish();
         });
+    }
+
+    private void inicializarMapaColores() {
+        mapaColores.put(R.id.rbBgVerdeAgua, "#7AC2BB");
+        mapaColores.put(R.id.rbBgAzulCielo, "#A7D8F0");
+        mapaColores.put(R.id.rbBgDurazno, "#FFD6A5");
+        mapaColores.put(R.id.rbBgRosa, "#F7C8E0");
+        mapaColores.put(R.id.rbBgAmarillo, "#FFF3B0");
+        mapaColores.put(R.id.rbBgLila, "#D9C8F0");
+        mapaColores.put(R.id.rbBgGris, "#E8E8E8");
+    }
+
+    private void desmarcarOtrosColores(int idSeleccionado) {
+        for (Integer id : mapaColores.keySet()) {
+            if (id != idSeleccionado) {
+                ((RadioButton) findViewById(id)).setChecked(false);
+            }
+        }
     }
 }

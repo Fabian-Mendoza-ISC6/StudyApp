@@ -19,4 +19,22 @@
     <color name="color_cafe">#795548</color>
     <color name="color_rosa">#E91E63</color>
     <color name="color_gris">#607D8B</color>
+
+    <!-- Gama de colores para configuración de fondo -->
+    <color name="bg_verde_agua">#7AC2BB</color>
+    <color name="bg_azul_cielo">#A7D8F0</color>
+    <color name="bg_durazno_pastel">#FFD6A5</color>
+    <color name="bg_rosa_suave">#F7C8E0</color>
+    <color name="bg_amarillo_pastel">#FFF3B0</color>
+    <color name="bg_lila_claro">#D9C8F0</color>
+    <color name="bg_gris_perla">#E8E8E8</color>
+
+    <!-- Gama de colores de contraste para toolbars -->
+    <color name="contrast_verde_agua">#3E8F87</color>
+    <color name="contrast_azul_cielo">#4A9FD6</color>
+    <color name="contrast_durazno">#FF9F50</color>
+    <color name="contrast_rosa">#F46A9B</color>
+    <color name="contrast_amarillo">#FFD93D</color>
+    <color name="contrast_lila">#9A6FD0</color>
+    <color name="contrast_gris">#BFBFBF</color>
 </resources>

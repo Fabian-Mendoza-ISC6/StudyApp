@@ -8,7 +8,7 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp">
 
-    <!-- CABECERA ROBUSTA: No se amontona en celulares -->
+    <!-- CABECERA ROBUSTA -->
     <RelativeLayout
         android:id="@+id/headerLayout"
         android:layout_width="match_parent"
@@ -126,12 +126,53 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp" />
 
+                <!-- SECCIÓN DE COLOR DE FONDO -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Color de fondo de la App"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingVertical="10dp"
+                    android:gravity="center">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+                        <!-- RadioButtons personalizados con la gama de colores -->
+                        <RadioButton android:id="@+id/rbBgVerdeAgua" android:layout_width="45dp" android:layout_height="45dp" android:button="@null" android:background="@drawable/shape_circulo" android:backgroundTint="@color/bg_verde_agua" android:foreground="@drawable/color_selection_border" android:layout_margin="8dp"/>
+                        <RadioButton android:id="@+id/rbBgAzulCielo" android:layout_width="45dp" android:layout_height="45dp" android:button="@null" android:background="@drawable/shape_circulo" android:backgroundTint="@color/bg_azul_cielo" android:foreground="@drawable/color_selection_border" android:layout_margin="8dp"/>
+                        <RadioButton android:id="@+id/rbBgDurazno" android:layout_width="45dp" android:layout_height="45dp" android:button="@null" android:background="@drawable/shape_circulo" android:backgroundTint="@color/bg_durazno_pastel" android:foreground="@drawable/color_selection_border" android:layout_margin="8dp"/>
+                        <RadioButton android:id="@+id/rbBgRosa" android:layout_width="45dp" android:layout_height="45dp" android:button="@null" android:background="@drawable/shape_circulo" android:backgroundTint="@color/bg_rosa_suave" android:foreground="@drawable/color_selection_border" android:layout_margin="8dp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:layout_marginTop="5dp">
+                        <RadioButton android:id="@+id/rbBgAmarillo" android:layout_width="45dp" android:layout_height="45dp" android:button="@null" android:background="@drawable/shape_circulo" android:backgroundTint="@color/bg_amarillo_pastel" android:foreground="@drawable/color_selection_border" android:layout_margin="8dp"/>
+                        <RadioButton android:id="@+id/rbBgLila" android:layout_width="45dp" android:layout_height="45dp" android:button="@null" android:background="@drawable/shape_circulo" android:backgroundTint="@color/bg_lila_claro" android:foreground="@drawable/color_selection_border" android:layout_margin="8dp"/>
+                        <RadioButton android:id="@+id/rbBgGris" android:layout_width="45dp" android:layout_height="45dp" android:button="@null" android:background="@drawable/shape_circulo" android:backgroundTint="@color/bg_gris_perla" android:foreground="@drawable/color_selection_border" android:layout_margin="8dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+
                 <!-- BOTÓN GUARDAR -->
                 <Button
                     android:id="@+id/btnGuardar"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="20dp"
                     android:backgroundTint="@color/black"
                     android:text="Guardar Cambios"
                     android:textColor="@color/white"
