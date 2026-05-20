@@ -17,7 +17,6 @@ public class ActividadAdapter extends RecyclerView.Adapter<ActividadAdapter.Acti
     private List<materia> listaMaterias;
     private OnItemClickListener listener;
 
-    // ✅ CONSTRUCTOR CORRECTO (UNO SOLO)
     public ActividadAdapter(List<actividad> listaActividades, List<materia> listaMaterias, OnItemClickListener listener) {
         this.listaActividades = listaActividades;
         this.listaMaterias = listaMaterias;
@@ -50,7 +49,7 @@ public class ActividadAdapter extends RecyclerView.Adapter<ActividadAdapter.Acti
         holder.txtHorario.setText("Hora: " + a.horaInicio);
         holder.txtEstado.setText("Estado: " + a.estado); // 🔥 CORRECCIÓN
 
-        // 🔥 BUSCAR MATERIA
+
         materia matEncontrada = null;
         if (listaMaterias != null) {
             for (materia m : listaMaterias) {
@@ -75,7 +74,7 @@ public class ActividadAdapter extends RecyclerView.Adapter<ActividadAdapter.Acti
             holder.viewColor.setBackgroundColor(Color.GRAY);
         }
 
-        // 🔥 CLICK
+
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
 
@@ -102,12 +101,12 @@ public class ActividadAdapter extends RecyclerView.Adapter<ActividadAdapter.Acti
         return listaActividades != null ? listaActividades.size() : 0;
     }
 
-    // 🔥 INTERFAZ
+
     public interface OnItemClickListener {
         void onItemClick(actividad act, String Materia);
     }
 
-    // 🔥 VIEW HOLDER (SIN lógica de click aquí)
+
     static class ActividadViewHolder extends RecyclerView.ViewHolder {
         TextView txtTipo, txtMateria, txtEstado, txtFecha, txtHorario;
         View viewColor;

@@ -4,7 +4,7 @@ import android.content.Context;
 import androidx.room.Room;
 import com.example.studyapp.room.database.appDatabase;
 
-public class appDatabaseInstancia {
+public class AppDataBaseInstancia {
 
     private static appDatabase INSTANCE;
 
@@ -15,7 +15,7 @@ public class appDatabaseInstancia {
                     appDatabase.class,
                     "study_db"
             )
-            .fallbackToDestructiveMigration() // Permite que la base de datos se recree si cambia la estructura
+            .fallbackToDestructiveMigration()
             .build();
         }
         return INSTANCE;

@@ -3,8 +3,6 @@ package com.example.studyapp;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
@@ -36,7 +34,7 @@ public class EditarActividad extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.agregar_tareas);
 
-        db = appDatabaseInstancia.getInstance(this);
+        db = AppDataBaseInstancia.getInstance(this);
 
         tipoAct = findViewById(R.id.RegistroActividad);
         materiaAct = findViewById(R.id.RegistroMateria);
@@ -81,14 +79,12 @@ public class EditarActividad extends BaseActivity {
         materiaAct.setOnClickListener(v -> materiaAct.showDropDown());
         estadoAct.setOnClickListener(v -> estadoAct.showDropDown());
 
-        // Configurar selector de fecha con bloqueo de días pasados
         etFecha.setOnClickListener(v -> {
             Calendar c = Calendar.getInstance();
             DatePickerDialog datePicker = new DatePickerDialog(this, (v1, y, m, d) ->
                     etFecha.setText(d + "/" + (m + 1) + "/" + y),
                     c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
-            
-            // Bloquear días anteriores a hoy
+
             datePicker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
             datePicker.show();
         });
@@ -145,13 +141,10 @@ public class EditarActividad extends BaseActivity {
             act.idMateria = idMat;
 
             new Thread(() -> {
-                //1. ACTUALIZAR en la base de datos
                 db.appDao().actualizarActividad(act);
 
-                // 2. CANCELAR la alarma anterior
                 AlarmHelper.cancelarAviso(EditarActividad.this, act.id, "ACTIVIDAD");
 
-                // 3. REPROGRAMAR la nueva alarma
                 AlarmHelper.programarAviso(
                         EditarActividad.this,
                         act.id,
@@ -159,7 +152,7 @@ public class EditarActividad extends BaseActivity {
                         act.fechaEntrega,
                         act.horaInicio,
                         act.tipo,
-                        act.descripcion // Se envía la descripción como detalle
+                        act.descripcion
                 );
 
                 runOnUiThread(() -> {

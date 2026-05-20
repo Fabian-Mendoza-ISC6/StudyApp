@@ -55,7 +55,6 @@ public class CalendarioAdapter extends RecyclerView.Adapter<CalendarioAdapter.Vi
             int mesViendo = calNavegacion.get(Calendar.MONTH) + 1;
             int añoViendo = calNavegacion.get(Calendar.YEAR);
 
-            // 1. Mostrar ❌ solo si el día ya pasó REALMENTE
             if (añoViendo < hoyAño) {
                 holder.txtEmoji.setVisibility(View.VISIBLE);
             } else if (añoViendo == hoyAño) {
@@ -66,7 +65,6 @@ public class CalendarioAdapter extends RecyclerView.Adapter<CalendarioAdapter.Vi
                 }
             }
 
-            // 2. Mostrar 📚 si hay tareas para esta fecha exacta (día/mes/año)
             String fechaDia = dia + "/" + mesViendo + "/" + añoViendo;
             for (actividad act : actividades) {
                 if (act.fechaEntrega != null && act.fechaEntrega.equals(fechaDia)) {

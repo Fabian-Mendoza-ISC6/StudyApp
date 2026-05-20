@@ -2,8 +2,6 @@ package com.example.studyapp;
 
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -38,7 +36,7 @@ public class EditarMateria extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_agregar_horario);
 
-        db = appDatabaseInstancia.getInstance(this);
+        db = AppDataBaseInstancia.getInstance(this);
         etMateria = findViewById(R.id.etMateria);
         etProfesor = findViewById(R.id.etProfesor);
         etSalon = findViewById(R.id.etSalon);
@@ -120,7 +118,6 @@ public class EditarMateria extends BaseActivity {
             if (hInicio.isEmpty()) { Toast.makeText(this, "Debe seleccionar la hora de inicio", Toast.LENGTH_SHORT).show(); return; }
             if (hFin.isEmpty()) { Toast.makeText(this, "Debe seleccionar la hora de fin", Toast.LENGTH_SHORT).show(); return; }
 
-            // Validar que la hora de fin no sea menor o igual a la de inicio
             int minInicio = tiempoEnMinutos(hInicio);
             int minFin = tiempoEnMinutos(hFin);
             if (minFin <= minInicio) {

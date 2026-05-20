@@ -23,7 +23,7 @@ public class VerMateria extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ver_materia);
-        db = appDatabaseInstancia.getInstance(this);
+        db = AppDataBaseInstancia.getInstance(this);
 
         etMateria = findViewById(R.id.etMateria);
         etProfesor = findViewById(R.id.etProfesor);

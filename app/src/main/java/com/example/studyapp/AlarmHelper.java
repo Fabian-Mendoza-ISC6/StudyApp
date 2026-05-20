@@ -11,7 +11,7 @@ import java.util.Locale;
 
 public class AlarmHelper {
 
-    // Busca y reemplaza este método en AlarmHelper.java
+
     public static void programarAviso(Context context, int idReferencia, String tipo, String fecha, String hora, String titulo, String detalles) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 

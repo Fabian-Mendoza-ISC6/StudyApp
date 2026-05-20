@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class inicio extends BaseActivity {
+public class Inicio extends BaseActivity {
 
     RecyclerView recyclerTareas, recyclerClases;
     appDatabase db;
@@ -31,7 +31,6 @@ public class inicio extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.inicio);
 
-        // ================= BOTONES =================
         Button btnInicio = findViewById(R.id.btnInicio);
         Button btnCalendario = findViewById(R.id.btnCalendario);
         Button btnTareas = findViewById(R.id.btnTareas);
@@ -40,34 +39,33 @@ public class inicio extends BaseActivity {
         Button btnConfiguracion = findViewById(R.id.btnConfiguracion);
         ImageView imgStudy = findViewById(R.id.img_study);
 
-        btnInicio.setOnClickListener(v -> cargarDatos()); // Ya estamos en inicio, solo refresca
+        btnInicio.setOnClickListener(v -> cargarDatos());
         
         btnCalendario.setOnClickListener(v ->
-                startActivity(new Intent(inicio.this, Horario.class)));
+                startActivity(new Intent(Inicio.this, Horario.class)));
 
         btnTareas.setOnClickListener(v ->
-                startActivity(new Intent(inicio.this, Tarea.class)));
+                startActivity(new Intent(Inicio.this, Tarea.class)));
 
         btnKanba.setOnClickListener(v ->
-                startActivity(new Intent(inicio.this, Kanba.class)));
+                startActivity(new Intent(Inicio.this, Kanba.class)));
 
         btnEventos.setOnClickListener(v ->
-                startActivity(new Intent(inicio.this, Calendario.class)));
+                startActivity(new Intent(Inicio.this, Calendario.class)));
 
         btnConfiguracion.setOnClickListener(v ->
-                startActivity(new Intent(inicio.this, Configuraciones.class)));
+                startActivity(new Intent(Inicio.this, Configuraciones.class)));
 
         imgStudy.setOnClickListener(v ->
-                startActivity(new Intent(inicio.this, MainActivity.class)));
+                startActivity(new Intent(Inicio.this, MainActivity.class)));
 
-        // ================= RECYCLERS =================
         recyclerTareas = findViewById(R.id.recyclerTareas);
         recyclerClases = findViewById(R.id.recyclerClases);
 
         recyclerTareas.setLayoutManager(new LinearLayoutManager(this));
         recyclerClases.setLayoutManager(new LinearLayoutManager(this));
 
-        db = appDatabaseInstancia.getInstance(this);
+        db = AppDataBaseInstancia.getInstance(this);
         dao = db.appDao();
 
         cargarDatos();
@@ -87,7 +85,6 @@ public class inicio extends BaseActivity {
             
             String fechaHoy = new SimpleDateFormat("d/M/yyyy", Locale.getDefault()).format(calendar.getTime());
 
-            // 1. Filtrar Materias (Próximos 30 minutos)
             List<materia> todasMaterias = dao.obtenerMaterias();
             List<materia> proximasMaterias = new ArrayList<>();
             SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a", Locale.US);

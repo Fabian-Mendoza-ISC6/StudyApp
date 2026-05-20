@@ -17,7 +17,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:name=".appController"
+        android:name=".AppController"
         android:theme="@style/Theme.StudyApp">
         <activity
             android:name=".MainActivity"
@@ -29,7 +29,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".inicio"
+            android:name=".Inicio"
             android:exported="false" />
         <activity
             android:name=".Horario"

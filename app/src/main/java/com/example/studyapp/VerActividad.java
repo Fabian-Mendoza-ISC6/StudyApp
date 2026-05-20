@@ -23,7 +23,7 @@ public class VerActividad extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ver_tareas);
 
-        db = appDatabaseInstancia.getInstance(this);
+        db = AppDataBaseInstancia.getInstance(this);
         tipoAct = findViewById(R.id.RegistroActividad);
         materiaAct = findViewById(R.id.RegistroMateria);
         estadoAct = findViewById(R.id.EstadoActividad);

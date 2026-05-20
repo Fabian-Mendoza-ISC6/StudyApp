@@ -5,7 +5,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Build;
 
-public class appController extends Application {
+public class AppController extends Application {
 
     @Override
     public void onCreate() {

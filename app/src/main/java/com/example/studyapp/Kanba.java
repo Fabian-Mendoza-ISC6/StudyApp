@@ -30,17 +30,23 @@ public class Kanba extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.kanba);
 
-        db = appDatabaseInstancia.getInstance(this);
+        db = AppDataBaseInstancia.getInstance(this);
         dao = db.appDao();
 
         // ================= TOOLBAR BUTTONS =================
-        findViewById(R.id.btnInicio).setOnClickListener(v -> startActivity(new Intent(this, inicio.class)));
-        findViewById(R.id.btnCalendario).setOnClickListener(v -> startActivity(new Intent(this, Horario.class)));
-        findViewById(R.id.btnTareas).setOnClickListener(v -> startActivity(new Intent(this, Tarea.class)));
+        findViewById(R.id.btnInicio).setOnClickListener(v ->
+                startActivity(new Intent(this, Inicio.class)));
+        findViewById(R.id.btnCalendario).setOnClickListener(v ->
+                startActivity(new Intent(this, Horario.class)));
+        findViewById(R.id.btnTareas).setOnClickListener(v ->
+                startActivity(new Intent(this, Tarea.class)));
         findViewById(R.id.btnKamba).setOnClickListener(v -> cargarKanban()); 
-        findViewById(R.id.btnEventos).setOnClickListener(v -> startActivity(new Intent(this, Calendario.class)));
-        findViewById(R.id.btnConfiguracion).setOnClickListener(v -> startActivity(new Intent(this, Configuraciones.class)));
-        findViewById(R.id.img_study).setOnClickListener(v -> startActivity(new Intent(this, MainActivity.class)));
+        findViewById(R.id.btnEventos).setOnClickListener(v ->
+                startActivity(new Intent(this, Calendario.class)));
+        findViewById(R.id.btnConfiguracion).setOnClickListener(v ->
+                startActivity(new Intent(this, Configuraciones.class)));
+        findViewById(R.id.img_study).setOnClickListener(v ->
+                startActivity(new Intent(this, MainActivity.class)));
 
         rPendiente = findViewById(R.id.recyclerPendiente);
         rProceso = findViewById(R.id.recyclerProceso);

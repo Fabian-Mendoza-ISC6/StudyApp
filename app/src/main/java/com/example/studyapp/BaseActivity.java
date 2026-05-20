@@ -16,7 +16,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void attachBaseContext(Context newBase) {
         SharedPreferences prefs = newBase.getSharedPreferences("Settings", Context.MODE_PRIVATE);
         
-        // 1. Aplicar Idioma
+        // Idioma
         String lang = prefs.getString("language", "es");
         Locale locale = new Locale(lang);
         Locale.setDefault(locale);
@@ -24,7 +24,7 @@ public class BaseActivity extends AppCompatActivity {
         Configuration config = new Configuration(newBase.getResources().getConfiguration());
         config.setLocale(locale);
         
-        // 2. Aplicar Tamaño de letra (Escalado global)
+        //Tamaño de letra
         float fontScale = prefs.getFloat("fontScale", 1.0f);
         config.fontScale = fontScale;
         
@@ -34,7 +34,7 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
-        // Aplica el color de fondo y contraste al cargar la pantalla
+        // Aplicar el color de fondo y contraste
         applyDynamicStyles();
     }
 
@@ -43,13 +43,13 @@ public class BaseActivity extends AppCompatActivity {
         String colorHex = prefs.getString("backgroundColor", "#89CAB4");
         String contrastHex = getContrastColor(colorHex);
 
-        // 1. Aplicar color de fondo al contenedor principal
+        // Color de fondo
         ViewGroup root = findViewById(android.R.id.content);
         if (root != null && root.getChildCount() > 0) {
             applyColorToView(root.getChildAt(0), colorHex);
         }
 
-        // 2. Aplicar color de contraste a toolbars específicos
+        // Color de contraste a toolbars
         int[] toolbarIds = {R.id.toolbarIcons, R.id.toolDeTarea, R.id.toolSemanda};
         for (int id : toolbarIds) {
             View toolbar = findViewById(id);
@@ -59,7 +59,7 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    // Determina el color de contraste basado en el fondo seleccionado
+
     private String getContrastColor(String backgroundHex) {
         switch (backgroundHex.toUpperCase()) {
             case "#7AC2BB": return "#3E8F87"; // Verde agua
@@ -69,11 +69,11 @@ public class BaseActivity extends AppCompatActivity {
             case "#FFF3B0": return "#FFD93D"; // Amarillo pastel
             case "#D9C8F0": return "#9A6FD0"; // Lila claro
             case "#E8E8E8": return "#BFBFBF"; // Gris perla
-            default: return "#3E8F87";        // Por defecto verde agua profundo
+            default: return "#3E8F87";        // Por defecto verde agua
         }
     }
 
-    // Método para aplicar color respetando el diseño (bordes, etc)
+
     public void applyColorToView(View view, String colorHex) {
         if (view == null) return;
         int color = Color.parseColor(colorHex);
@@ -86,7 +86,6 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    // Sobrecarga para usar el color de fondo guardado por defecto (útil para Diálogos)
     public void applyColorToView(View view) {
         SharedPreferences prefs = getSharedPreferences("Settings", MODE_PRIVATE);
         String colorHex = prefs.getString("backgroundColor", "#89CAB4");

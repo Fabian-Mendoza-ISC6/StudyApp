@@ -30,8 +30,7 @@ public class SettingsManager {
             return 1.0f;
         }
     }
-    
-    // Podemos agregar más ajustes al JSON fácilmente
+
     public static void saveThemeColor(Context context, String colorHex) {
         try {
             SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);

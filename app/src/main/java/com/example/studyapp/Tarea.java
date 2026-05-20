@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.studyapp.room.database.appDatabase;
-import com.example.studyapp.appDatabaseInstancia;
 import com.example.studyapp.room.entity.actividad;
 import com.example.studyapp.room.entity.materia;
 
@@ -34,12 +33,11 @@ public class Tarea extends BaseActivity { // ✅ Hereda de BaseActivity para apl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.tareas); // ✅ BaseActivity aplicará el fondo aquí automáticamente
+        setContentView(R.layout.tareas);
         
-        db = appDatabaseInstancia.getInstance(this);
+        db = AppDataBaseInstancia.getInstance(this);
 
-        // ================= BOTONES DE NAVEGACIÓN =================
-        findViewById(R.id.btnInicio).setOnClickListener(v -> startActivity(new Intent(this, inicio.class)));
+        findViewById(R.id.btnInicio).setOnClickListener(v -> startActivity(new Intent(this, Inicio.class)));
         findViewById(R.id.btnCalendario).setOnClickListener(v -> startActivity(new Intent(this, Horario.class)));
         findViewById(R.id.btnTareas).setOnClickListener(v -> cargarActividades()); 
         findViewById(R.id.btnKamba).setOnClickListener(v -> startActivity(new Intent(this, Kanba.class)));
@@ -47,7 +45,6 @@ public class Tarea extends BaseActivity { // ✅ Hereda de BaseActivity para apl
         findViewById(R.id.btnConfiguracion).setOnClickListener(v -> startActivity(new Intent(this, Configuraciones.class)));
         findViewById(R.id.img_study).setOnClickListener(v -> startActivity(new Intent(this, MainActivity.class)));
 
-        // Inicializar RecyclerView
         recyclerActividades = findViewById(R.id.recyclerActividades);
         recyclerActividades.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ActividadAdapter(listaActividades, listaMaterias,(act, nombreMateria) -> {
@@ -98,11 +95,10 @@ public class Tarea extends BaseActivity { // ✅ Hereda de BaseActivity para apl
     }
 
     private void mostrarDialogoAgregarTarea() {
-        // NOTA: Se eliminó la configuración manual que bloqueaba los cambios globales de fuente
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View view = getLayoutInflater().inflate(R.layout.agregar_tareas, null);
         
-        applyColorToView(view); // 🔥 APLICA EL COLOR DE FONDO ELEGIDO AL DIÁLOGO
+        applyColorToView(view);
 
         builder.setView(view);
         final AlertDialog dialog = builder.create();
@@ -128,7 +124,6 @@ public class Tarea extends BaseActivity { // ✅ Hereda de BaseActivity para apl
             });
         }).start();
 
-        // Usamos traducciones que respetan la escala de fuente configurada
         String[] tipos = {getString(R.string.cat_tarea), getString(R.string.cat_examen), getString(R.string.cat_proyecto), getString(R.string.cat_estudio)};
         String[] estados = {getString(R.string.est_pendiente), getString(R.string.est_en_curso), getString(R.string.est_finalizado)};
 

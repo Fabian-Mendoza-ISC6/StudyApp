@@ -3,8 +3,7 @@ package com.example.studyapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,23 +30,28 @@ public class Calendario extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.calendario);
 
-        db = appDatabaseInstancia.getInstance(this);
+        db = AppDataBaseInstancia.getInstance(this);
 
-        // --- NAVEGACIÓN ---
-        findViewById(R.id.btnInicio).setOnClickListener(v -> startActivity(new Intent(this, inicio.class)));
-        findViewById(R.id.btnCalendario).setOnClickListener(v -> startActivity(new Intent(this, Horario.class)));
-        findViewById(R.id.btnTareas).setOnClickListener(v -> startActivity(new Intent(this, Tarea.class)));
-        findViewById(R.id.btnKamba).setOnClickListener(v -> startActivity(new Intent(this, Kanba.class)));
+        findViewById(R.id.btnInicio).setOnClickListener(v ->
+                startActivity(new Intent(this, Inicio.class)));
+        findViewById(R.id.btnCalendario).setOnClickListener(v ->
+
+                startActivity(new Intent(this, Horario.class)));
+        findViewById(R.id.btnTareas).setOnClickListener(v ->
+                startActivity(new Intent(this, Tarea.class)));
+        findViewById(R.id.btnKamba).setOnClickListener(v ->
+                startActivity(new Intent(this, Kanba.class)));
         findViewById(R.id.btnEventos).setOnClickListener(v -> actualizarCalendario()); 
-        findViewById(R.id.btnConfiguracion).setOnClickListener(v -> startActivity(new Intent(this, Configuraciones.class)));
-        findViewById(R.id.img_study).setOnClickListener(v -> startActivity(new Intent(this, MainActivity.class)));
+        findViewById(R.id.btnConfiguracion).setOnClickListener(v ->
+                startActivity(new Intent(this, Configuraciones.class)));
+        findViewById(R.id.img_study).setOnClickListener(v ->
+                startActivity(new Intent(this, MainActivity.class)));
 
-        // --- RECYCLERS ---
+
         rvCalendario = findViewById(R.id.rvCalendario);
         rvTareasDia = findViewById(R.id.rvTareasDia);
         rvTareasDia.setLayoutManager(new LinearLayoutManager(this));
-        
-        // Ocultamos los botones de navegación de mes individual (ya que ahora es una lista)
+
         View layoutMes = findViewById(R.id.layoutMes);
         if (layoutMes != null) layoutMes.setVisibility(View.GONE);
 
@@ -58,15 +62,12 @@ public class Calendario extends BaseActivity {
         new Thread(() -> {
             todasActividades = db.appDao().obtenerActividades();
             todasMaterias = db.appDao().obtenerMaterias();
-            
-            // 1. Identificar todos los meses que tienen tareas
+
             Set<String> mesesKeys = new HashSet<>();
-            
-            // Siempre incluimos el mes actual
+
             Calendar hoy = Calendar.getInstance();
             mesesKeys.add(hoy.get(Calendar.MONTH) + "-" + hoy.get(Calendar.YEAR));
 
-            // Buscamos en todas las tareas
             for (actividad act : todasActividades) {
                 if (act.fechaEntrega != null && act.fechaEntrega.contains("/")) {
                     try {
@@ -80,7 +81,6 @@ public class Calendario extends BaseActivity {
                 }
             }
 
-            // 2. Convertir las claves a objetos Calendar para ordenarlos
             List<Calendar> listaMeses = new ArrayList<>();
             for (String key : mesesKeys) {
                 String[] p = key.split("-");
@@ -95,7 +95,6 @@ public class Calendario extends BaseActivity {
                 listaMeses.add(c);
             }
 
-            // 3. Si quieres ver al menos unos meses próximos aunque no tengan tareas
             if (listaMeses.size() < 3) {
                 Calendar extra = (Calendar) hoy.clone();
                 for (int i = 1; i <= 3; i++) {
@@ -115,7 +114,6 @@ public class Calendario extends BaseActivity {
                 rvCalendario.setLayoutManager(new LinearLayoutManager(this));
                 
                 MesAdapter adapter = new MesAdapter(listaMeses, todasActividades, fechaSeleccionada -> {
-                    // Mostrar las tareas del día que el usuario toque en cualquier calendario
                     List<actividad> filtradas = new ArrayList<>();
                     for (actividad act : todasActividades) {
                         if (act.fechaEntrega != null && act.fechaEntrega.equals(fechaSeleccionada)) {

@@ -41,18 +41,22 @@ public class Horario extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.horario);
-        db = appDatabaseInstancia.getInstance(this);
+        db = AppDataBaseInstancia.getInstance(this);
 
-        // ================= TOOLBAR BUTTONS =================
-        findViewById(R.id.btnInicio).setOnClickListener(v -> startActivity(new Intent(this, inicio.class)));
-        findViewById(R.id.btnCalendario).setOnClickListener(v -> cargarMaterias()); 
-        findViewById(R.id.btnTareas).setOnClickListener(v -> startActivity(new Intent(this, Tarea.class)));
-        findViewById(R.id.btnKamba).setOnClickListener(v -> startActivity(new Intent(this, Kanba.class)));
-        findViewById(R.id.btnEventos).setOnClickListener(v -> startActivity(new Intent(this, Calendario.class)));
-        findViewById(R.id.btnConfiguracion).setOnClickListener(v -> startActivity(new Intent(this, Configuraciones.class)));
-        findViewById(R.id.img_study).setOnClickListener(v -> startActivity(new Intent(this, MainActivity.class)));
+        findViewById(R.id.btnInicio).setOnClickListener(v ->
+                startActivity(new Intent(this, Inicio.class)));
+        findViewById(R.id.btnCalendario).setOnClickListener(v -> cargarMaterias());
+        findViewById(R.id.btnTareas).setOnClickListener(v ->
+                startActivity(new Intent(this, Tarea.class)));
+        findViewById(R.id.btnKamba).setOnClickListener(v ->
+                startActivity(new Intent(this, Kanba.class)));
+        findViewById(R.id.btnEventos).setOnClickListener(v ->
+                startActivity(new Intent(this, Calendario.class)));
+        findViewById(R.id.btnConfiguracion).setOnClickListener(v ->
+                startActivity(new Intent(this, Configuraciones.class)));
+        findViewById(R.id.img_study).setOnClickListener(v ->
+                startActivity(new Intent(this, MainActivity.class)));
 
-        // ================= DÍAS BUTTONS =================
         btnL = findViewById(R.id.btnLunes);
         btnM = findViewById(R.id.btnMartes);
         btnMi = findViewById(R.id.btnMiercoles);
@@ -193,7 +197,6 @@ public class Horario extends BaseActivity {
                 int mI = tiempoEnMinutos(m.horaInicio);
                 int mF = tiempoEnMinutos(m.horaFin);
                 if (mI == -1 || mF == -1) continue;
-                // Verificar si se solapan los intervalos
                 if (nuevoI < mF && nuevoF > mI) return true;
             }
         }
@@ -289,11 +292,9 @@ public class Horario extends BaseActivity {
             String hInicio = etHoraInicio.getText().toString().trim();
             String hFin = etHoraFin.getText().toString().trim();
 
-            // Capitalización de la primera letra
             nombre = capitalizar(nombre);
             profesor = capitalizar(profesor);
 
-            // Expresión regular para solo letras, acentos, ñ y puntos
             String regex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ. ]+$";
 
             if (nombre.isEmpty()) {
@@ -323,7 +324,6 @@ public class Horario extends BaseActivity {
                 return;
             }
 
-            // Validar que la hora de fin no sea menor o igual a la de inicio
             int minInicio = tiempoEnMinutos(hInicio);
             int minFin = tiempoEnMinutos(hFin);
             if (minFin <= minInicio) {
@@ -344,7 +344,6 @@ public class Horario extends BaseActivity {
                 return;
             }
 
-            // Validar que no haya conflicto de horario con otra clase
             if (hayConflicto(diaElegido, hInicio, hFin, -1)) {
                 Toast.makeText(this, "Ya tienes una clase registrada en este horario y día", Toast.LENGTH_LONG).show();
                 return;

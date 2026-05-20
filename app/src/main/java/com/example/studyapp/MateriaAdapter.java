@@ -15,12 +15,12 @@ public class MateriaAdapter extends RecyclerView.Adapter<MateriaAdapter.MateriaV
     private List<materia> listaMaterias;
     private OnItemClickListener listener;
 
-    // 🔥 INTERFAZ
+
     public interface OnItemClickListener {
         void onItemClick(materia m);
     }
 
-    // 🔥 CONSTRUCTOR
+
     public MateriaAdapter(List<materia> listaMaterias, OnItemClickListener listener) {
         this.listaMaterias = listaMaterias;
         this.listener = listener;

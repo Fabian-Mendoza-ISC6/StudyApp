@@ -27,7 +27,7 @@ public class MainActivity extends BaseActivity {
 
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        db = appDatabaseInstancia.getInstance(this);
+        db = AppDataBaseInstancia.getInstance(this);
         
         View mainView = findViewById(R.id.main);
         if (mainView != null) {
@@ -42,7 +42,7 @@ public class MainActivity extends BaseActivity {
         btnInicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, inicio.class);
+                Intent intent = new Intent(MainActivity.this, Inicio.class);
                 startActivity(intent);
             }
         });
