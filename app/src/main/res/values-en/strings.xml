@@ -1,0 +1,105 @@
+<resources>
+    <string name="app_name">StudyApp</string>
+    <string name="study_image_description">Study Image</string>
+    <string name="bienvenida_titulo">Hello</string>
+    <string name="bienvenida_subtitulo">“Your next tasks are waiting for you”</string>
+    <string name="titulo_configuracion">Settings</string>
+    <string name="icon_settings">⚙️</string>
+    <string name="opciones_configuracion">Settings:</string>
+    <string name="config_app_header">App Settings</string>
+    <string name="label_font_size">Font Size</string>
+    <string name="font_small">Small</string>
+    <string name="font_medium">Medium</string>
+    <string name="font_large">Large</string>
+    <string name="label_language">Language</string>
+    <string name="btn_save_changes">Save Changes</string>
+    <string name="msg_saved_restarting">Changes saved. Restarting...</string>
+
+    <string name="icon_home">🏠</string>
+    <string name="icon_calendar">📆</string>
+    <string name="icon_tasks">📄</string>
+    <string name="icon_kanba">📋</string>
+    <string name="icon_events">🗓️</string>
+
+    <string name="title_inicio">Home</string>
+    <string name="title_horario">Schedule</string>
+    <string name="title_actividades">Activities</string>
+    <string name="title_kanba">Kanban</string>
+    <string name="title_calendario">Calendar</string>
+
+    <string name="label_proxima_entrega">Next delivery:</string>
+    <string name="label_proxima_clase">Next class:</string>
+    <string name="label_pendientes">Pending:</string>
+    <string name="label_en_curso">In progress:</string>
+    <string name="label_hecho">Done:</string>
+
+    <string name="title_ver">View</string>
+    <string name="title_ver_actividad">View Activity</string>
+    <string name="label_materia">Subject</string>
+    <string name="label_nombre_materia">Subject Name</string>
+    <string name="hint_materia">Select or write...</string>
+    <string name="label_profesor">Professor</string>
+    <string name="hint_profesor">Teacher\'s name</string>
+    <string name="label_dia_semana">Day of the week</string>
+
+    <string name="label_lunes">Monday</string>
+    <string name="label_martes">Tuesday</string>
+    <string name="label_miercoles">Wednesday</string>
+    <string name="label_jueves">Thursday</string>
+    <string name="label_viernes">Friday</string>
+    <string name="label_sabado">Saturday</string>
+    <string name="label_domingo">Sunday</string>
+
+    <string name="short_lunes">Mon</string>
+    <string name="short_martes">Tue</string>
+    <string name="short_miercoles">Wed</string>
+    <string name="short_jueves">Thu</string>
+    <string name="short_viernes">Fri</string>
+    <string name="short_sabado">Sat</string>
+    <string name="short_domingo">Sun</string>
+
+    <string name="init_lunes">M</string>
+    <string name="init_martes">T</string>
+    <string name="init_miercoles">W</string>
+    <string name="init_jueves">T</string>
+    <string name="init_viernes">F</string>
+    <string name="init_sabado">S</string>
+    <string name="init_domingo">S</string>
+
+    <string name="label_hora_inicio">Start Time</string>
+    <string name="label_hora_fin">End Time</string>
+    <string name="label_hora_entrega">Delivery Time</string>
+    <string name="label_salon">Room</string>
+    <string name="hint_salon">Classroom or room (optional)</string>
+    <string name="label_color_materia">Subject Color</string>
+
+    <string name="btn_cancelar">Cancel</string>
+    <string name="btn_guardar">Save</string>
+    <string name="btn_editar">Edit</string>
+    <string name="btn_eliminar">Delete</string>
+    <string name="btn_cerrar">Close</string>
+
+    <string name="title_agregar_tarea">Add</string>
+    <string name="label_actividad">Activity</string>
+    <string name="hint_seleccionar_actividad">Select an activity..</string>
+    <string name="label_estado">Status</string>
+    <string name="hint_seleccionar_estado">Select a status</string>
+    <string name="label_fecha">Date</string>
+    <string name="label_dia_entrega">Delivery day</string>
+    <string name="label_descripcion">Description</string>
+    <string name="hint_escribir_descripcion">Write the description here...</string>
+    <string name="hint_seleccionar_fecha">Select a date</string>
+
+    <string name="msg_obligatorio">Required</string>
+    <string name="msg_confirmar_eliminar_actividad">Are you sure you want to delete this activity?</string>
+    <string name="msg_confirmar_eliminar_materia">Are you sure you want to delete this subject?</string>
+
+    <string name="cat_tarea">Task</string>
+    <string name="cat_examen">Exam</string>
+    <string name="cat_proyecto">Project</string>
+    <string name="cat_estudio">Study</string>
+
+    <string name="est_pendiente">Pending</string>
+    <string name="est_en_curso">In progress</string>
+    <string name="est_finalizado">Finished</string>
+</resources>

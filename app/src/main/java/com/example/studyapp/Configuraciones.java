@@ -46,10 +46,10 @@ public class Configuraciones extends BaseActivity {
         else if (currentScale == 1.2f) rgFontSize.check(R.id.rbLarge);
         else rgFontSize.check(R.id.rbMedium);
 
-        // Idioma
+        // Idioma - USANDO spinner_item PARA QUE SE VEA NEGRO
         Spinner spinnerLanguage = findViewById(R.id.spinnerLanguage);
         String[] displayLangs = {"Español (Spanish)", "English (Inglés)"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, displayLangs);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_item, displayLangs);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerLanguage.setAdapter(adapter);
 
@@ -76,21 +76,25 @@ public class Configuraciones extends BaseActivity {
         btnGuardar.setOnClickListener(v -> {
             SharedPreferences.Editor editor = prefs.edit();
 
+            // Guardar tamaño de letra
             float newScale = 1.0f;
             int checkedFontId = rgFontSize.getCheckedRadioButtonId();
             if (checkedFontId == R.id.rbSmall) newScale = 0.85f;
             else if (checkedFontId == R.id.rbLarge) newScale = 1.2f;
             editor.putFloat("fontScale", newScale);
 
+            // Guardar idioma
             String selectedLang = (spinnerLanguage.getSelectedItemPosition() == 1) ? "en" : "es";
             editor.putString("language", selectedLang);
 
+            // Guardar color
             editor.putString("backgroundColor", colorSeleccionadoHex);
             
             editor.apply();
 
-            Toast.makeText(this, "Cambios aplicados", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.msg_saved_restarting, Toast.LENGTH_SHORT).show();
 
+            // Reiniciar la app para aplicar cambios de idioma y escala globalmente
             Intent intent = new Intent(this, Inicio.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);

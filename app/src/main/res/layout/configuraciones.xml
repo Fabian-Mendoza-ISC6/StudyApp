@@ -8,7 +8,7 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp">
 
-    <!-- CABECERA ROBUSTA -->
+    <!-- CABECERA -->
     <RelativeLayout
         android:id="@+id/headerLayout"
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
             android:layout_height="45dp"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:contentDescription="Logo"
+            android:contentDescription="@string/study_image_description"
             android:scaleType="centerInside"
             android:src="@drawable/logosinfondo" />
 
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:fontFamily="sans-serif"
-            android:text="Configuraciones"
+            android:text="@string/titulo_configuracion"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -46,7 +46,7 @@
             android:minWidth="0dp"
             android:minHeight="0dp"
             android:padding="0dp"
-            android:text="⚙️"
+            android:text="@string/icon_settings"
             android:textSize="18sp"
             app:backgroundTint="@null" />
     </RelativeLayout>
@@ -57,12 +57,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/headerLayout"
         android:layout_marginTop="10dp"
-        android:text="Ajustes:"
+        android:text="@string/opciones_configuracion"
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold" />
 
-    <!-- CONTENEDOR PRINCIPAL -->
+    <!-- CONTENEDOR DE AJUSTES -->
     <FrameLayout
         android:id="@+id/cardConfig"
         android:layout_width="match_parent"
@@ -86,19 +86,20 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Configuraciones de la App"
+                    android:text="@string/config_app_header"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <!-- TAMAÑO DE LETRA -->
+                <!-- TAMAÑO DE LETRA - TEXTO MÁS OSCURO -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="Tamaño de letra"
+                    android:text="@string/label_font_size"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <RadioGroup
                     android:id="@+id/rgFontSize"
@@ -106,32 +107,36 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal">
-                    <RadioButton android:id="@+id/rbSmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Chica" />
-                    <RadioButton android:id="@+id/rbMedium" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Media" android:checked="true"/>
-                    <RadioButton android:id="@+id/rbLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Grande" />
+                    <RadioButton android:id="@+id/rbSmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/font_small" android:textColor="@color/black" />
+                    <RadioButton android:id="@+id/rbMedium" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/font_medium" android:textColor="@color/black" android:checked="true"/>
+                    <RadioButton android:id="@+id/rbLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/font_large" android:textColor="@color/black" />
                 </RadioGroup>
 
-                <!-- IDIOMA -->
+                <!-- IDIOMA - MEJORADO -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="Idioma"
+                    android:text="@string/label_language"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <Spinner
                     android:id="@+id/spinnerLanguage"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp" />
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/blanco_redondiado"
+                    android:paddingStart="10dp"
+                    android:spinnerMode="dropdown" />
 
-                <!-- SECCIÓN DE COLOR DE FONDO -->
+                <!-- COLOR DE FONDO -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="Color de fondo de la App"
+                    android:text="@string/label_color_materia"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -148,7 +153,6 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:gravity="center">
-                        <!-- RadioButtons personalizados con la gama de colores -->
                         <RadioButton android:id="@+id/rbBgVerdeAgua" android:layout_width="45dp" android:layout_height="45dp" android:button="@null" android:background="@drawable/shape_circulo" android:backgroundTint="@color/bg_verde_agua" android:foreground="@drawable/color_selection_border" android:layout_margin="8dp"/>
                         <RadioButton android:id="@+id/rbBgAzulCielo" android:layout_width="45dp" android:layout_height="45dp" android:button="@null" android:background="@drawable/shape_circulo" android:backgroundTint="@color/bg_azul_cielo" android:foreground="@drawable/color_selection_border" android:layout_margin="8dp"/>
                         <RadioButton android:id="@+id/rbBgDurazno" android:layout_width="45dp" android:layout_height="45dp" android:button="@null" android:background="@drawable/shape_circulo" android:backgroundTint="@color/bg_durazno_pastel" android:foreground="@drawable/color_selection_border" android:layout_margin="8dp"/>
@@ -167,14 +171,13 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <!-- BOTÓN GUARDAR -->
                 <Button
                     android:id="@+id/btnGuardar"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:layout_marginTop="20dp"
                     android:backgroundTint="@color/black"
-                    android:text="Guardar Cambios"
+                    android:text="@string/btn_save_changes"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
 
@@ -186,20 +189,19 @@
     <LinearLayout
         android:id="@+id/toolbarIcons"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="75dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="5dp"
         android:background="@drawable/verde_redondiado"
         android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingHorizontal="8dp">
+        android:orientation="horizontal">
 
-        <Button android:id="@+id/btnInicio" android:layout_width="0dp" android:layout_height="50dp" android:layout_margin="2dp" android:layout_weight="1" android:background="@drawable/blanco_redondiado" android:text="🏠" android:textSize="20sp" app:backgroundTint="@null" />
-        <Button android:id="@+id/btnCalendario" android:layout_width="0dp" android:layout_height="50dp" android:layout_margin="2dp" android:layout_weight="1" android:background="@drawable/blanco_redondiado" android:text="📆" android:textSize="20sp" app:backgroundTint="@null" />
-        <Button android:id="@+id/btnTareas" android:layout_width="0dp" android:layout_height="50dp" android:layout_margin="2dp" android:layout_weight="1" android:background="@drawable/blanco_redondiado" android:text="📄" android:textSize="20sp" app:backgroundTint="@null" />
-        <Button android:id="@+id/btnKamba" android:layout_width="0dp" android:layout_height="50dp" android:layout_margin="2dp" android:layout_weight="1" android:background="@drawable/blanco_redondiado" android:text="📋" android:textSize="20sp" app:backgroundTint="@null" />
-        <Button android:id="@+id/btnEventos" android:layout_width="0dp" android:layout_height="50dp" android:layout_margin="2dp" android:layout_weight="1" android:background="@drawable/blanco_redondiado" android:text="🗓️" android:textSize="20sp" app:backgroundTint="@null" />
+        <Button android:id="@+id/btnInicio" android:layout_width="55dp" android:layout_height="55dp" android:layout_margin="5dp" android:background="@drawable/blanco_redondiado" android:text="@string/icon_home" android:textSize="22sp" android:padding="0dp" android:minWidth="0dp" android:minHeight="0dp" app:backgroundTint="@null" />
+        <Button android:id="@+id/btnCalendario" android:layout_width="55dp" android:layout_height="55dp" android:layout_margin="5dp" android:background="@drawable/blanco_redondiado" android:text="@string/icon_calendar" android:textSize="22sp" android:padding="0dp" android:minWidth="0dp" android:minHeight="0dp" app:backgroundTint="@null" />
+        <Button android:id="@+id/btnTareas" android:layout_width="55dp" android:layout_height="55dp" android:layout_margin="5dp" android:background="@drawable/blanco_redondiado" android:text="@string/icon_tasks" android:textSize="22sp" android:padding="0dp" android:minWidth="0dp" android:minHeight="0dp" app:backgroundTint="@null" />
+        <Button android:id="@+id/btnKamba" android:layout_width="55dp" android:layout_height="55dp" android:layout_margin="5dp" android:background="@drawable/blanco_redondiado" android:text="@string/icon_kanba" android:textSize="22sp" android:padding="0dp" android:minWidth="0dp" android:minHeight="0dp" app:backgroundTint="@null" />
+        <Button android:id="@+id/btnEventos" android:layout_width="55dp" android:layout_height="55dp" android:layout_margin="5dp" android:background="@drawable/blanco_redondiado" android:text="@string/icon_events" android:textSize="22sp" android:padding="0dp" android:minWidth="0dp" android:minHeight="0dp" app:backgroundTint="@null" />
     </LinearLayout>
 
 </RelativeLayout>

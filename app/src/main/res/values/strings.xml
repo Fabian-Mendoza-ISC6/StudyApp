@@ -33,9 +33,13 @@
     <string name="label_en_curso">En curso:</string>
     <string name="label_hecho">Hecho:</string>
 
+    <string name="title_ver">Ver</string>
+    <string name="title_ver_actividad">Ver Actividad</string>
     <string name="label_materia">Materia</string>
     <string name="label_nombre_materia">Nombre de la materia</string>
+    <string name="hint_materia">Selecciona o escribe...</string>
     <string name="label_profesor">Profesor</string>
+    <string name="hint_profesor">Nombre del maestro</string>
     <string name="label_dia_semana">Día de la semana</string>
 
     <string name="label_lunes">Lunes</string>
@@ -45,6 +49,14 @@
     <string name="label_viernes">Viernes</string>
     <string name="label_sabado">Sábado</string>
     <string name="label_domingo">Domingo</string>
+
+    <string name="short_lunes">Lunes</string>
+    <string name="short_martes">Martes</string>
+    <string name="short_miercoles">Miérc.</string>
+    <string name="short_jueves">Jueves</string>
+    <string name="short_viernes">Viernes</string>
+    <string name="short_sabado">Sábado</string>
+    <string name="short_domingo">Dom.</string>
 
     <string name="init_lunes">L</string>
     <string name="init_martes">M</string>
@@ -56,7 +68,9 @@
 
     <string name="label_hora_inicio">Hora de inicio</string>
     <string name="label_hora_fin">Hora de fin</string>
+    <string name="label_hora_entrega">Hora de entrega</string>
     <string name="label_salon">Salón</string>
+    <string name="hint_salon">Aula o salón (opcional)</string>
     <string name="label_color_materia">Color de la materia</string>
 
     <string name="btn_cancelar">Cancelar</string>
