@@ -23,7 +23,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class Tarea extends BaseActivity { // ✅ Hereda de BaseActivity para aplicar Fuente y Color
+public class Tarea extends BaseActivity { //  Hereda de BaseActivity para aplicar Fuente y Color
     appDatabase db;
     RecyclerView recyclerActividades;
     ActividadAdapter adapter;

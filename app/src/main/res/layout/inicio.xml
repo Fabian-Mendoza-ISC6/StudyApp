@@ -31,7 +31,6 @@
         android:scaleType="centerInside"
         android:src="@drawable/logosinfondo" />
 
-    <!-- Botón de configuración con fondo redondeado -->
     <Button
         android:id="@+id/btnConfiguracion"
         android:layout_width="55dp"

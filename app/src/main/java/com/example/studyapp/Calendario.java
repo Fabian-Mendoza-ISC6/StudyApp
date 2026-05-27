@@ -35,7 +35,6 @@ public class Calendario extends BaseActivity {
         findViewById(R.id.btnInicio).setOnClickListener(v ->
                 startActivity(new Intent(this, Inicio.class)));
         findViewById(R.id.btnCalendario).setOnClickListener(v ->
-
                 startActivity(new Intent(this, Horario.class)));
         findViewById(R.id.btnTareas).setOnClickListener(v ->
                 startActivity(new Intent(this, Tarea.class)));
@@ -66,7 +65,10 @@ public class Calendario extends BaseActivity {
             Set<String> mesesKeys = new HashSet<>();
 
             Calendar hoy = Calendar.getInstance();
-            mesesKeys.add(hoy.get(Calendar.MONTH) + "-" + hoy.get(Calendar.YEAR));
+            int mesActual = hoy.get(Calendar.MONTH);
+            int anioActual = hoy.get(Calendar.YEAR);
+
+            mesesKeys.add(mesActual + "-" + anioActual);
 
             for (actividad act : todasActividades) {
                 if (act.fechaEntrega != null && act.fechaEntrega.contains("/")) {
@@ -75,7 +77,10 @@ public class Calendario extends BaseActivity {
                         if (partes.length == 3) {
                             int m = Integer.parseInt(partes[1]) - 1; // Mes (0-11)
                             int a = Integer.parseInt(partes[2]);     // Año
-                            mesesKeys.add(m + "-" + a);
+                            
+                            if (a > anioActual || (a == anioActual && m >= mesActual)) {
+                                mesesKeys.add(m + "-" + a);
+                            }
                         }
                     } catch (Exception ignored) {}
                 }
@@ -95,6 +100,7 @@ public class Calendario extends BaseActivity {
                 listaMeses.add(c);
             }
 
+            // Si hay pocos meses con actividades, agregamos los siguientes 3 meses para que no esté vacío
             if (listaMeses.size() < 3) {
                 Calendar extra = (Calendar) hoy.clone();
                 for (int i = 1; i <= 3; i++) {

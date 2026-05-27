@@ -83,18 +83,15 @@ public class Configuraciones extends BaseActivity {
             else if (checkedFontId == R.id.rbLarge) newScale = 1.2f;
             editor.putFloat("fontScale", newScale);
 
-            // Guardar idioma
             String selectedLang = (spinnerLanguage.getSelectedItemPosition() == 1) ? "en" : "es";
             editor.putString("language", selectedLang);
 
-            // Guardar color
             editor.putString("backgroundColor", colorSeleccionadoHex);
             
             editor.apply();
 
             Toast.makeText(this, R.string.msg_saved_restarting, Toast.LENGTH_SHORT).show();
 
-            // Reiniciar la app para aplicar cambios de idioma y escala globalmente
             Intent intent = new Intent(this, Inicio.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);

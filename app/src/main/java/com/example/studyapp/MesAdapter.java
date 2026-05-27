@@ -37,11 +37,12 @@ public class MesAdapter extends RecyclerView.Adapter<MesAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Calendar calMes = listaMeses.get(position);
         
-
-        SimpleDateFormat sdf = new SimpleDateFormat("MMMM yyyy", new Locale("es", "ES"));
+        SimpleDateFormat sdf = new SimpleDateFormat("MMMM yyyy", Locale.getDefault());
         String nombreMes = sdf.format(calMes.getTime());
-        holder.txtNombreMes.setText(nombreMes.substring(0, 1).toUpperCase() + nombreMes.substring(1));
-
+        
+        if (nombreMes != null && !nombreMes.isEmpty()) {
+            holder.txtNombreMes.setText(nombreMes.substring(0, 1).toUpperCase() + nombreMes.substring(1));
+        }
 
         List<String> listaDias = new ArrayList<>();
         Calendar tempCal = (Calendar) calMes.clone();

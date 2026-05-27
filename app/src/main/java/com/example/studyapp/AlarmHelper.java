@@ -22,10 +22,10 @@ public class AlarmHelper {
         String mensaje;
         if ("CLASE".equals(tipo)) {
             tiempoAviso = tiempoEvento - (30 * 60 * 1000); // 30 min antes
-            mensaje = "Clase: " + titulo + "\n" + detalles; // Agregamos los detalles (Profe/Aula)
+            mensaje = "Clase: " + titulo + "\n" + detalles;
         } else {
             tiempoAviso = tiempoEvento - (60 * 60 * 1000); // 1 hora antes
-            mensaje = "Actividad: " + titulo + "\n" + detalles; // Agregamos detalles (Descripción)
+            mensaje = "Actividad: " + titulo + "\n" + detalles;
         }
 
         if (tiempoAviso < System.currentTimeMillis()) return;

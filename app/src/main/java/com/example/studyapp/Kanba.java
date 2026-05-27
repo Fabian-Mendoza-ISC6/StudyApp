@@ -33,7 +33,7 @@ public class Kanba extends BaseActivity {
         db = AppDataBaseInstancia.getInstance(this);
         dao = db.appDao();
 
-        // ================= TOOLBAR BUTTONS =================
+        // =================  mis  botones  =================
         findViewById(R.id.btnInicio).setOnClickListener(v ->
                 startActivity(new Intent(this, Inicio.class)));
         findViewById(R.id.btnCalendario).setOnClickListener(v ->

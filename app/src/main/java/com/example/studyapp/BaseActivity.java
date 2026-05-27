@@ -62,14 +62,14 @@ public class BaseActivity extends AppCompatActivity {
 
     private String getContrastColor(String backgroundHex) {
         switch (backgroundHex.toUpperCase()) {
-            case "#7AC2BB": return "#3E8F87"; // Verde agua
+            case "#7AC2BB": return "#3E8F87"; // Por defecto
             case "#A7D8F0": return "#4A9FD6"; // Azul cielo
             case "#FFD6A5": return "#FF9F50"; // Durazno
             case "#F7C8E0": return "#F46A9B"; // Rosa suave
             case "#FFF3B0": return "#FFD93D"; // Amarillo pastel
             case "#D9C8F0": return "#9A6FD0"; // Lila claro
             case "#E8E8E8": return "#BFBFBF"; // Gris perla
-            default: return "#3E8F87";        // Por defecto verde agua
+            default: return "#3E8F87";        // Por defecto
         }
     }
 
